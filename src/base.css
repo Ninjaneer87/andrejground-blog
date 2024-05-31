@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-text:  14 20 27;
+    --color-bg: 255 255 255;
+    --color-primary: 125 211 252;
+    --color-success: 0 200 81;
+    --color-info: 51 181 229;
+    --color-warn: 255 187 51;
+    --color-error: 254 78 78;
+  }
+
+  :root[class~="dark"] {
+    --color-text: 255 255 255;
+    --color-bg: 14 20 27;
+    --color-primary: 34 211 238;
+    --color-success: 0 200 81;
+    --color-info: 51 181 229;
+    --color-warn: 255 187 51;
+    --color-error: 254 78 78;
+  }
+}
+@layer components {
+    .bg-glass {
+      @apply  backdrop-blur-lg bg-bg/50;
+    }
+    .container {
+      @apply mx-auto px-4 max-w-7xl;
+    }
+}

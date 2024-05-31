@@ -1,0 +1,36 @@
+---
+import { Image } from "astro:assets";
+import { ViewTransitions } from "astro:transitions";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../constants";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../base.css";
+import "@fontsource-variable/montserrat";
+
+type Props = {
+  pageTitle: string;
+};
+
+const { pageTitle } = Astro.props;
+---
+
+<html lang="en" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={SITE_DESCRIPTION} />
+    <title>{SITE_TITLE} | {pageTitle}</title>
+    <ViewTransitions />
+  </head>
+  <body class="bg-bg text-text min-h-screen flex flex-col font-montserrat">
+    <Header />
+
+    <main class="h-full grow">
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
+</html>
