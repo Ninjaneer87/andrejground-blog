@@ -6,8 +6,12 @@ export default {
 	theme: {
 		extend: {
 			colors: {
+				'cyan-primary': 'var(--color-cyan-primary)',
+				'orange-primary': 'var(--color-orange-primary)',
+				'green-primary': 'var(--color-green-primary)',
 				primary: "rgb(var(--color-primary) / <alpha-value>)",
 				bg: "rgb(var(--color-bg) / <alpha-value>)",
+				"bg-card": "rgb(var(--color-bg-card) / <alpha-value>)",
 				text: "rgb(var(--color-text) / <alpha-value>)",
 				success: "rgb(var(--color-success) / <alpha-value>)",
 				info: "rgb(var(--color-info) / <alpha-value>)",

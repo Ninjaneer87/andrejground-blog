@@ -4,30 +4,105 @@
 
 @layer base {
   :root {
-    --color-text:  14 20 27;
+    /* Colors  light */
+    --orange-light-primary: 255 122 24;
+    --orange-light-bg: 255 255 255;
+    --orange-light-bg-card: 255 246 229;
+
+    --cyan-light-primary: 14 165 233;
+    --cyan-light-bg: 255 252 247;
+    --cyan-light-bg-card: 240 253 255;
+
+    --green-light-primary: 20 184 166;
+    --green-light-bg: 255 252 247;
+    --green-light-bg-card: 240 255 246;
+
+    /* Colors  dark */
+    --orange-dark-primary: 255 122 24;
+    --orange-dark-bg: 9 9 9;
+    --orange-dark-bg-card: 32 32 32;
+
+    --cyan-dark-primary: 34 211 238;
+    --cyan-dark-bg: 9 9 9;
+    --cyan-dark-bg-card: 2 27 30;
+
+    --green-dark-primary: 52 211 153;
+    --green-dark-bg: 9 9 9;
+    --green-dark-bg-card: 10 23 17;
+
+    /* Colors themed */
+    --color-text: 14 20 27;
     --color-bg: 255 255 255;
-    --color-primary: 125 211 252;
+    --color-bg-card: 200 200 200;
+    --color-primary: var(--cyan-light-primary);
     --color-success: 0 200 81;
     --color-info: 51 181 229;
     --color-warn: 255 187 51;
     --color-error: 254 78 78;
+
+    /* Theme primary colors */
+    --color-cyan-primary: var(--cyan-light-primary);
+    --color-orange-primary: var(--orange-light-primary);
+    --color-green-primary: var(--green-light-primary);
   }
 
-  :root[class~="dark"] {
+  :root[class~='cyan'] {
+    --color-primary: var(--cyan-light-primary);
+    --color-bg-card: var(--cyan-light-bg-card);
+    --color-bg: var(--cyan-light-bg);
+  }
+  :root[class~='cyan'][class~='dark'] {
+    --color-primary: var(--cyan-dark-primary);
+    --color-bg-card: var(--cyan-dark-bg-card);
+    --color-bg: var(--cyan-dark-bg);
+  }
+
+  :root[class~='orange'] {
+    --color-primary: var(--orange-light-primary);
+    --color-bg-card: var(--orange-light-bg-card);
+    --color-bg: var(--orange-light-bg);
+  }
+  :root[class~='orange'][class~='dark'] {
+    --color-primary: var(--orange-dark-primary);
+    --color-bg-card: var(--orange-dark-bg-card);
+    --color-bg: var(--orange-dark-bg);
+  }
+
+  :root[class~='green'] {
+    --color-primary: var(--green-light-primary);
+    --color-bg-card: var(--green-light-bg-card);
+    --color-bg: var(--green-light-bg);
+  }
+  :root[class~='green'][class~='dark'] {
+    --color-primary: var(--green-dark-primary);
+    --color-bg-card: var(--green-dark-bg-card);
+    --color-bg: var(--green-dark-bg);
+  }
+
+  :root[class~='dark'] {
     --color-text: 255 255 255;
-    --color-bg: 14 20 27;
-    --color-primary: 34 211 238;
+    --color-bg-card: 64 64 64;
+    --color-bg: 38 38 38;
+    --color-primary: var(--cyan-dark-primary);
     --color-success: 0 200 81;
     --color-info: 51 181 229;
     --color-warn: 255 187 51;
     --color-error: 254 78 78;
+
+    /* Theme primary colors */
+    --color-cyan-primary: var(--cyan-dark-primary);
+    --color-orange-primary: var(--orange-dark-primary);
+    --color-green-primary: var(--green-dark-primary);
   }
 }
 @layer components {
-    .bg-glass {
-      @apply  backdrop-blur-lg bg-bg/50;
-    }
-    .container {
-      @apply mx-auto px-4 max-w-7xl;
-    }
+  .bg-glass {
+    @apply backdrop-blur-lg bg-bg/70;
+  }
+  .container {
+    @apply mx-auto px-4 max-w-7xl;
+  }
+  .gradient-wrapper {
+    @apply relative w-fit rounded-2xl p-[2px] bg-gradient-to-br from-primary/20 via-transparent  to-gray-400/20 overflow-hidden;
+  }
 }

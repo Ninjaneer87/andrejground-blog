@@ -1,20 +1,41 @@
 ---
-import { Image } from "astro:assets";
-import { ViewTransitions } from "astro:transitions";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../constants";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import "../base.css";
-import "@fontsource-variable/montserrat";
+import { ViewTransitions } from 'astro:transitions';
+import { SITE_TITLE, SITE_DESCRIPTION, COOKIE_KEYS } from '../constants';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../base.css';
+import '@fontsource-variable/montserrat';
+import {
+  colorPalette,
+  darkMode,
+  type ColorPaletteOption,
+  type DarkModeOption,
+} from '../stores/themeStore';
 
 type Props = {
   pageTitle: string;
 };
 
 const { pageTitle } = Astro.props;
+
+let initialColorPalette: ColorPaletteOption;
+const colorPaletteCookie = Astro.cookies.get(COOKIE_KEYS.selectedColorPalette);
+initialColorPalette =
+  (colorPaletteCookie?.value as ColorPaletteOption) ?? 'cyan';
+Astro.cookies.set(COOKIE_KEYS.selectedColorPalette, initialColorPalette);
+colorPalette.set(initialColorPalette);
+
+let initialDarkMode: DarkModeOption;
+const darkModeCookie = Astro.cookies.get(COOKIE_KEYS.selectedDarkMode);
+initialDarkMode = (darkModeCookie?.value as DarkModeOption) ?? 'system';
+Astro.cookies.set(COOKIE_KEYS.selectedDarkMode, initialDarkMode);
+darkMode.set(initialDarkMode);
+
+const darkModeClass =
+  Astro.cookies.get('isDark')?.value === 'true' ? 'dark' : '';
 ---
 
-<html lang="en" class="dark">
+<html lang="en" class=`${initialColorPalette} ${darkModeClass}`>
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -24,7 +45,10 @@ const { pageTitle } = Astro.props;
     <title>{SITE_TITLE} | {pageTitle}</title>
     <ViewTransitions />
   </head>
-  <body class="bg-bg text-text min-h-screen flex flex-col font-montserrat">
+
+  <body
+    class="bg-gradient-to-b from-bg to-bg-card text-text min-h-screen flex flex-col font-montserrat"
+  >
     <Header />
 
     <main class="h-full grow">
@@ -32,5 +56,47 @@ const { pageTitle } = Astro.props;
     </main>
 
     <Footer />
+
+    <script>
+      import {
+        darkMode,
+        colorPalette,
+        type ColorPaletteOption,
+        type DarkModeOption,
+      } from '../stores/themeStore';
+      import {
+        COLOR_PALETTE_OPTIONS,
+        COOKIE_KEYS,
+        DARK_MODE_CLASSNAMES,
+      } from '../constants';
+      import Cookies from 'js-cookie';
+
+      const colorPaletteCookie = Cookies.get(COOKIE_KEYS.selectedColorPalette);
+      colorPalette.set(colorPaletteCookie as ColorPaletteOption);
+      const darkModeCookie = Cookies.get(COOKIE_KEYS.selectedDarkMode);
+      darkMode.set(darkModeCookie as DarkModeOption);
+
+      const html = document.querySelector('html');
+
+      colorPalette.subscribe(selectedColorPalette => {
+        if (!html) return;
+
+        COLOR_PALETTE_OPTIONS.forEach(themeClass => {
+          html.classList.remove(themeClass);
+        });
+        html.classList.add(selectedColorPalette);
+        Cookies.set(COOKIE_KEYS.selectedColorPalette, selectedColorPalette);
+      });
+
+      darkMode.subscribe(selectedDarkMode => {
+        if (!html) return;
+
+        const darkModeClass = DARK_MODE_CLASSNAMES[selectedDarkMode];
+        const isDark = darkModeClass === 'dark';
+        html.classList.toggle('dark', isDark);
+        Cookies.set(COOKIE_KEYS.selectedDarkMode, selectedDarkMode);
+        Cookies.set('isDark', `${isDark}`);
+      });
+    </script>
   </body>
 </html>
