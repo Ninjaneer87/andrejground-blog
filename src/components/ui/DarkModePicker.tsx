@@ -1,4 +1,3 @@
-import React from 'react';
 import { useStore } from '@nanostores/react';
 import { darkMode } from '../../stores/themeStore';
 import { DARK_MODE_OPTIONS } from '../../constants';
