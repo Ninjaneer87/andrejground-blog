@@ -99,9 +99,9 @@
   .bg-glass {
     @apply backdrop-blur-lg bg-bg/70;
   }
-  .container {
+  /* .container {
     @apply mx-auto px-4 max-w-7xl;
-  }
+  } */
   .gradient-wrapper {
     @apply relative w-fit rounded-2xl p-[2px] bg-gradient-to-br from-primary/20 via-transparent  to-gray-400/20 overflow-hidden;
   }

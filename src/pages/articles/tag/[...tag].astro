@@ -1,18 +1,29 @@
 ---
-import RootLayout from '../layouts/RootLayout.astro';
+import RootLayout from '../../../layouts/RootLayout.astro';
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
-import ArticleCard from '../components/cards/ArticleCard.astro';
+import ArticleCard from '../../../components/cards/ArticleCard.astro';
 
 const allBlogArticles: CollectionEntry<'blog'>[] = (
   await getCollection('blog')
 ).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const { tag } = Astro.params;
+
+if (!tag) {
+  throw new Error('Missing tag');
+}
+
+const tagArticles = allBlogArticles.filter(article =>
+  article.data.tags.includes(tag),
+);
 ---
 
 <RootLayout pageTitle="Blog">
+  <h2>{tag}</h2>
   <div class="flex gap-8 items-center justify-center pt-20">
     <ul class="flex gap-8 items-center justify-center flex-wrap">
-      {allBlogArticles.map(article => <ArticleCard article={article} />)}
+      {tagArticles.map(article => <ArticleCard article={article} />)}
     </ul>
   </div>
 </RootLayout>

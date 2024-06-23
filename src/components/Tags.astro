@@ -1,0 +1,22 @@
+---
+type Props = {
+  tags: string[];
+};
+
+const { tags } = Astro.props;
+---
+
+<ul class="flex gap-2 flex-wrap">
+  {
+    tags.map(tag => (
+      <li>
+        <a
+          class="text-xs border-primary border-solid border-[1px] text-primary px-2 py-1 rounded-lg uppercase"
+          href={`/articles/tag/${tag}`}
+        >
+          {tag}
+        </a>
+      </li>
+    ))
+  }
+</ul>

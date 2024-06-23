@@ -1,0 +1,128 @@
+---
+import { getEntry } from 'astro:content';
+import RootLayout from '../../layouts/RootLayout.astro';
+import AuthorCard from '../../components/cards/AuthorCard.astro';
+import DateCard from '../../components/cards/DateCard.astro';
+import Tags from '../../components/Tags.astro';
+
+const { slug } = Astro.params;
+
+if (!slug) {
+  throw new Error('Missing slug');
+}
+
+const entry = await getEntry('blog', slug);
+if (!entry) {
+  return Astro.redirect('/404');
+}
+
+const { title, pubDate, author, authorImage, image, tags } = entry.data;
+
+const { Content } = await entry.render();
+---
+
+<RootLayout pageTitle={title}>
+  <div class="container mx-auto p-4">
+    <h1 class="text-4xl mb-16 text-center max-w-screen-lg mx-auto">{title}</h1>
+
+    <div class="flex gap-24">
+      <div>
+        <div class="flex flex-col gap-2 sticky top-[200px] max-w-60">
+          <ul class="flex flex-col gap-4">
+            <li class="break-words" title="Title value">First Title long</li>
+            <li class="break-words" title="Title value">Second Title</li>
+            <li class="break-words" title="Title value">Third Title</li>
+          </ul>
+
+          <hr
+            class="my-8 h-0.5 border-t-0 bg-gradient-to-r from-primary to-transparent"
+          />
+
+          <AuthorCard author={author} authorImage={authorImage} />
+          <DateCard date={pubDate} />
+        </div>
+
+        <div></div>
+      </div>
+
+      <section class="max-w-screen-lg">
+        <Content />
+
+        <hr
+          class="my-8 h-0.5 border-t-0 bg-gradient-to-r from-primary to-transparent"
+        />
+
+        <Tags tags={tags} />
+      </section>
+    </div>
+  </div>
+</RootLayout>
+
+<style is:global>
+  h2 {
+    font-size: 2rem;
+    font-weight: 200;
+    margin: 3rem 0 1rem 0;
+  }
+  p {
+    font-size: 1.25rem;
+    line-height: 1.5;
+  }
+  pre {
+    padding: 1rem 7rem 1rem 1rem;
+    margin: 2rem 0;
+    border-radius: 0.5rem;
+  }
+  .copy-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.2rem 1rem;
+    background-color: rgb(var(--color-primary));
+    color: rgb(var(--color-bg));
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    width: 5rem;
+  }
+</style>
+
+<script>
+  let copyLabel = 'Copy';
+  const codeBlocks = Array.from(document.querySelectorAll('.astro-code'));
+
+  codeBlocks.forEach(block => {
+    const wrapper = document.createElement('div');
+    wrapper.style.position = 'relative';
+
+    const copyButton = document.createElement('button');
+    copyButton.textContent = copyLabel;
+    copyButton.classList.add('copy-button');
+    copyButton.innerText = copyLabel;
+
+    block.appendChild(copyButton);
+    block.parentNode?.insertBefore(wrapper, block);
+    wrapper.appendChild(block);
+
+    copyButton.addEventListener(
+      'click',
+      async () => await copyCode(block as HTMLElement, copyButton),
+    );
+  });
+
+  async function copyCode(block: HTMLElement, button: HTMLButtonElement) {
+    let code = block.querySelector('code');
+    let text = code?.innerText;
+
+    if (!text) return;
+
+    await navigator.clipboard.writeText(text);
+
+    button.innerText = 'Copied!';
+
+    setTimeout(() => {
+      button.innerText = copyLabel;
+    }, 700);
+  }
+</script>

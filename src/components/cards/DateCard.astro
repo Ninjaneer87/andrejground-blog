@@ -1,0 +1,20 @@
+---
+type Props = {
+  date: Date;
+};
+
+const { date } = Astro.props;
+
+const dateOptions: Intl.DateTimeFormatOptions = {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+};
+
+const formattedPublishDate = new Date(date).toLocaleDateString(
+  'en-US',
+  dateOptions,
+);
+---
+
+<small class="text-gray-400 font-semibold">{formattedPublishDate}</small>

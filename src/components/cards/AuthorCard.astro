@@ -1,0 +1,13 @@
+---
+type Props = {
+  author: string;
+  authorImage: string;
+};
+
+const { author, authorImage } = Astro.props;
+---
+
+<div class="flex gap-2 items-center">
+  <img class="rounded-full w-8 h-8" src=`/images/${authorImage}` alt={author} />
+  <div>{author}</div>
+</div>
