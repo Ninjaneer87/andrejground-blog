@@ -1,4 +1,6 @@
 ---
+import { COOKIE_KEYS } from '../constants';
+import type { ColorPaletteOption, DarkModeOption } from '../stores/themeStore';
 import LogoStatic from './LogoStatic.astro';
 import DarkModePicker from './ui/DarkModePicker';
 import PalettePicker from './ui/PalettePicker';
@@ -14,10 +16,13 @@ const links = [
     isActive: pathname.startsWith('/articles'),
   },
 ];
+
+const colorPaletteCookie = Astro.cookies.get(COOKIE_KEYS.selectedColorPalette);
+const darkModeCookie = Astro.cookies.get(COOKIE_KEYS.selectedDarkMode);
 ---
 
 <header class="flex gap-4 justify-between p-4 sticky top-0 z-10">
-  <div class="container mx-auto flex justify-between bg-glass rounded-lg p-4">
+  <div class="container mx-auto flex justify-between bg-glass rounded-2xl p-4">
     <a href="/" class="flex gap-4 items-center">
       <LogoStatic />
 
@@ -44,8 +49,14 @@ const links = [
     </ul>
 
     <div class="flex flex-col items-center gap-1">
-      <DarkModePicker client:load />
-      <PalettePicker client:load />
+      <DarkModePicker
+        client:load
+        initialDarkMode={darkModeCookie?.value as DarkModeOption}
+      />
+      <PalettePicker
+        client:load
+        initialPalette={colorPaletteCookie?.value as ColorPaletteOption}
+      />
     </div>
   </div>
 </header>

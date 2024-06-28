@@ -4,6 +4,7 @@ import react from '@astrojs/react';
 
 import icon from 'astro-icon';
 import vercelServerless from '@astrojs/vercel/serverless';
+import sectionize from '@hbsnow/rehype-sectionize';
 
 // https://astro.build/config
 export default defineConfig({
@@ -13,4 +14,7 @@ export default defineConfig({
   },
   output: 'server',
   adapter: vercelServerless(),
+  markdown: {
+    rehypePlugins: [sectionize],
+  },
 });

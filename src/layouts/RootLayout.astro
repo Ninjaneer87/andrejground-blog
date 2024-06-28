@@ -6,8 +6,6 @@ import Footer from '../components/Footer.astro';
 import '../base.css';
 import '@fontsource-variable/montserrat';
 import {
-  colorPalette,
-  darkMode,
   type ColorPaletteOption,
   type DarkModeOption,
 } from '../stores/themeStore';
@@ -25,7 +23,6 @@ initialColorPalette =
 Astro.cookies.set(COOKIE_KEYS.selectedColorPalette, initialColorPalette, {
   path: '/',
 });
-colorPalette.set(initialColorPalette);
 
 let initialDarkMode: DarkModeOption;
 const darkModeCookie = Astro.cookies.get(COOKIE_KEYS.selectedDarkMode);
@@ -33,7 +30,6 @@ initialDarkMode = (darkModeCookie?.value as DarkModeOption) ?? 'system';
 Astro.cookies.set(COOKIE_KEYS.selectedDarkMode, initialDarkMode, {
   path: '/',
 });
-darkMode.set(initialDarkMode);
 
 const darkModeClass =
   Astro.cookies.get('isDark')?.value === 'true' ? 'dark' : '';

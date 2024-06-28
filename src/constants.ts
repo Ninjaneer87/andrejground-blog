@@ -17,4 +17,5 @@ export const DARK_MODE_CLASSNAMES = {
 export const COOKIE_KEYS = {
   selectedColorPalette: 'selectedColorPalette',
   selectedDarkMode: 'selectedDarkMode',
+  isDark: 'isDark',
 };
