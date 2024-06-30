@@ -1,7 +1,6 @@
 document.addEventListener('astro:page-load', () => {
   const h2s = Array.from(document.querySelectorAll('h2'));
   const allH2sAndH3s = Array.from(document.querySelectorAll('h2, h3'));
-  console.log({ allH2sAndH3s: allH2sAndH3s.map(h => h.tagName) });
   type HeadingWithSubheadings = {
     h2: Element;
     h3s: Element[];
@@ -49,7 +48,6 @@ document.addEventListener('astro:page-load', () => {
   const observer = new IntersectionObserver(
     observedSections => {
       observedSections.forEach(observedSection => {
-        console.log('observing');
         if (observedSection.isIntersecting) {
           const headingInView = allH2sAndH3s.find(
             heading => heading.id === observedSection.target.id,
@@ -100,7 +98,6 @@ document.addEventListener('astro:page-load', () => {
       ) as HTMLElement | null;
       if (heading) {
         // Get the level of the heading (1-6)
-        console.log({ heading });
         const level = parseInt(heading.tagName.replace('H', ''));
 
         // Create a new heading object
@@ -132,6 +129,4 @@ document.addEventListener('astro:page-load', () => {
   // Usage example
   const headingsHierarchy = getHeadingsHierarchy();
   console.log(headingsHierarchy);
-
-  
 });

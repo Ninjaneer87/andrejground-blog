@@ -54,3 +54,10 @@ pre {
 a {
   display: block;
 }
+
+.astro-code {
+  transition: background-color 0.2s;
+}
+.astro-code.active {
+  background-color: rgb(var(--color-primary) / 20%) !important;
+}

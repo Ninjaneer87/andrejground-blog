@@ -1,0 +1,39 @@
+<div class="fixed top-0 left-0 right-0 h-[3px] bg-transparent z-50 w-full">
+  <div
+    id="progress-bar"
+    class="h-full w-full bg-primary -translate-x-full transition-all ease-linear flex justify-end"
+  >
+    <div
+      class="shadow-[0px_0px_50px_10px_rgba(0,0,0,0.1)] shadow-primary animate-spin"
+    >
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const clientHeight = document.documentElement.clientHeight;
+    const scrollHeight = document.documentElement.scrollHeight - clientHeight;
+    const progress = document.querySelector(
+      '#progress-bar',
+    ) as HTMLElement | null;
+    let scheduledAnimationFrame = false;
+
+    function updateScrollProgress() {
+      if (!progress) return;
+
+      let scrollPercentage = (scrollY / scrollHeight) * 100;
+      progress.style.translate = `${scrollPercentage}% 0`;
+      scheduledAnimationFrame = false;
+    }
+
+    function onScroll() {
+      if (!scheduledAnimationFrame) {
+        scheduledAnimationFrame = true;
+        requestAnimationFrame(updateScrollProgress);
+      }
+    }
+
+    window.addEventListener('scroll', onScroll);
+  });
+</script>

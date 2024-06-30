@@ -35,7 +35,6 @@ export function applyDarkMode(darkMode: DarkModeOption) {
 
   const darkModeClass = DARK_MODE_CLASSNAMES[darkMode];
   const isDark = darkModeClass === 'dark';
-  console.log('isDark', isDark);
   html.classList.toggle('dark', isDark);
 
   Cookies.set(COOKIE_KEYS.isDark, `${isDark}`, {

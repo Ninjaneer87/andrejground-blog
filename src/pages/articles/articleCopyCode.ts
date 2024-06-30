@@ -30,9 +30,11 @@ document.addEventListener('astro:page-load', () => {
     await navigator.clipboard.writeText(text);
 
     button.innerText = 'Copied!';
+    block.classList.add('active');
 
     setTimeout(() => {
       button.innerText = copyLabel;
-    }, 700);
+      block.classList.remove('active');
+    }, 1000);
   }
 });
