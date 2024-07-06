@@ -4,9 +4,9 @@ import RootLayout from '../../layouts/RootLayout.astro';
 import Tags from '../../components/Tags.astro';
 import Divider from '../../components/ui/Divider.astro';
 import Drawer from '../../components/ui/Drawer.tsx';
+import SocialsShare from '../../components/ui/SocialsShare.tsx';
 import './article-styles.css';
 import ScrollProgress from '../../components/ScrollProgress.astro';
-import TableOfContents from '../../components/TableOfContents.astro';
 import TableOfContentsReact from '../../components/TableOfContentsReact';
 import AuthorCard from '../../components/cards/AuthorCard.astro';
 import DateCard from '../../components/cards/DateCard.astro';
@@ -25,6 +25,8 @@ if (!entry) {
 const { title, pubDate, author, authorImage, image, tags } = entry.data;
 
 const { Content } = await entry.render();
+const currentPath = Astro.url.origin + Astro.url.pathname;
+console.log({ currentPath });
 ---
 
 <RootLayout pageTitle={title}>
@@ -37,6 +39,7 @@ const { Content } = await entry.render();
           <Divider />
           <AuthorCard author={author} authorImage={authorImage} />
           <DateCard date={pubDate} />
+          <SocialsShare url={currentPath} client:only />
         </div>
 
         <div></div>
@@ -59,6 +62,7 @@ const { Content } = await entry.render();
     <Divider />
     <AuthorCard author={author} authorImage={authorImage} />
     <DateCard date={pubDate} />
+    <SocialsShare url={currentPath} client:only />
   </Drawer>
 </RootLayout>
 
