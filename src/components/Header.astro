@@ -1,45 +1,43 @@
 ---
-import { COOKIE_KEYS } from '../constants';
-import type { ColorPaletteOption, DarkModeOption } from '../stores/themeStore';
 import LogoStatic from './LogoStatic.astro';
 import DarkModePicker from './ui/DarkModePicker';
+import PaletteModal from './ui/PaletteModal';
 import PalettePicker from './ui/PalettePicker';
 
 const pathname = new URL(Astro.request.url).pathname;
 
 const links = [
   { href: '/', text: 'Home', isActive: pathname === '/' },
-  { href: '/about', text: 'About', isActive: pathname.startsWith('/about') },
   {
     href: '/articles',
     text: 'Articles',
     isActive: pathname.startsWith('/articles'),
   },
+  { href: '/about', text: 'About', isActive: pathname.startsWith('/about') },
 ];
-
-const colorPaletteCookie = Astro.cookies.get(COOKIE_KEYS.selectedColorPalette);
-const darkModeCookie = Astro.cookies.get(COOKIE_KEYS.selectedDarkMode);
 ---
 
 <header class="flex gap-4 justify-between p-4 sticky top-0 z-10">
-  <div class="container mx-auto flex justify-between bg-glass rounded-2xl p-4">
+  <div
+    class="container mx-auto flex justify-between bg-glass rounded-2xl p-1 md:p-4"
+  >
     <a href="/" class="flex gap-4 items-center">
       <LogoStatic />
 
-      <span class="font-light text-xl">
+      <span class="font-light text-xl hidden md:inline">
         <span class="text-primary">Andrej</span><span class="text-text"
           >Ground</span
         >
       </span>
     </a>
 
-    <ul class="flex items-center gap-4">
+    <ul class="flex items-center gap-1 md:gap-4">
       {
         links.map(link => (
           <li>
             <a
               href={link.href}
-              class={`p-2 ${link.isActive ? 'text-primary' : 'text-text'}`}
+              class={`p-1 md:p-2 ${link.isActive ? 'text-primary' : 'text-text'}`}
             >
               {link.text}
             </a>
@@ -48,15 +46,13 @@ const darkModeCookie = Astro.cookies.get(COOKIE_KEYS.selectedDarkMode);
       }
     </ul>
 
-    <div class="flex flex-col items-center gap-1">
-      <DarkModePicker
-        client:load
-        initialDarkMode={darkModeCookie?.value as DarkModeOption}
-      />
-      <PalettePicker
-        client:load
-        initialPalette={colorPaletteCookie?.value as ColorPaletteOption}
-      />
+    <div class="hidden md:flex flex-col items-center gap-1">
+      <DarkModePicker client:only />
+      <PalettePicker client:only />
+    </div>
+
+    <div class="flex md:hidden items-center justify-center">
+      <PaletteModal client:only />
     </div>
   </div>
 </header>

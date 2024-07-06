@@ -1,34 +1,32 @@
-import React, { Fragment, useEffect, useMemo } from 'react';
+import React, { Fragment, useEffect, useRef } from 'react';
 import { useHeadings } from '../hooks/useHeadings';
 import { useSectionIdInView } from '../hooks/useSectionIdInView';
 
-function TableOfContents() {
-  const { h2sAndH3s, allHeadings } = useHeadings();
+function TableOfContentsReact() {
+  const { h2sAndH3s } = useHeadings();
   const { idInView } = useSectionIdInView();
-  const allHeadingsLinks = useMemo(() => {
-    allHeadings.map(({ id }) => {
-      const link = document.querySelector(`a#${id}`);
-      return link;
-    });
-  }, [allHeadings]);
+  const inViewRefItem = useRef<HTMLAnchorElement | null>(null);
 
   useEffect(() => {
-    const linkInView = document.querySelector(`a#${idInView}`);
-    linkInView?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
-  }, [idInView, allHeadingsLinks]);
+    inViewRefItem.current?.scrollIntoView({
+      block: 'nearest',
+      inline: 'nearest',
+    });
+  }, [idInView]);
 
   function isInView(id: string) {
     return id === idInView;
   }
 
   return (
-    <ul className="flex flex-col gap-4 toc-list max-h-[50vh] overflow-y-auto">
+    <ul className="flex flex-col gap-4 toc-list max-h-[50vh] overflow-y-auto pr-1">
       {h2sAndH3s.map(({ h2, h3s }) => (
         <Fragment key={h2.id}>
           <li>
             <a
               className={`${isInView(h2.id) ? 'text-primary' : ''} break-words`}
               href={`#${h2.id}`}
+              {...(isInView(h2.id) && { ref: inViewRefItem })}
             >
               {h2.text}
             </a>
@@ -40,6 +38,7 @@ function TableOfContents() {
                   isInView(h3.id) ? 'text-primary' : ''
                 } break-words pl-4`}
                 href={`#${h3.id}`}
+                {...(isInView(h3.id) && { ref: inViewRefItem })}
               >
                 {h3.text}
               </a>
@@ -51,4 +50,4 @@ function TableOfContents() {
   );
 }
 
-export default TableOfContents;
+export default TableOfContentsReact;

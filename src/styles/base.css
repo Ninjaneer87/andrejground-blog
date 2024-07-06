@@ -1,4 +1,5 @@
 @import url('./browser-override.css');
+@import url('./animations.css');
 
 @tailwind base;
 @tailwind components;

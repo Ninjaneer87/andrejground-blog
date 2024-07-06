@@ -1,23 +1,24 @@
 h1 {
   line-height: 1.3 !important;
   text-wrap: balance;
+  font-size: clamp(2.25rem, 5vw, 3.75rem);
 }
 h2 {
   scroll-margin-top: 130px;
-  font-size: 2.5rem;
+  font-size: clamp(1.75rem, 5vw, 2.25rem);
   margin: 3rem 0 2rem 0;
 }
 h3 {
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 5vw, 1.75rrem);
 }
 h4 {
-  font-size: 1.75rem;
+  font-size: clamp(1.25rem, 5vw, 1.5rem);
 }
 h5 {
-  font-size: 1.5rem;
+  font-size: clamp(1rem, 5vw, 1.25rem);
 }
 h6 {
-  font-size: 1.25rem;
+  font-size: clamp(1rem);
 }
 h3,
 h4,
@@ -57,7 +58,27 @@ a {
 
 .astro-code {
   transition: background-color 0.2s;
+  position: relative;
+  /* z-index: 0; */
+
+  &:after {
+    content: 'Copied!';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    inset: 0;
+    color: rgb(var(--color-primary));
+    border-radius: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.2s;
+    background-color: rgba(0, 0, 0, 0.83) !important;
+    z-index: 1;
+    pointer-events: none;
+  }
 }
 .astro-code.active {
-  background-color: rgb(var(--color-primary) / 20%) !important;
+  &:after {
+    opacity: 1;
+  }
 }

@@ -1,6 +1,7 @@
 /* Chromium Scrollbar */
 /* width */
 ::-webkit-scrollbar {
+  height: 3px;
   width: 3px;
 }
 /* Track */
@@ -12,7 +13,7 @@
   background: linear-gradient(
     0deg,
     transparent 0%,
-    rgb(var(--color-text)/30%) 50%,
+    rgb(var(--color-text) / 30%) 50%,
     transparent 100%
   );
 }
@@ -21,7 +22,7 @@
   background: linear-gradient(
     0deg,
     transparent 0%,
-    rgb(var(--color-primary)/30%) 50%,
+    rgb(var(--color-primary) / 30%) 50%,
     transparent 100%
   );
 }
