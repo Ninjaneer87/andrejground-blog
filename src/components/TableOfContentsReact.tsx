@@ -24,7 +24,7 @@ function TableOfContentsReact() {
         <Fragment key={h2.id}>
           <li>
             <a
-              className={`${isInView(h2.id) ? 'text-primary' : ''} break-words`}
+              className={`${isInView(h2.id) ? 'text-accent' : ''} break-words`}
               href={`#${h2.id}`}
               {...(isInView(h2.id) && { ref: inViewRefItem })}
             >
@@ -35,7 +35,7 @@ function TableOfContentsReact() {
             <li key={h3.id}>
               <a
                 className={`${
-                  isInView(h3.id) ? 'text-primary' : ''
+                  isInView(h3.id) ? 'text-accent' : ''
                 } break-words pl-4`}
                 href={`#${h3.id}`}
                 {...(isInView(h3.id) && { ref: inViewRefItem })}

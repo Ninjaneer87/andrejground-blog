@@ -35,7 +35,7 @@ function PalettePicker({ withText }: Props) {
         <button
           key={themeClass}
           className={`rounded-full p-1 md:p-2 gap-1 flex items-center text-lg capitalize ${
-            colorPalette === themeClass ? 'text-primary' : 'text-text'
+            colorPalette === themeClass ? 'text-accent' : 'text-foreground'
           }`}
           title={themeClass}
           onClick={() => onPaletteChange(themeClass)}
@@ -48,7 +48,7 @@ function PalettePicker({ withText }: Props) {
               colorPalette === themeClass ? 'scale-100' : 'scale-75'
             }`}
             style={{
-              backgroundColor: `rgb(var(--color-${themeClass}-primary))`,
+              backgroundColor: `rgb(var(--${themeClass}-accent))`,
             }}
           ></span>
         </button>

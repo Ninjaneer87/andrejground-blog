@@ -25,7 +25,7 @@ const links = [
       <LogoStatic />
 
       <span class="font-light text-xl hidden md:inline">
-        <span class="text-primary">Andrej</span><span class="text-text"
+        <span class="text-accent">Andrej</span><span class="text-foreground"
           >Ground</span
         >
       </span>
@@ -37,7 +37,7 @@ const links = [
           <li>
             <a
               href={link.href}
-              class={`p-1 md:p-2 ${link.isActive ? 'text-primary' : 'text-text'}`}
+              class={`p-1 md:p-2 ${link.isActive ? 'text-accent' : 'text-foreground'}`}
             >
               {link.text}
             </a>

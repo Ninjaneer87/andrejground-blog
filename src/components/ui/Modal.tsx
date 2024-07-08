@@ -30,7 +30,7 @@ function Modal({ isOpen, onClose, children }: Props) {
         >
           <div
             onClick={e => e.stopPropagation()}
-            className="w-full max-w-[500px] max-h-[80vh] p-4 bg-bg rounded-xl overflow-y-auto"
+            className="w-full max-w-[500px] max-h-[80vh] p-4 bg-background rounded-xl overflow-y-auto"
           >
             {children}
           </div>

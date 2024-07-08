@@ -61,9 +61,9 @@ document.addEventListener('astro:page-load', () => {
           if (!linkInView) return;
 
           allTocLinks.forEach(link => {
-            link.classList.remove('text-primary');
+            link.classList.remove('text-accent');
           });
-          linkInView?.classList.add('text-primary');
+          linkInView?.classList.add('text-accent');
           linkInView?.scrollIntoView({
             block: 'nearest',
             inline: 'nearest',

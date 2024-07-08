@@ -39,8 +39,8 @@ function DarkModePicker({ withText }: Props) {
             key={mode}
             className={`flex items-center gap-1 text-lg rounded-lg capitalize p-1 md:p-2 ${
               isSelected
-                ? 'text-primary duration-200 transition-all'
-                : 'text-text'
+                ? 'text-accent duration-200 transition-all'
+                : 'text-foreground'
             } `}
             title={mode}
             onClick={() => onDarkModeChange(mode)}

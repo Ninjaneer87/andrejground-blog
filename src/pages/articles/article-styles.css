@@ -43,8 +43,8 @@ pre {
   top: 1rem;
   right: 1rem;
   padding: 0.2rem 1rem;
-  background-color: rgb(var(--color-primary));
-  color: rgb(var(--color-bg));
+  background-color: rgb(var(--accent));
+  color: rgb(var(--background));
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
@@ -68,7 +68,7 @@ a {
     justify-content: center;
     position: absolute;
     inset: 0;
-    color: rgb(var(--color-primary));
+    color: rgb(var(--accent));
     border-radius: 0.5rem;
     opacity: 0;
     transition: opacity 0.2s;

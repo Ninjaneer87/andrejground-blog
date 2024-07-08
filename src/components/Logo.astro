@@ -29,7 +29,7 @@ const { width } = Astro.props;
       filter: blur(10px);
     }
     4% {
-      stroke: rgb(var(--color-primary));
+      stroke: rgb(var(--accent));
     }
     8% {
       stroke-dashoffset: 0;
@@ -38,7 +38,7 @@ const { width } = Astro.props;
     10%,
     100% {
       stroke: transparent;
-      fill: rgb(var(--color-text));
+      fill: rgb(var(--foreground));
       filter: blur(0);
     }
   }
@@ -49,7 +49,7 @@ const { width } = Astro.props;
       filter: blur(10px);
     }
     4% {
-      stroke: rgb(var(--color-text));
+      stroke: rgb(var(--foreground));
     }
     8% {
       stroke-dashoffset: 0;
@@ -58,7 +58,7 @@ const { width } = Astro.props;
     10%,
     100% {
       stroke: transparent;
-      fill: rgb(var(--color-primary));
+      fill: rgb(var(--accent));
       filter: blur(0);
     }
   }

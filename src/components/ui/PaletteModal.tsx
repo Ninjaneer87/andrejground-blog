@@ -10,7 +10,7 @@ function PaletteModal() {
   return (
     <div className="flex items-center justify-center">
       <button
-        className="transition-transform ease-linear duration-150 active:scale-90  h-12 w-12 rounded-full flex items-center justify-center text-text text-xl"
+        className="transition-transform ease-linear duration-150 active:scale-90  h-12 w-12 rounded-full flex items-center justify-center text-foreground text-xl"
         aria-label="Toggle drawer"
         onClick={() => setIsOpen(!isOpen)}
       >
@@ -25,7 +25,7 @@ function PaletteModal() {
           <>
             <div className="text-2xl">Theme settings</div>
 
-            <hr className="my-8 h-0.5 border-t-0 bg-gradient-to-r from-primary to-transparent" />
+            <hr className="my-8 h-0.5 border-t-0 bg-gradient-to-r from-accent to-transparent" />
 
             <div className="flex flex-col items-center gap-8">
               <DarkModePicker withText />

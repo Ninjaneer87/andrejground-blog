@@ -17,7 +17,7 @@ function Drawer({ children }: Props) {
         } block xl:hidden fixed top-full left-1/2 -translate-x-1/2 w-[80vw] z-10 transition-transform ease-in-out rounded-2xl`}
       >
         <button
-          className="transition-transform ease-linear duration-150 active:scale-90 absolute bottom-[calc(100%_+_1rem)] left-1/2 -translate-x-1/2 h-12 w-12 rounded-full bg-glass flex items-center justify-center text-primary border-solid border-[1px] border-primary blur-in"
+          className="transition-transform ease-linear duration-150 active:scale-90 absolute bottom-[calc(100%_+_1rem)] left-1/2 -translate-x-1/2 h-12 w-12 rounded-full bg-glass flex items-center justify-center text-accent border-solid border-[1px] border-accent blur-in"
           aria-label="Toggle drawer"
           onClick={() => setIsOpen(!isOpen)}
         >
