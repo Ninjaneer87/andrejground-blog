@@ -26,7 +26,6 @@ const { title, pubDate, author, authorImage, image, tags } = entry.data;
 
 const { Content } = await entry.render();
 const currentPath = Astro.url.origin + Astro.url.pathname;
-console.log({ currentPath });
 ---
 
 <RootLayout pageTitle={title}>
@@ -35,11 +34,11 @@ console.log({ currentPath });
     <div class="flex gap-4 xl:gap-24">
       <div class="hidden xl:block">
         <div class="flex-col gap-2 sticky top-[200px] max-w-72 p-4">
-          <TableOfContentsReact client:only />
+          <TableOfContentsReact client:only="react" />
           <Divider />
           <AuthorCard author={author} authorImage={authorImage} />
           <DateCard date={pubDate} />
-          <SocialsShare url={currentPath} client:only />
+          <SocialsShare url={currentPath} client:only="react" />
         </div>
 
         <div></div>
@@ -57,12 +56,12 @@ console.log({ currentPath });
     </div>
   </div>
 
-  <Drawer client:only>
-    <TableOfContentsReact client:only />
+  <Drawer client:only="react">
+    <TableOfContentsReact client:only="react" />
     <Divider />
     <AuthorCard author={author} authorImage={authorImage} />
     <DateCard date={pubDate} />
-    <SocialsShare url={currentPath} client:only />
+    <SocialsShare url={currentPath} client:only="react" />
   </Drawer>
 </RootLayout>
 

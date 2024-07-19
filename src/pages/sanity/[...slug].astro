@@ -1,0 +1,47 @@
+---
+import PortableText from 'src/components/PortableText.astro';
+import { PortableText as AstroText } from 'astro-portabletext';
+import RootLayout from 'src/layouts/RootLayout.astro';
+import { productionSanityClient } from 'src/utils';
+import { marked } from 'marked';
+import '../articles/article-styles.css';
+
+const { slug } = Astro.params;
+const { title } = Astro.props;
+
+const blogPost = await productionSanityClient.fetch(
+  `*[slug.current == $slug][0]`,
+  { slug },
+);
+console.log({ postsTags: blogPost.tags });
+const tagIds = blogPost.tags.map((tag: any) => tag._ref);
+const tags = await productionSanityClient.fetch(
+  `*[_type == 'tag' && _id in $tagIds]`,
+  {
+    tagIds,
+  },
+);
+
+console.log({ blogPost, tags });
+
+console.log({
+  slug,
+  title,
+  // tags
+});
+const { Content } = blogPost.content;
+console.log({
+  slug,
+  title,
+  Content
+});
+---
+
+<RootLayout pageTitle={title}>
+  <h1>{blogPost?.title}</h1>
+
+  <div class="flex gap-4">{tags.map((tag: any) => <span>{tag.tag}</span>)}</div>
+
+  <div set:html={marked(blogPost.content)} />
+  <!-- <Content /> -->
+</RootLayout>

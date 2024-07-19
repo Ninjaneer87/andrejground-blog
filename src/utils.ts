@@ -6,6 +6,23 @@ import {
 import Cookies from 'js-cookie';
 import type { ColorPaletteOption, DarkModeOption } from './stores/themeStore';
 
+// import { sanityClient } from 'sanity:client';
+import imageUrlBuilder from '@sanity/image-url';
+import { createClient, type ClientConfig } from '@sanity/client';
+
+const config: ClientConfig = {
+  projectId: 'q6lrrer2',
+  dataset: 'production',
+  useCdn: true,
+};
+
+export const productionSanityClient = createClient(config);
+
+export const imageBuilder = imageUrlBuilder(productionSanityClient);
+export function urlForImage(source: string) {
+  return imageBuilder.image(source);
+}
+
 export function isSystemThemeDark() {
   if (typeof window === 'undefined') {
     return false;
@@ -49,7 +66,7 @@ export function applyDarkMode(darkMode: DarkModeOption) {
   });
 }
 
-function getHeadingsHierarchy() {
+export function getHeadingsHierarchy() {
   // Query all section elements in the document
   const sections = document.querySelectorAll('.headings');
 
