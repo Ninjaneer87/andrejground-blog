@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useRef } from 'react';
 import { useHeadings } from '../hooks/useHeadings';
 import { useSectionIdInView } from '../hooks/useSectionIdInView';
+import { ScrollShadow } from '@nextui-org/react';
 
 function TableOfContentsReact() {
   const { h2sAndH3s } = useHeadings();
@@ -19,7 +20,7 @@ function TableOfContentsReact() {
   }
 
   return (
-    <ul className="flex flex-col gap-4 toc-list max-h-[50vh] overflow-y-auto pr-1">
+    <ScrollShadow  as='ul' className="flex flex-col gap-4 toc-list max-h-[50vh] pr-1 pb-10 scroll-pb-10">
       {h2sAndH3s.map(({ h2, h3s }) => (
         <Fragment key={h2.id}>
           <li>
@@ -46,7 +47,7 @@ function TableOfContentsReact() {
           ))}
         </Fragment>
       ))}
-    </ul>
+    </ScrollShadow>
   );
 }
 

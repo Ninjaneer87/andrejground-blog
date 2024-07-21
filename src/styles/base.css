@@ -38,7 +38,7 @@
     --foreground: 14 20 27;
     --card: 200 200 200;
     --card-foreground: var(--foreground);
-    --primary: var(--foreground);
+    --primary: var(--accent);
     --primary-foreground: var(--card);
     --accent: var(--cyan-light-accent);
     --accent-foreground: var(--foreground);
@@ -144,7 +144,7 @@
     --foreground: 255 255 255;
     --card: 64 64 64;
     --card-foreground: var(--foreground);
-    --primary: var(--foreground);
+    --primary: var(--accent);
     --primary-foreground: var(--card);
     --accent: var(--cyan-dark-accent);
     --accent-foreground: var(--foreground);

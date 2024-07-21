@@ -9,10 +9,52 @@ const allBlogArticles: CollectionEntry<'blog'>[] = (
 ).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
+<style>
+  .hero-title {
+    display: block;
+    width: fit-content;
+    position: relative;
+    font-size: clamp(2.25rem, 5vw, 6.75rem);
+    text-align: center;
+    margin: 0 auto;
+    font-weight: 100;
+
+    background: radial-gradient(
+        circle 240px at var(--x,  -100%) var(--y,  -100%),
+        rgb(var(--accent)) 30%,
+        rgb(var(--background)) 100%
+      )
+      fixed;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+</style>
+
 <RootLayout pageTitle="Blog">
+  <h1 class="hero-title" data-text="AndrejGround Blog">AndrejGround Blog</h1>
+
   <div class="flex gap-8 items-center justify-center pt-20">
     <ul class="flex gap-8 items-center justify-center flex-wrap">
       {allBlogArticles.map(article => <ArticleCard article={article} />)}
     </ul>
   </div>
 </RootLayout>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    let h = document.querySelector('h1')!;
+    let p = h.getBoundingClientRect();
+
+    document.body.onmousemove = function (e) {
+      h.style.setProperty('--x', e.clientX + 'px');
+      h.style.setProperty('--y', e.clientY + 'px');
+    };
+
+    document.body.onresize = function () {
+      h = document.querySelector('h1')!;
+      p = h.getBoundingClientRect();
+    };
+  });
+</script>

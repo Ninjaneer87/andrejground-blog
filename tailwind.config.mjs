@@ -1,8 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 import defaultTheme from 'tailwindcss/defaultTheme';
+import { nextui } from '@nextui-org/react';
 
 export default {
-  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+  content: [
+    './src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}',
+    './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
+  ],
   theme: {
     extend: {
       colors: {
@@ -22,7 +26,7 @@ export default {
           DEFAULT: 'rgb(var(--secondary) / <alpha-value>)',
           foreground: 'rgb(var(--secondary-foreground) / <alpha-value>)',
         },
-        destructive: {
+        danger: {
           DEFAULT: 'rgb(var(--destructive) / <alpha-value>)',
           foreground: 'rgb(var(--destructive-foreground) / <alpha-value>)',
         },
@@ -44,7 +48,7 @@ export default {
         },
         success: 'rgb(var(--success) / <alpha-value>)',
         info: 'rgb(var(--info) / <alpha-value>)',
-        warn: 'rgb(var(--warn) / <alpha-value>)',
+        warning: 'rgb(var(--warn) / <alpha-value>)',
         error: 'rgb(var(--error) / <alpha-value>)',
         transparent: 'transparent',
         current: 'currentColor',
@@ -68,6 +72,47 @@ export default {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
-  darkMode: 'selector',
+  plugins: [
+    require('tailwindcss-animate'),
+    nextui({
+      themes: {
+        light: {
+          colors: {
+            background: '#FFFFFF', // or DEFAULT
+            foreground: '#11181C', // or 50 to 900 DEFAULT
+            primary: {
+              //... 50 to 900
+              foreground: '#FFFFFF',
+              DEFAULT: '#006FEE',
+            },
+            // ... rest of the colors
+          },
+        },
+        dark: {
+          colors: {
+            background: '#000000', // or DEFAULT
+            foreground: '#ECEDEE', // or 50 to 900 DEFAULT
+            primary: {
+              //... 50 to 900
+              foreground: '#FFFFFF',
+              DEFAULT: '#006FEE',
+            },
+          },
+          // ... rest of the colors
+        },
+        mytheme: {
+          // custom theme
+          extend: 'dark',
+          colors: {
+            primary: {
+              DEFAULT: '#BEF264',
+              foreground: '#000000',
+            },
+            focus: '#BEF264',
+          },
+        },
+      },
+    }),
+  ],
+  darkMode: 'class',
 };

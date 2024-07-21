@@ -23,7 +23,11 @@ The Dell XPS 17 combines power and portability. Its large, high-resolution displ
 Lenovo's ThinkPad series is renowned for its durability and performance. The ThinkPad X1 Carbon is no different. With a sleek design, a fantastic keyboard, and a long-lasting battery, it's an excellent choice for developers who need a reliable companion. It's available with both Intel and AMD processors to suit your preference.
 
 ```ts
-const mdx: string[] = ['cool'];const mdx: string[] = ['cool'];const mdx: string[] = ['cool'];const mdx: string[] = ['cool'];const mdx: string[] = ['cool'];
+const mdx: string[] = ['cool'];
+const mdx: string[] = ['cool'];
+const mdx: string[] = ['cool'];
+const mdx: string[] = ['cool'];
+const mdx: string[] = ['cool'];
 ```
 
 ## 4. Razer Blade 15
@@ -45,11 +49,13 @@ const newWay: Tag[] = [
 
 ## 5. System76 Oryx Pro
 
-System76 specializes in Linux laptops, and the Oryx Pro is tailored for developers. Running on Pop!\_OS, it offers a Linux-based environment with great compatibility for software development tools. The laptop is customizable, allowing you to choose the CPU, RAM, and storage options that suit your needs.
+System76 specializes in Linux laptops, and the Oryx Pro is tailored for developers. Running on Pop!\_OS, it offers a Linux-based environment with great compatibility for software development tools. The laptop is customizable, allowing you to choose the CPU, RAM, and <span data-tooltip='Dynamic tooltip content for developers with a super long tooltip content.' class='tooltip'>storage</span> options that suit your needs.
 
 ### 5.a System76 Oryx Pro
 
 System76 specializes in Linux laptops, and the Oryx Pro is tailored for developers. Running on Pop!\_OS, it offers a Linux-based environment with great compatibility for software development tools. The laptop is customizable, allowing you to choose the CPU, RAM, and storage options that suit your needs.
+
+<span data-tooltip='Another Dynamic tooltip content' class='tooltip'>This is another tooltip</span>
 
 ### 5.b System76 Oryx Pro
 
@@ -78,7 +84,11 @@ The Dell XPS 17 combines power and portability. Its large, high-resolution displ
 Lenovo's ThinkPad series is renowned for its durability and performance. The ThinkPad X1 Carbon is no different. With a sleek design, a fantastic keyboard, and a long-lasting battery, it's an excellent choice for developers who need a reliable companion. It's available with both Intel and AMD processors to suit your preference.
 
 ```ts
-const mdx: string[] = ['cool'];const mdx: string[] = ['cool'];const mdx: string[] = ['cool'];const mdx: string[] = ['cool'];const mdx: string[] = ['cool'];
+const mdx: string[] = ['cool'];
+const mdx: string[] = ['cool'];
+const mdx: string[] = ['cool'];
+const mdx: string[] = ['cool'];
+const mdx: string[] = ['cool'];
 ```
 
 ## 4. Razer Blade 15 1

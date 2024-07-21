@@ -9,7 +9,7 @@ h2 {
   margin: 3rem 0 2rem 0;
 }
 h3 {
-  font-size: clamp(1.5rem, 5vw, 1.75rrem);
+  font-size: clamp(1.5rem, 5vw, 1.75rem);
 }
 h4 {
   font-size: clamp(1.25rem, 5vw, 1.5rem);
