@@ -46,8 +46,9 @@ const links = [
       }
     </ul>
 
-    <div class="hidden md:flex flex-col items-center gap-1">
+    <div class="hidden md:flex items-center gap-1">
       <DarkModePicker client:only="react" />
+      <span class="text-foreground/30"> | </span>
       <PalettePicker client:only="react" />
     </div>
 

@@ -14,7 +14,7 @@ document.addEventListener('astro:page-load', () => {
     const triggerElementTag = element.tagName.toLowerCase();
     const TooltipTrigger = React.createElement(
       triggerElementTag,
-      { className: 'border-b border-dashed' },
+      { className: 'border-b border-dashed border-b-2' },
       TooltipTriggerContent,
     );
     root.render(

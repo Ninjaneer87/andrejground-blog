@@ -40,8 +40,9 @@ function PalettePicker({ withText }: Props) {
           isDisabled={withText}
           content={
             <span>
-              Switch to{' '}
+              Color:{' '}
               <span
+                className="font-semibold"
                 style={{
                   color: `rgb(var(--${themeClass}-accent))`,
                 }}

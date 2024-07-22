@@ -4,7 +4,7 @@ pubDate: 2023-01-20
 author: 'Andrej Forgac'
 authorImage: 'andrej.jpeg'
 image: 'image1.webp'
-tags: ['tech', 'hardware']
+tags: ['react', 'typescript']
 slug: the-best-laptops-for-developers-in-2024
 ---
 
@@ -37,12 +37,12 @@ For developers who are also gamers or multimedia enthusiasts, the Razer Blade 15
 ```ts
 const newWay: Tag[] = [
   {
-    name: 'tech',
-    slug: 'tech',
+    name: 'react',
+    slug: 'react',
   },
   {
-    name: 'javascript',
-    slug: 'javascript',
+    name: 'typescript',
+    slug: 'typescript',
   },
 ];
 ```

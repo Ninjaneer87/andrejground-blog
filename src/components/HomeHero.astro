@@ -1,0 +1,78 @@
+---
+import HeroCard from './cards/HeroCard.astro';
+---
+
+<style>
+  .hero-title {
+    display: block;
+    width: fit-content;
+    position: relative;
+    font-size: clamp(2.25rem, 5vw, 6.75rem);
+    text-align: center;
+    margin: 0 auto;
+    font-weight: 100;
+    cursor: none;
+
+    @media (min-width: 992px) {
+      background: radial-gradient(
+          circle 240px at var(--x, -100%) var(--y, -100%),
+          rgb(var(--accent)) 30%,
+          transparent 100%
+        )
+        fixed;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+</style>
+
+<div class="p-4 lg:p-8 flex flex-col gap-8 mx-auto">
+  <div class="flex flex-wrap justify-around gap-8">
+    <HeroCard
+      icon="mdi:react"
+      title="React"
+      tiltDirection="left"
+      href="/articles/tag/react"
+    />
+    <HeroCard
+      icon="mdi:language-typescript"
+      title="TypeScript"
+      tiltDirection="right"
+      href="/articles/tag/typescript"
+    />
+  </div>
+  <h1 class="hero-title" data-text="AndrejGround Blog">AndrejGround Blog</h1>
+  <div class="flex flex-wrap justify-around gap-8">
+    <HeroCard
+      icon="mdi:language-css3"
+      title="CSS"
+      tiltDirection="right"
+      href="/articles/tag/css"
+    />
+    <HeroCard
+      icon="mdi:language-javascript"
+      title="JavaScript"
+      tiltDirection="left"
+      href="/articles/tag/javascript"
+    />
+  </div>
+</div>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    let h = document.querySelector('h1')!;
+    let p = h.getBoundingClientRect();
+
+    document.body.onmousemove = function (e) {
+      h.style.setProperty('--x', e.clientX + 'px');
+      h.style.setProperty('--y', e.clientY + 'px');
+    };
+
+    document.body.onresize = function () {
+      h = document.querySelector('h1')!;
+      p = h.getBoundingClientRect();
+    };
+  });
+</script>

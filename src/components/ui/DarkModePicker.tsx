@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { applyDarkMode } from '../../utils';
 import Cookies from 'js-cookie';
 import { useWindowResize } from '../../hooks/useWindowResize';
+import { Tooltip } from '@nextui-org/react';
 
 const DarkModeIcon = {
   light: 'mdi:white-balance-sunny',
@@ -35,27 +36,40 @@ function DarkModePicker({ withText }: Props) {
         const isSelected = darkMode === mode;
 
         return (
-          <button
+          <Tooltip
             key={mode}
-            className={`flex items-center gap-1 text-lg rounded-lg capitalize p-1 md:p-2 ${
-              isSelected
-                ? 'text-accent duration-200 transition-all'
-                : 'text-foreground'
-            } `}
-            title={mode}
-            onClick={() => onDarkModeChange(mode)}
-            aria-label={`Change dark mode to ${mode}`}
+            placement="bottom"
+            color="default"
+            isDisabled={withText}
+            content={
+              <span>
+                Theme:{' '}
+                <span className="text-primary font-semibold">{mode}</span>
+              </span>
+            }
           >
-            {withText && mode}
-            <Icon
-              className={`${
+            <button
+              key={mode}
+              className={`flex items-center gap-1 text-lg rounded-lg capitalize p-1 md:p-2 ${
                 isSelected
-                  ? 'duration-200 transition-transform rotate-[360deg]'
-                  : ''
-              }`}
-              icon={DarkModeIcon[mode]}
-            />
-          </button>
+                  ? 'text-accent duration-200 transition-all'
+                  : 'text-foreground'
+              } `}
+              title={mode}
+              onClick={() => onDarkModeChange(mode)}
+              aria-label={`Change theme to ${mode}`}
+            >
+              {withText && mode}
+              <Icon
+                className={`${
+                  isSelected
+                    ? 'duration-200 transition-transform rotate-[360deg]'
+                    : ''
+                }`}
+                icon={DarkModeIcon[mode]}
+              />
+            </button>
+          </Tooltip>
         );
       })}
     </div>
