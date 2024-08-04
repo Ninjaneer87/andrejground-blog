@@ -22,15 +22,15 @@
 
     /* PRIMARY Colors  dark */
     --orange-dark-accent: 255 122 24;
-    --orange-dark-bg: 9 9 9;
+    --orange-dark-bg: 13 7 1;
     --orange-dark-card: 32 32 32;
 
     --cyan-dark-accent: 34 211 238;
-    --cyan-dark-bg: 9 9 9;
+    --cyan-dark-bg: 5 13 18;
     --cyan-dark-card: 2 27 30;
 
     --green-dark-accent: 52 211 153;
-    --green-dark-bg: 9 9 9;
+    --green-dark-bg: 0 8 5;
     --green-dark-card: 10 23 17;
 
     /* Colors themed light*/

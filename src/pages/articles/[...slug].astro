@@ -28,6 +28,24 @@ const { Content } = await entry.render();
 const currentPath = Astro.url.origin + Astro.url.pathname;
 ---
 
+<style is:global>
+  html.dark::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50vw;
+    height: 50vh;
+    transform: translate(-50%, -50%);
+    border-radius: 100vh;
+    background: radial-gradient(
+      circle,
+      rgb(var(--foreground) / 50%) 0%,
+      /* rgb(var(--primary)) 100% */ transparent 100%
+    );
+    filter: blur(300px);
+  }
+</style>
 <RootLayout pageTitle={title}>
   <ScrollProgress />
   <div class="container mx-auto p-4">

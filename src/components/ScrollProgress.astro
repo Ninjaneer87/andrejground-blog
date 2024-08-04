@@ -23,7 +23,7 @@
       if (!progress) return;
 
       let scrollPercentage = (scrollY / scrollHeight) * 100;
-      progress.style.translate = `${scrollPercentage}% 0`;
+      progress.style.translate = `${Math.min(scrollPercentage, 100)}% 0`;
       scheduledAnimationFrame = false;
     }
 

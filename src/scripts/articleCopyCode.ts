@@ -11,9 +11,15 @@ document.addEventListener('astro:page-load', () => {
     copyButton.classList.add('copy-button');
     copyButton.innerText = copyLabel;
 
-    block.appendChild(copyButton);
+    const codeLanguage = block.getAttribute('data-language');
+    const codeLanguageSpan = document.createElement('span');
+    codeLanguageSpan.textContent = codeLanguage;
+    codeLanguageSpan.classList.add('code-language');
+
     block.parentNode?.insertBefore(wrapper, block);
     wrapper.appendChild(block);
+    wrapper.appendChild(copyButton);
+    wrapper.appendChild(codeLanguageSpan);
 
     copyButton.addEventListener(
       'click',
