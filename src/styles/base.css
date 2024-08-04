@@ -1,5 +1,6 @@
 @import url('./browser-override.css');
 @import url('./animations.css');
+@import url('./helpers.css');
 
 @tailwind base;
 @tailwind components;
@@ -7,148 +8,16 @@
 
 @layer base {
   :root {
-    /* PRIMARY Colors light */
-    --orange-light-accent: 255 122 24;
-    --orange-light-bg: 255 255 255;
-    --orange-light-card: 255 246 229;
-
-    --cyan-light-accent: 14 165 233;
-    --cyan-light-bg: 255 252 247;
-    --cyan-light-card: 240 253 255;
-
-    --green-light-accent: 20 184 166;
-    --green-light-bg: 255 252 247;
-    --green-light-card: 240 255 246;
-
-    /* PRIMARY Colors  dark */
-    --orange-dark-accent: 255 122 24;
-    --orange-dark-bg: 13 7 1;
-    --orange-dark-card: 32 32 32;
-
-    --cyan-dark-accent: 34 211 238;
-    --cyan-dark-bg: 5 13 18;
-    --cyan-dark-card: 2 27 30;
-
-    --green-dark-accent: 52 211 153;
-    --green-dark-bg: 0 8 5;
-    --green-dark-card: 10 23 17;
-
-    /* Colors themed light*/
-    --background: 255 255 255;
-    --foreground: 14 20 27;
-    --card: 200 200 200;
-    --card-foreground: var(--foreground);
-    --primary: var(--accent);
-    --primary-foreground: var(--card);
-    --accent: var(--cyan-light-accent);
-    --accent-foreground: var(--foreground);
-    --secondary: var(--cyan-light-accent);
-    --secondary-foreground: var(--foreground);
-    --muted: var(--cyan-light-accent);
-    --muted-foreground: var(--foreground);
-    --success: 0 200 81;
-    --info: 51 181 229;
-    --warn: 255 187 51;
-    --error: 254 78 78;
-    --destructive: var(--error);
-    --destructive-foreground: var(--foreground);
-
-    --border: var(--cyan-light-accent);
-    --input: var(--cyan-light-accent);
-    --ring: var(--foreground);
-
-    /* Theme accent colors */
-    --cyan-accent: var(--cyan-light-accent);
-    --orange-accent: var(--orange-light-accent);
-    --green-accent: var(--green-light-accent);
-  }
-
-  :root[class~='cyan'] {
-    --accent: var(--cyan-light-accent);
-    --secondary: var(--cyan-light-accent);
-    --muted: var(--cyan-light-accent);
-
-    --card: var(--cyan-light-card);
-    --popover: var(--cyan-light-card);
-    --background: var(--cyan-light-bg);
-
-    --border: var(--cyan-light-accent);
-    --input: var(--cyan-light-accent);
-  }
-  :root[class~='cyan'][class~='dark'] {
-    --accent: var(--cyan-dark-accent);
-    --secondary: var(--cyan-dark-accent);
-    --muted: var(--cyan-dark-accent);
-
-    --card: var(--cyan-dark-card);
-    --popover: var(--cyan-dark-card);
-    --background: var(--cyan-dark-bg);
-
-    --border: var(--cyan-dark-accent);
-    --input: var(--cyan-dark-accent);
-  }
-
-  :root[class~='orange'] {
-    --accent: var(--orange-light-accent);
-    --secondary: var(--orange-light-accent);
-    --muted: var(--orange-light-accent);
-
-    --card: var(--orange-light-card);
-    --popover: var(--orange-light-card);
-    --background: var(--orange-light-bg);
-
-    --border: var(--orange-light-accent);
-    --input: var(--orange-light-accent);
-  }
-  :root[class~='orange'][class~='dark'] {
-    --accent: var(--orange-dark-accent);
-    --secondary: var(--orange-dark-accent);
-    --muted: var(--orange-dark-accent);
-
-    --card: var(--orange-dark-card);
-    --popover: var(--orange-dark-card);
-    --background: var(--orange-dark-bg);
-
-    --border: var(--orange-dark-accent);
-    --input: var(--orange-dark-accent);
-  }
-
-  :root[class~='green'] {
-    --accent: var(--green-light-accent);
-    --secondary: var(--green-light-accent);
-    --muted: var(--green-light-accent);
-
-    --card: var(--green-light-card);
-    --popover: var(--green-light-card);
-    --background: var(--green-light-bg);
-
-    --border: var(--green-light-accent);
-    --input: var(--green-light-accent);
-  }
-  :root[class~='green'][class~='dark'] {
-    --accent: var(--green-dark-accent);
-    --secondary: var(--green-dark-accent);
-    --muted: var(--green-dark-accent);
-
-    --card: var(--green-dark-card);
-    --popover: var(--green-dark-card);
-    --background: var(--green-dark-bg);
-
-    --border: var(--green-dark-accent);
-    --input: var(--green-dark-accent);
-  }
-
-  /* Colors themed dark*/
-  :root[class~='dark'] {
-    --background: 38 38 38;
+    --background: 13 15 20;
     --foreground: 255 255 255;
-    --card: 64 64 64;
+    --card: 4 7 38;
     --card-foreground: var(--foreground);
-    --primary: var(--accent);
+    --accent: 0 229 255;
+    --accent: 161 169 255;
+    --primary: 19 33 172;
     --primary-foreground: var(--card);
-    --accent: var(--cyan-dark-accent);
     --accent-foreground: var(--foreground);
-    --secondary: var(--cyan-dark-accent);
+    --secondary: 86 2 189;
     --secondary-foreground: var(--foreground);
     --muted: var(--cyan-dark-accent);
     --muted-foreground: var(--foreground);
@@ -161,21 +30,16 @@
     --border: var(--cyan-dark-accent);
     --input: var(--cyan-dark-accent);
     --ring: var(--foreground);
-
-    /* Theme accent colors */
-    --cyan-accent: var(--cyan-dark-accent);
-    --orange-accent: var(--orange-dark-accent);
-    --green-accent: var(--green-dark-accent);
   }
 }
 @layer components {
   .bg-glass {
-    @apply backdrop-blur-lg bg-background/70;
+    @apply backdrop-blur-lg bg-background/50;
   }
 
-  .gradient-wrapper {
+  /* .gradient-wrapper {
     @apply relative w-fit rounded-2xl p-[2px] bg-gradient-to-br from-accent/20 via-transparent  to-gray-400/20 overflow-hidden;
-  }
+  } */
 }
 
 @layer base {

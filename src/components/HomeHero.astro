@@ -1,5 +1,6 @@
 ---
-import HeroCard from './cards/HeroCard.astro';
+import { Icon } from 'astro-icon/components';
+import PopularTags from './PopularTags.astro';
 ---
 
 <style>
@@ -12,11 +13,12 @@ import HeroCard from './cards/HeroCard.astro';
     margin: 0 auto;
     font-weight: 100;
     cursor: none;
+    color: rgb(var(--accent));
 
-    @media (min-width: 992px) {
+    @media (min-width: 1024px) {
       background: radial-gradient(
           circle 240px at var(--x, -100%) var(--y, -100%),
-          rgb(var(--accent)) 30%,
+          rgb(var(--foreground)) 30%,
           transparent 100%
         )
         fixed;
@@ -28,36 +30,34 @@ import HeroCard from './cards/HeroCard.astro';
   }
 </style>
 
-<div class="p-4 lg:p-8 flex flex-col gap-8 mx-auto">
+<div
+  class="p-4 lg:p-8 flex flex-col gap-8 mx-auto gradient-wrapper container items-center"
+>
   <h1 class="hero-title" data-text="AndrejGround Blog">AndrejGround Blog</h1>
-  <div class="flex flex-wrap justify-center gap-8">
-    <HeroCard
-      icon="mdi:react"
-      title="React"
-      tiltDirection="left"
-      href="/articles/tag/react"
-    />
-    <HeroCard
-      icon="mdi:language-typescript"
-      title="TypeScript"
-      tiltDirection="right"
-      href="/articles/tag/typescript"
-    />
-  </div>
-  <div class="flex flex-wrap justify-center gap-8">
-    <HeroCard
-      icon="mdi:language-css3"
-      title="CSS"
-      tiltDirection="right"
-      href="/articles/tag/css"
-    />
-    <HeroCard
-      icon="mdi:language-javascript"
-      title="JavaScript"
-      tiltDirection="left"
-      href="/articles/tag/javascript"
-    />
-  </div>
+
+  <h2
+    class="flex items-center whitespace-nowrap text-[clamp(1.3rem,_4vw,_3.5rem)]"
+  >
+    Read <Icon name="mdi:chevron-right" class="text-accent" /> learn <Icon
+      name="mdi:chevron-right"
+      class="text-accent"
+    /> share <Icon name="mdi:chevron-right" class="text-accent" /> repeat
+  </h2>
+  <h3 class="text-center opacity-60 text-[clamp(1rem,_4vw,_1.5rem)]">
+    Tips, tricks and how-to's on frontend development
+  </h3>
+  <a href="/articles/tag" class="bg-white py-4 px-8 bg-glass rounded-lg text-xl"
+    ><span
+      class="flex items-center font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
+      >Explore topics <Icon
+        name="mdi:chevron-right"
+        class="text-3xl text-secondary"
+      /></span
+    ></a
+  >
+
+  <div class="my-16"></div>
+  <PopularTags />
 </div>
 
 <script>

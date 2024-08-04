@@ -1,8 +1,5 @@
 ---
 import LogoStatic from './LogoStatic.astro';
-import DarkModePicker from './ui/DarkModePicker';
-import PaletteModal from './ui/PaletteModal';
-import PalettePicker from './ui/PalettePicker';
 
 const pathname = new URL(Astro.request.url).pathname;
 
@@ -46,14 +43,9 @@ const links = [
       }
     </ul>
 
-    <div class="hidden md:flex items-center gap-1">
-      <DarkModePicker client:only="react" />
-      <span class="text-foreground/30"> | </span>
-      <PalettePicker client:only="react" />
-    </div>
+    <!-- <div class="flex items-center gap-1">
+      S
+    </div> -->
 
-    <div class="flex md:hidden items-center justify-center">
-      <PaletteModal client:media='(max-width: 768px)' />
-    </div>
   </div>
 </header>

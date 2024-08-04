@@ -5,6 +5,7 @@ document.addEventListener('astro:page-load', () => {
   codeBlocks.forEach(block => {
     const wrapper = document.createElement('div');
     wrapper.style.position = 'relative';
+    wrapper.classList.add('code-wrapper');
 
     const copyButton = document.createElement('button');
     copyButton.textContent = copyLabel;
@@ -23,11 +24,20 @@ document.addEventListener('astro:page-load', () => {
 
     copyButton.addEventListener(
       'click',
-      async () => await copyCode(block as HTMLElement, copyButton),
+      async () =>
+        await copyCode(
+          wrapper as HTMLElement,
+          block as HTMLElement,
+          copyButton,
+        ),
     );
   });
 
-  async function copyCode(block: HTMLElement, button: HTMLButtonElement) {
+  async function copyCode(
+    wrapper: HTMLElement,
+    block: HTMLElement,
+    button: HTMLButtonElement,
+  ) {
     let code = block.querySelector('code');
     let text = code?.innerText;
 
@@ -36,10 +46,12 @@ document.addEventListener('astro:page-load', () => {
     await navigator.clipboard.writeText(text);
 
     button.innerText = 'Copied!';
+    wrapper.classList.add('active');
     block.classList.add('active');
 
     setTimeout(() => {
       button.innerText = copyLabel;
+      wrapper.classList.remove('active');
       block.classList.remove('active');
     }, 1000);
   }

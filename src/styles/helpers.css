@@ -1,0 +1,36 @@
+.gradient-wrapper {
+  position: relative;
+  z-index: 0;
+
+  &::before,
+  &::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    width: 60vmin;
+    height: 80vmin;
+    border-radius: 30%;
+    filter: blur(150px);
+    z-index: -1;
+    overflow: visible;
+    /* pointer-events: none; */
+    /* opacity: 0.8; */
+  }
+  &::before {
+    left: 2rem;
+    background: rgb(var(--primary));
+    animation: spin 9s linear infinite;
+    -webkit-animation: spin 9s linear infinite;
+  }
+  &::after {
+    right: 2rem;
+    background: rgb(var(--secondary));
+    animation: spin 18s linear infinite;
+    -webkit-animation: spin 18s linear infinite;
+  }
+}
+
+.spin {
+  animation: spin 10s linear infinite;
+  -webkit-animation: spin 10s linear infinite;
+}

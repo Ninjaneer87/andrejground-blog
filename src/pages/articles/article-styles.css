@@ -40,8 +40,7 @@ code {
   border-radius: 0.3rem;
 }
 pre {
-  padding: 1rem 7rem 1rem 1rem;
-  margin: 2rem 0;
+  padding: 1rem;
   border-radius: 0.5rem;
 
   code {
@@ -81,11 +80,8 @@ a {
   display: block;
 }
 
-.astro-code {
-  transition: background-color 0.2s;
-  position: relative;
-  padding-top: 4rem;
-
+.code-wrapper {
+  margin: 2rem 0;
   &:after {
     content: 'Copied!';
     display: flex;
@@ -93,6 +89,10 @@ a {
     justify-content: center;
     position: absolute;
     inset: 0;
+    /* top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%; */
     color: rgb(var(--accent));
     border-radius: 0.5rem;
     opacity: 0;
@@ -103,9 +103,18 @@ a {
     pointer-events: none;
   }
 }
-.astro-code.active {
+.code-wrapper.active {
   overflow: hidden !important;
   &:after {
     opacity: 1;
   }
+}
+
+.astro-code {
+  transition: background-color 0.2s;
+  position: relative;
+  padding-top: 4rem;
+}
+.astro-code.active {
+  overflow: hidden !important;
 }

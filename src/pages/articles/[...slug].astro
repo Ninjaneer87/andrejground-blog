@@ -10,14 +10,20 @@ import ScrollProgress from '../../components/ScrollProgress.astro';
 import TableOfContentsReact from '../../components/TableOfContentsReact';
 import AuthorCard from '../../components/cards/AuthorCard.astro';
 import DateCard from '../../components/cards/DateCard.astro';
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
 
-const { slug } = Astro.params;
+export async function getStaticPaths() {
+  const allBlogArticles: CollectionEntry<'blog'>[] =
+    await getCollection('blog');
 
-if (!slug) {
-  throw new Error('Missing slug');
+  return allBlogArticles.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
 }
 
-const entry = await getEntry('blog', slug);
+const { entry } = Astro.props;
 if (!entry) {
   return Astro.redirect('/404');
 }
@@ -28,8 +34,8 @@ const { Content } = await entry.render();
 const currentPath = Astro.url.origin + Astro.url.pathname;
 ---
 
-<style is:global>
-  html.dark::after {
+<style>
+  .gradient-top::after {
     content: '';
     position: absolute;
     top: 0;
@@ -40,18 +46,19 @@ const currentPath = Astro.url.origin + Astro.url.pathname;
     border-radius: 100vh;
     background: radial-gradient(
       circle,
-      rgb(var(--foreground) / 50%) 0%,
-      /* rgb(var(--primary)) 100% */ transparent 100%
+      rgb(var(--primary) / 100%) 0%,
+      rgb(var(--secondary)) 100% /* transparent 100% */
     );
-    filter: blur(300px);
+    filter: blur(15vmin);
+    z-index: -1;
   }
 </style>
 <RootLayout pageTitle={title}>
   <ScrollProgress />
-  <div class="container mx-auto p-4">
+  <div class="container mx-auto p-4 z-0 relative gradient-top">
     <div class="flex gap-4 xl:gap-24">
       <div class="hidden xl:block">
-        <div class="flex-col gap-2 sticky top-[200px] max-w-72 p-4">
+        <div class="flex-col gap-2 sticky top-[150px] max-w-72 p-4">
           <TableOfContentsReact client:only="react" />
           <Divider />
           <AuthorCard author={author} authorImage={authorImage} />

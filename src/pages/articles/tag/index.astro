@@ -5,12 +5,17 @@ import type { CollectionEntry } from 'astro:content';
 import ArticleCard from '../../../components/cards/ArticleCard.astro';
 
 const allBlogArticles: CollectionEntry<'blog'>[] = await getCollection('blog');
+
+const uniqueTags = new Set<string>(
+  allBlogArticles.flatMap(article => article.data.tags),
+);
+const tags = [...uniqueTags];
 ---
 
 <RootLayout pageTitle="Blog">
   <div class="flex gap-8 items-center justify-center pt-20">
     <ul class="flex gap-16 items-center justify-center flex-wrap">
-      {allBlogArticles.map(article => <ArticleCard article={article} />)}
+      {tags.map(tag => <li>{tag}</li>)}
     </ul>
   </div>
 </RootLayout>

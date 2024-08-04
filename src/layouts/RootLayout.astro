@@ -1,42 +1,21 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
-import { SITE_TITLE, SITE_DESCRIPTION, COOKIE_KEYS } from '../constants';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../constants';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/base.css';
 import '@fontsource-variable/montserrat';
-import {
-  type ColorPaletteOption,
-  type DarkModeOption,
-} from '../stores/themeStore';
+import HomeCircles from 'src/components/HomeCircles.astro';
 
 type Props = {
   pageTitle: string;
 };
 
 const { pageTitle } = Astro.props;
-
-let initialColorPalette: ColorPaletteOption;
-const colorPaletteCookie = Astro.cookies.get(COOKIE_KEYS.selectedColorPalette);
-initialColorPalette =
-  (colorPaletteCookie?.value as ColorPaletteOption) ?? 'cyan';
-Astro.cookies.set(COOKIE_KEYS.selectedColorPalette, initialColorPalette, {
-  path: '/',
-});
-
-let initialDarkMode: DarkModeOption;
-const darkModeCookie = Astro.cookies.get(COOKIE_KEYS.selectedDarkMode);
-initialDarkMode = (darkModeCookie?.value as DarkModeOption) ?? 'system';
-Astro.cookies.set(COOKIE_KEYS.selectedDarkMode, initialDarkMode, {
-  path: '/',
-});
-
-const darkModeClass =
-  Astro.cookies.get('isDark')?.value === 'true' ? 'dark' : '';
 ---
 
 <!doctype html>
-<html lang="en" class=`${initialColorPalette} ${darkModeClass}`>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -45,21 +24,20 @@ const darkModeClass =
     <meta name="description" content={SITE_DESCRIPTION} />
     <title>{SITE_TITLE} | {pageTitle}</title>
     <ViewTransitions />
-    </head
-  >
+  </head>
 
   <body
-    class="bg-gradient-to-b from-background to-card text-foreground min-h-screen flex flex-col font-montserrat"
+    class="bg-gradient-to-b from-background to-card text-foreground min-h-screen flex flex-col font-montserrat overflow-x-hidden"
   >
     <Header />
 
-    <main class="h-full grow">
+    <main class="h-full grow z-0">
+      <HomeCircles />
       <slot />
     </main>
 
     <Footer />
 
     <div id="portal"></div>
-    <script src="./darkModeAndPalette.ts"></script>
   </body>
 </html>

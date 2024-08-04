@@ -1,0 +1,43 @@
+---
+import HeroCard from './cards/HeroCard.astro';
+---
+
+<section class="rounded-2xl p-4 lg:p-16 relative bg-glass">
+  <h2 class="py-4 px-8 bg-glass rounded-t-2xl w-fit text-2xl absolute bottom-full left-8">
+    <span
+      class="flex items-center"
+      >Popular topics</span
+    >
+  </h2>
+  <div class="mx-auto flex-wrap flex justify-center">
+    <div class="flex flex-wrap justify-center gap-8">
+      <HeroCard
+        icon="mdi:react"
+        title="React"
+        tiltDirection="left"
+        href="/articles/tag/react"
+      />
+      <HeroCard
+        icon="mdi:language-typescript"
+        title="TypeScript"
+        tiltDirection="right"
+        href="/articles/tag/typescript"
+      />
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-8">
+      <HeroCard
+        icon="mdi:language-css3"
+        title="CSS"
+        tiltDirection="left"
+        href="/articles/tag/css"
+      />
+      <HeroCard
+        icon="mdi:language-javascript"
+        title="JavaScript"
+        tiltDirection="right"
+        href="/articles/tag/javascript"
+      />
+    </div>
+  </div>
+</section>
