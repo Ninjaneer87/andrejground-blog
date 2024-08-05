@@ -3,7 +3,7 @@ import { Icon } from '@iconify-icon/react';
 import { useStore } from '@nanostores/react';
 import { Modal, ModalBody, ModalContent, ModalHeader } from '@nextui-org/react';
 import ClientOnlyPortal from './Portal';
-import { isTocModalOpen } from 'src/stores/modalsStore';
+import { isTocModalOpen } from 'src/stores/globalStore';
 
 type Props = {
   children: React.ReactNode;
@@ -35,7 +35,6 @@ function TOCModal({ children }: Props) {
         backdrop="blur"
         onClose={close}
         scrollBehavior="inside"
-        shouldBlockScroll={false}
         hideCloseButton
       >
         <ModalContent className="bg-glass">

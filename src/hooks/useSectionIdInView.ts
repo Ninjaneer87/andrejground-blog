@@ -1,13 +1,16 @@
+import { useStore } from '@nanostores/react';
 import { useEffect, useRef, useState } from 'react';
+import { headingIdInView } from 'src/stores/globalStore';
 
 export function useSectionIdInView() {
-  const [idInView, setIdInView] = useState<string | null>(null);
+  const $idInView = useStore(headingIdInView);
+
   const observer = useRef(
     new IntersectionObserver(
       observedSections => {
         observedSections.forEach(observedSection => {
-          if (observedSection.isIntersecting) {
-            setIdInView(observedSection.target.id);
+          if (observedSection.isIntersecting && observedSection.target.id) {
+            headingIdInView.set(observedSection.target.id);
           }
         });
       },
@@ -25,8 +28,9 @@ export function useSectionIdInView() {
 
     return () => {
       observer.current.disconnect();
+      headingIdInView.set(null);
     };
   }, []);
 
-  return { idInView };
+  return { idInView: $idInView };
 }

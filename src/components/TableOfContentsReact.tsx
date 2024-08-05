@@ -2,33 +2,42 @@ import React, { Fragment, useEffect, useRef } from 'react';
 import { useHeadings } from '../hooks/useHeadings';
 import { useSectionIdInView } from '../hooks/useSectionIdInView';
 import { ScrollShadow } from '@nextui-org/react';
-import { isTocModalOpen } from 'src/stores/modalsStore';
+import { isTocModalOpen } from 'src/stores/globalStore';
+import { useStore } from '@nanostores/react';
 
 function TableOfContentsReact() {
   const { h2sAndH3s } = useHeadings();
   const { idInView } = useSectionIdInView();
-  const inViewRefItem = useRef<HTMLAnchorElement | null>(null);
+  const inViewElement = useRef<HTMLAnchorElement | null>(null);
+  const $isModalOpen = useStore(isTocModalOpen);
 
   useEffect(() => {
-    inViewRefItem.current?.scrollIntoView({
-      block: 'nearest',
-      inline: 'nearest',
-    });
-  }, [idInView]);
+    if (!idInView) return;
+
+    setTimeout(() => {
+      inViewElement.current?.scrollIntoView({
+        block: 'nearest',
+        inline: 'nearest',
+      });
+    }, 0);
+  }, [idInView, $isModalOpen]);
 
   function isInView(id: string) {
     return id === idInView;
   }
 
   return (
-    <ScrollShadow  as='ul' className="flex flex-col gap-4 toc-list max-h-[50vh] pr-1 pb-10 scroll-pb-10">
+    <ScrollShadow
+      as="ul"
+      className="flex flex-col gap-4 toc-list max-h-[50vh] pr-1 pb-10 scroll-pb-10"
+    >
       {h2sAndH3s.map(({ h2, h3s }) => (
         <Fragment key={h2.id}>
           <li>
             <a
               className={`${isInView(h2.id) ? 'text-accent' : ''} break-words`}
               href={`#${h2.id}`}
-              {...(isInView(h2.id) && { ref: inViewRefItem })}
+              {...(isInView(h2.id) && { ref: inViewElement })}
               onClick={() => isTocModalOpen.set(false)}
             >
               {h2.text}
@@ -41,7 +50,8 @@ function TableOfContentsReact() {
                   isInView(h3.id) ? 'text-accent' : ''
                 } break-words pl-4`}
                 href={`#${h3.id}`}
-                {...(isInView(h3.id) && { ref: inViewRefItem })}
+                {...(isInView(h3.id) && { ref: inViewElement })}
+                onClick={() => isTocModalOpen.set(false)}
               >
                 {h3.text}
               </a>
