@@ -20,7 +20,18 @@ function TableOfContentsReact() {
         inline: 'nearest',
       });
     }, 0);
-  }, [idInView, $isModalOpen]);
+  }, [idInView]);
+
+  useEffect(() => {
+    if (!idInView || !$isModalOpen) return;
+
+    setTimeout(() => {
+      inViewElement.current?.scrollIntoView({
+        block: 'nearest',
+        inline: 'nearest',
+      });
+    }, 0);
+  }, [$isModalOpen]);
 
   function isInView(id: string) {
     return id === idInView;
