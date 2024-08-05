@@ -17,7 +17,7 @@ document.addEventListener('astro:page-load', () => {
       triggerContent,
     );
     root.render(
-      <Popover placement="bottom" showArrow={true}>
+      <Popover placement="bottom">
         <PopoverTrigger>{Trigger}</PopoverTrigger>
         <PopoverContent>
           <span className="max-w-60 p-2 text-primary">{content}</span>
