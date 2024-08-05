@@ -1,9 +1,8 @@
 ---
-import { getEntry } from 'astro:content';
 import RootLayout from '../../layouts/RootLayout.astro';
 import Tags from '../../components/Tags.astro';
 import Divider from '../../components/ui/Divider.astro';
-import Drawer from '../../components/ui/Drawer.tsx';
+import TOCModal from '../../components/ui/TOCModal.tsx';
 import SocialsShare from '../../components/ui/SocialsShare.tsx';
 import './article-styles.css';
 import ScrollProgress from '../../components/ScrollProgress.astro';
@@ -53,6 +52,7 @@ const currentPath = Astro.url.origin + Astro.url.pathname;
     z-index: -1;
   }
 </style>
+
 <RootLayout pageTitle={title}>
   <ScrollProgress />
   <div class="container mx-auto p-4 z-0 relative gradient-top">
@@ -66,6 +66,7 @@ const currentPath = Astro.url.origin + Astro.url.pathname;
           <SocialsShare url={currentPath} client:only="react" />
         </div>
 
+        <!-- This is a placeholder for sticky sidebar -->
         <div></div>
       </div>
 
@@ -81,13 +82,13 @@ const currentPath = Astro.url.origin + Astro.url.pathname;
     </div>
   </div>
 
-  <Drawer client:only="react">
+  <TOCModal client:only="react">
     <TableOfContentsReact client:only="react" />
     <Divider />
     <AuthorCard author={author} authorImage={authorImage} />
     <DateCard date={pubDate} />
     <SocialsShare url={currentPath} client:only="react" />
-  </Drawer>
+  </TOCModal>
 </RootLayout>
 
 <script src="../../scripts/articleCopyCode.ts"></script>

@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useRef } from 'react';
 import { useHeadings } from '../hooks/useHeadings';
 import { useSectionIdInView } from '../hooks/useSectionIdInView';
 import { ScrollShadow } from '@nextui-org/react';
+import { isTocModalOpen } from 'src/stores/modalsStore';
 
 function TableOfContentsReact() {
   const { h2sAndH3s } = useHeadings();
@@ -28,6 +29,7 @@ function TableOfContentsReact() {
               className={`${isInView(h2.id) ? 'text-accent' : ''} break-words`}
               href={`#${h2.id}`}
               {...(isInView(h2.id) && { ref: inViewRefItem })}
+              onClick={() => isTocModalOpen.set(false)}
             >
               {h2.text}
             </a>
