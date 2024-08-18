@@ -4,18 +4,33 @@ import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import ArticleCard from '../components/cards/ArticleCard.astro';
 import HomeHero from 'src/components/HomeHero.astro';
-import HomeCircles from 'src/components/HomeCircles.astro';
+import ArticleGroupCard from 'src/components/cards/ArticleGroupCard.astro';
 
-const allBlogArticles: CollectionEntry<'blog'>[] = (
-  await getCollection('blog')
-).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const allBlogArticles: CollectionEntry<'blog'>[] = await getCollection('blog');
 ---
-<RootLayout pageTitle="Blog">
+
+<RootLayout pageTitle="All things Frontend - UI - UX">
   <HomeHero />
 
-  <div class="flex gap-8 items-center justify-center pt-20">
-    <ul class="flex gap-16 items-center justify-center flex-wrap">
-      {allBlogArticles.map(article => <ArticleCard article={article} />)}
-    </ul>
+  <div class="container mx-auto">
+    <div class="flex gap-8 items-center mt-20 relative mx-4">
+      <ul
+        class="flex gap-16 overflow-x-auto items-center"
+      >
+        <div
+          class="absolute top-0 bottom-0 left-0 w-2 bg-gradient-to-b from-secondary to-primary z-20"
+        >
+        </div>
+        <div
+          class="absolute top-0 bottom-0 right-0 w-2 bg-gradient-to-b from-primary to-secondary z-20"
+        >
+        </div>
+        <ArticleGroupCard
+          title="Popular articles"
+          description="Most viewed articles"
+        />
+        {allBlogArticles.map(article => <ArticleCard article={article} />)}
+      </ul>
+    </div>
   </div>
 </RootLayout>

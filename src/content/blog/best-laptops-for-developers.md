@@ -2,7 +2,7 @@
 title: 'The best laptops for developers in 2024'
 pubDate: 2023-01-20
 author: 'Andrej Forgac'
-authorImage: 'andrej.jpeg'
+authorImage: 'andrej.webp'
 image: 'image1.webp'
 tags: ['react', 'typescript']
 slug: the-best-laptops-for-developers-in-2024

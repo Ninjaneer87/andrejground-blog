@@ -11,8 +11,8 @@ type Props = {
 const { article } = Astro.props;
 ---
 
-<div
-  class="rounded-2xl max-w-[300px] flex grow flex-col justify-center shadow-[35px_35px_100px_-15px_rgba(0,0,0,0.1)] shadow-foreground/10 bg-background/50"
+<li
+  class="rounded-2xl max-w-[300px] flex grow flex-col justify-center bg-background/50 z-10 shrink-0"
   transition:name={article.data.title}
 >
   <div
@@ -38,4 +38,4 @@ const { article } = Astro.props;
       <DateCard date={article.data.pubDate} />
     </div>
   </div>
-</div>
+</li>

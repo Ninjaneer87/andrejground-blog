@@ -1,10 +1,10 @@
-<div class="fixed top-0 left-0 right-0 h-[3px] bg-transparent z-50 w-full">
+<div class="fixed top-0 left-0 right-0 h-[5px] bg-transparent z-50 w-full">
   <div
     id="progress-bar"
-    class="h-full w-screen bg-accent -translate-x-full transition-all ease-linear flex justify-end rounded-full"
+    class="h-full w-screen bg-accent -translate-x-full transform-gpu ease-linear flex justify-end rounded-full"
   >
     <div
-      class="shadow-[0px_0px_50px_10px_rgba(0,0,0,0.1)] shadow-accent animate-spin"
+      class="shadow-[0px_0px_80px_30px_rgba(0,0,0,0.1)] shadow-accent"
     >
     </div>
   </div>
@@ -12,8 +12,8 @@
 
 <script>
   document.addEventListener('astro:page-load', () => {
-    const clientHeight = document.documentElement.clientHeight;
-    const scrollHeight = document.documentElement.scrollHeight - clientHeight;
+    let clientHeight = document.documentElement.clientHeight;
+    let scrollHeight = document.documentElement.scrollHeight - clientHeight;
     const progress = document.querySelector(
       '#progress-bar',
     ) as HTMLElement | null;
@@ -28,12 +28,19 @@
     }
 
     function onScroll() {
+      console.log("onScroll called")
       if (!scheduledAnimationFrame) {
         scheduledAnimationFrame = true;
         requestAnimationFrame(updateScrollProgress);
       }
     }
 
+    function onResize() {
+      clientHeight = document.documentElement.clientHeight;
+      scrollHeight = document.documentElement.scrollHeight - clientHeight;
+    }
+
     window.addEventListener('scroll', onScroll);
+    window.addEventListener('resize', onResize);
   });
 </script>

@@ -31,6 +31,25 @@
     --input: var(--cyan-dark-accent);
     --ring: var(--foreground);
   }
+
+  h1 {
+    font-size: clamp(2.25rem, 5vw, 3.75rem);
+  }
+  h2 {
+    font-size: clamp(1.75rem, 5vw, 2.25rem);
+  }
+  h3 {
+    font-size: clamp(1.5rem, 5vw, 1.75rem);
+  }
+  h4 {
+    font-size: clamp(1.25rem, 5vw, 1.5rem);
+  }
+  h5 {
+    font-size: clamp(1rem, 5vw, 1.25rem);
+  }
+  h6 {
+    font-size: 1rem;
+  }
 }
 @layer components {
   .bg-glass {

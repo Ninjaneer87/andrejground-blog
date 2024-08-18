@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+
 type Props = {
   author: string;
   authorImage: string;
@@ -8,6 +10,12 @@ const { author, authorImage } = Astro.props;
 ---
 
 <div class="flex gap-2 items-center">
-  <img class="rounded-full w-8 h-8" src=`/images/${authorImage}` alt={author} />
+  <Image
+    class="rounded-full"
+    src=`/images/${authorImage}`
+    alt={author}
+    width={32}
+    height={32}
+  />
   <div>{author}</div>
 </div>
