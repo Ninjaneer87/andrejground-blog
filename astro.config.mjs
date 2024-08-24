@@ -25,8 +25,8 @@ export default defineConfig({
   image: {
     service: passthroughImageService(),
   },
-  output: 'static',
-  // adapter: vercelServerless(),
+  output: 'hybrid',
+  adapter: vercelServerless(),
   markdown: {
     rehypePlugins: [sectionize],
   },

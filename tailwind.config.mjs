@@ -13,7 +13,10 @@ export default {
         border: 'rgb(var(--border) / <alpha-value>)',
         input: 'rgb(var(--input) / <alpha-value>)',
         ring: 'rgb(var(--ring) / <alpha-value>)',
-        background: 'rgb(var(--background) / <alpha-value>)',
+        background: {
+          DEFAULT: 'rgb(var(--background) / <alpha-value>)',
+          foreground: 'rgb(var(--primary-foreground) / <alpha-value>)',
+        },
         foreground: 'rgb(var(--foreground) / <alpha-value>)',
         'cyan-accent': 'rgb(var(--cyan-accent) / <alpha-value>)',
         'orange-accent': 'rgb(var(--orange-accent) / <alpha-value>)',

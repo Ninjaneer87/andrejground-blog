@@ -1,18 +1,73 @@
 ---
+export const prerender = false;
+
 import RootLayout from '../../layouts/RootLayout.astro';
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import ArticleCard from '../../components/cards/ArticleCard.astro';
+import Filters from '../../components/Filters.tsx';
+
+const query = Astro.url.searchParams.get('q');
+const appliedTags = Astro.url.searchParams.getAll('tag');
 
 const allBlogArticles: CollectionEntry<'blog'>[] = (
   await getCollection('blog')
 ).sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
+
+const uniqueTags = [
+  ...new Set<string>(allBlogArticles.flatMap(article => article.data.tags)),
+];
+
+let filteredArticles = allBlogArticles;
+
+if (appliedTags.length > 0) {
+  filteredArticles = filteredArticles.filter(article => {
+    return appliedTags.some(tag => article.data.tags.includes(tag));
+  });
+}
+
+if (query) {
+  filteredArticles = filteredArticles.filter(article => {
+    const titleMatch = article.data.title
+      .toLowerCase()
+      .includes(query.toLowerCase());
+    const bodyMatch = article.body.toLowerCase().includes(query.toLowerCase());
+    const tagMatch = article.data.tags.some(tag =>
+      tag.toLowerCase().includes(query.toLowerCase()),
+    );
+    const slugMatch = article.slug.toLowerCase().includes(query.toLowerCase());
+
+    return titleMatch || bodyMatch || tagMatch || slugMatch;
+  });
+}
+
+const noFiltersApplied = appliedTags.length === 0 && !query;
+const noSearchResults = !noFiltersApplied && filteredArticles.length === 0;
 ---
 
 <RootLayout pageTitle="Articles">
-  <div class="flex gap-8 items-center justify-center pt-20">
+  <div class="container mx-auto flex max-md:flex-col gap-8 pt-20 p-4">
+    <div>
+      <div class="md:sticky md:top-[200px] md:w-[320px] max-w-full">
+        <Filters
+          client:load
+          tags={uniqueTags}
+          appliedTags={appliedTags}
+          searchQuery={query || ''}
+          noFiltersApplied={noFiltersApplied}
+        />
+      </div>
+      <div></div>
+    </div>
     <ul class="flex gap-16 items-center justify-center flex-wrap">
-      {allBlogArticles.map(article => <ArticleCard article={article} />)}
+      {filteredArticles.map(article => <ArticleCard article={article} />)}
     </ul>
+    {
+      noSearchResults && (
+        <div class="text-center text-2xl text-accent">
+          No articles found matching these filters
+        </div>
+      )
+    }
   </div>
 </RootLayout>

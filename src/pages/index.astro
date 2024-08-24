@@ -26,8 +26,8 @@ const allBlogArticles: CollectionEntry<'blog'>[] = await getCollection('blog');
         >
         </div>
         <ArticleGroupCard
-          title="Popular articles"
-          description="Most viewed articles"
+          title="Latest articles"
+          description="See what has been cooking lately"
         />
         {allBlogArticles.map(article => <ArticleCard article={article} />)}
       </ul>
