@@ -9,13 +9,18 @@ import Filters from '../../components/Filters.tsx';
 
 const query = Astro.url.searchParams.get('q');
 const appliedTags = Astro.url.searchParams.getAll('tag');
+const appliedAuthors = Astro.url.searchParams.getAll('author');
 
-const allBlogArticles: CollectionEntry<'blog'>[] = (
-  await getCollection('blog')
-).sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
+const allBlogArticles: CollectionEntry<'blog'>[] = (await getCollection('blog'))
+  .filter(entry => !entry.data.isDraft)
+  .sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
 
 const uniqueTags = [
   ...new Set<string>(allBlogArticles.flatMap(article => article.data.tags)),
+];
+
+const uniqueAuthors = [
+  ...new Set<string>(allBlogArticles.map(article => article.data.author)),
 ];
 
 let filteredArticles = allBlogArticles;
@@ -23,6 +28,12 @@ let filteredArticles = allBlogArticles;
 if (appliedTags.length > 0) {
   filteredArticles = filteredArticles.filter(article => {
     return appliedTags.some(tag => article.data.tags.includes(tag));
+  });
+}
+
+if (appliedAuthors.length > 0) {
+  filteredArticles = filteredArticles.filter(article => {
+    return appliedAuthors.includes(article.data.author);
   });
 }
 
@@ -41,7 +52,8 @@ if (query) {
   });
 }
 
-const noFiltersApplied = appliedTags.length === 0 && !query;
+const noFiltersApplied =
+  appliedTags.length === 0 && !query && appliedAuthors.length === 0;
 const noSearchResults = !noFiltersApplied && filteredArticles.length === 0;
 ---
 
@@ -53,6 +65,8 @@ const noSearchResults = !noFiltersApplied && filteredArticles.length === 0;
           client:load
           tags={uniqueTags}
           appliedTags={appliedTags}
+          authors={uniqueAuthors}
+          appliedAuthors={appliedAuthors}
           searchQuery={query || ''}
           noFiltersApplied={noFiltersApplied}
         />

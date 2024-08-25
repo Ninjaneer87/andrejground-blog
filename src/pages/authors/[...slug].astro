@@ -1,0 +1,68 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import ArticleCard from 'src/components/cards/ArticleCard.astro';
+import SocialLinkCard from 'src/components/cards/SocialLinkCard.astro';
+import Divider from 'src/components/ui/Divider.astro';
+import RootLayout from 'src/layouts/RootLayout.astro';
+import { AUTHORS } from 'src/utils/config';
+
+export async function getStaticPaths() {
+  const allBlogArticles: CollectionEntry<'blog'>[] = (
+    await getCollection('blog')
+  ).filter(entry => !entry.data.isDraft);
+
+  return allBlogArticles.map(entry => ({
+    params: { slug: entry.data.author },
+    props: { author: AUTHORS[entry.data.author as keyof typeof AUTHORS] },
+  }));
+}
+
+const { author } = Astro.props;
+if (!author) {
+  return Astro.redirect('/404');
+}
+
+const authorArticles: CollectionEntry<'blog'>[] = (await getCollection('blog'))
+  .filter(
+    article => article.data.author === author.slug && !article.data.isDraft,
+  )
+  .sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
+
+const { description, image, name, position, socialLinks } = author;
+---
+
+<RootLayout pageTitle=`Authors | ${name}`>
+  <div class="container mx-auto p-4 pt-16">
+    <div class="flex flex-wrap justify-between max-lg:justify-around">
+      <div class="flex gap-16 flex-wrap items-start max-lg:justify-around">
+        <Image
+          class="rounded-full mb-4"
+          src=`/images/${image}`
+          alt={name}
+          width={200}
+          height={200}
+        />
+        <div class="p-4 rounded-2xl">
+          <div class="font-thin italic">Articles by</div>
+          <h1 class="font-thin">{name}</h1>
+          <div class="opacity-70 flex flex-col gap-2">
+            <div>{position}</div>
+            <div>{description}</div>
+          </div>
+        </div>
+      </div>
+
+      <ul class="flex flex-wrap gap-4">
+        {socialLinks.map(link => <SocialLinkCard {...link} />)}
+      </ul>
+    </div>
+
+    <Divider />
+
+    <ul class="flex gap-16 items-center flex-wrap">
+      {authorArticles.map(article => <ArticleCard article={article} />)}
+    </ul>
+  </div>
+</RootLayout>

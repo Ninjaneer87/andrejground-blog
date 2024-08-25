@@ -1,14 +1,25 @@
 import React from 'react';
 import { Input } from '@nextui-org/react';
 import TagFilterChip from './TagFilterChip';
+import AuthorFilterCard from './cards/AuthorFilterCard';
+import type { AuthorSlugs } from 'src/utils/config';
 
 type Props = {
   tags: string[];
   appliedTags: string[];
+  authors: string[];
+  appliedAuthors: string[];
   searchQuery: string;
   noFiltersApplied: boolean;
 };
-function Filters({ tags, appliedTags, searchQuery, noFiltersApplied }: Props) {
+function Filters({
+  tags,
+  appliedTags,
+  searchQuery,
+  noFiltersApplied,
+  authors,
+  appliedAuthors,
+}: Props) {
   return (
     <form action="/articles" className="flex flex-col gap-8">
       <fieldset>
@@ -18,6 +29,10 @@ function Filters({ tags, appliedTags, searchQuery, noFiltersApplied }: Props) {
           defaultValue={searchQuery || undefined}
           color="secondary"
           type="text"
+          autoComplete="off"
+          autoCorrect=""
+          spellCheck={false}
+          className="text-accent placeholder:text-foreground/45"
           name="q"
           id="q"
           placeholder="Search titles and content..."
@@ -25,13 +40,25 @@ function Filters({ tags, appliedTags, searchQuery, noFiltersApplied }: Props) {
       </fieldset>
 
       <fieldset>
-        <h3 className="font-thin mb-2">Tags</h3>
+        <h3 className="font-thin mb-2">Topics</h3>
         <div className="flex flex-wrap gap-2">
           {tags.map(tag => (
             <TagFilterChip
               key={tag}
               tag={tag}
               isApplied={appliedTags.includes(tag)}
+            />
+          ))}
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <h3 className="font-thin mb-2">Authors</h3>
+        <div className="flex flex-wrap gap-2">
+          {authors.map(author => (
+            <AuthorFilterCard
+              author={author}
+              isApplied={appliedAuthors.includes(author)}
             />
           ))}
         </div>
@@ -47,6 +74,7 @@ function Filters({ tags, appliedTags, searchQuery, noFiltersApplied }: Props) {
         <a
           className={`border-secondary border bg-background rounded-2xl p-4 ${noFiltersApplied ? 'opacity-50 pointer-events-none cursor-not-allowed' : ''}`}
           href="/articles"
+          tabIndex={noFiltersApplied ? -1 : 0}
         >
           Clear
         </a>

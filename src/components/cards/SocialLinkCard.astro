@@ -8,12 +8,13 @@ type Props = {
   linkText: string;
   href: string;
   isExternalLink?: boolean;
+  copyValue: string;
 };
 
-const { icon, linkText, href, isExternalLink, title } = Astro.props;
+const { icon, linkText, href, isExternalLink, title, copyValue } = Astro.props;
 ---
 
-<div class="flex flex-col gap-1 bg-glass p-4 rounded-2xl w-96 max-w-full">
+<li class="flex flex-col gap-1 bg-glass p-4 rounded-2xl w-96 max-w-full">
   <div class="flex gap-2 items-center">
     <Icon name={icon} class="text-2xl" />
     {title}
@@ -25,6 +26,6 @@ const { icon, linkText, href, isExternalLink, title } = Astro.props;
       target={isExternalLink ? '_blank' : '_self'}
       rel={isExternalLink ? 'noopener noreferrer' : ''}>{linkText}</a
     >
-    <ClipboardCopy client:only text={href} />
+    <ClipboardCopy client:only text={copyValue} />
   </div>
-</div>
+</li>

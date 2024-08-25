@@ -1,21 +1,25 @@
 ---
 import { Image } from 'astro:assets';
+import { AUTHORS } from 'src/utils/config';
 
 type Props = {
   author: string;
-  authorImage: string;
 };
 
-const { author, authorImage } = Astro.props;
+const { author } = Astro.props;
+
+const authorObject = AUTHORS[author as keyof typeof AUTHORS];
+const authorImage = authorObject.image;
+const authorName = authorObject.name;
 ---
 
-<div class="flex gap-2 items-center">
+<a href=`/authors/${authorObject.slug}` class="flex gap-2 items-center">
   <Image
     class="rounded-full"
     src=`/images/${authorImage}`
-    alt={author}
+    alt={authorName}
     width={32}
     height={32}
   />
-  <div>{author}</div>
-</div>
+  <div>{authorName}</div>
+</a>

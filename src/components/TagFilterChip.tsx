@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCheckbox, Chip, VisuallyHidden, tv } from '@nextui-org/react';
+import { useCheckbox, VisuallyHidden } from '@nextui-org/react';
 
 type Props = {
   tag: string;

@@ -1,8 +1,8 @@
 ---
 title: 'The best laptops for developers in 2024'
+isDraft: false
 pubDate: 2023-01-20
-author: 'Andrej Forgac'
-authorImage: 'andrej.webp'
+author: 'andrej_forgac'
 image: 'image1.webp'
 tags: ['react', 'typescript']
 slug: the-best-laptops-for-developers-in-2024
@@ -23,7 +23,11 @@ The Dell XPS 17 combines power and portability. Its large, high-resolution displ
 Lenovo's ThinkPad series is renowned for its durability and performance. The ThinkPad X1 Carbon is no different. With a sleek design, a fantastic keyboard, and a long-lasting battery, it's an excellent choice for developers who need a reliable companion. It's available with both Intel and AMD processors to suit your preference.
 
 ```ts
-const mdx: string[] = ['cool']; const mdx: string[] = ['cool']; const mdx: string[] = ['cool']; const mdx: string[] = ['cool']; const mdx: string[] = ['cool'];
+const mdx: string[] = ['cool'];
+const mdx: string[] = ['cool'];
+const mdx: string[] = ['cool'];
+const mdx: string[] = ['cool'];
+const mdx: string[] = ['cool'];
 ```
 
 ```css

@@ -5,16 +5,15 @@ import Divider from './ui/Divider.astro';
 
 type Props = {
   author: string;
-  authorImage: string;
   pubDate: Date;
 };
 
-const { author, authorImage, pubDate } = Astro.props;
+const { author, pubDate } = Astro.props; 
 ---
 
 <ul class="flex flex-col gap-4 toc-list max-h-[50vh] overflow-y-auto"></ul>
 <Divider />
-<AuthorCard author={author} authorImage={authorImage} />
+<AuthorCard author={author} />
 <DateCard date={pubDate} />
 
 <script src="../scripts/articleTableOfContents.ts"></script>

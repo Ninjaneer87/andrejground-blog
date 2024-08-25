@@ -14,8 +14,9 @@ import { getCollection } from 'astro:content';
 import TableOfContentsSkeleton from 'src/components/skeletons/TableOfContentsSkeleton.astro';
 
 export async function getStaticPaths() {
-  const allBlogArticles: CollectionEntry<'blog'>[] =
-    await getCollection('blog');
+  const allBlogArticles: CollectionEntry<'blog'>[] = (
+    await getCollection('blog')
+  ).filter(entry => !entry.data.isDraft);
 
   return allBlogArticles.map(entry => ({
     params: { slug: entry.slug },
@@ -28,7 +29,7 @@ if (!entry) {
   return Astro.redirect('/404');
 }
 
-const { title, pubDate, author, authorImage, image, tags } = entry.data;
+const { title, pubDate, author, tags } = entry.data;
 
 const { Content } = await entry.render();
 const currentPath = Astro.url.origin + Astro.url.pathname;
@@ -64,7 +65,7 @@ const currentPath = Astro.url.origin + Astro.url.pathname;
             <TableOfContentsSkeleton slot="fallback" />
           </TableOfContentsReact>
           <Divider />
-          <AuthorCard author={author} authorImage={authorImage} />
+          <AuthorCard author={author} />
           <DateCard date={pubDate} />
           <SocialsShare url={currentPath} client:only="react" />
         </div>
@@ -88,7 +89,7 @@ const currentPath = Astro.url.origin + Astro.url.pathname;
   <TOCModal client:only="react">
     <TableOfContentsReact client:only="react" />
     <Divider />
-    <AuthorCard author={author} authorImage={authorImage} />
+    <AuthorCard author={author} />
     <DateCard date={pubDate} />
     <SocialsShare url={currentPath} client:only="react" />
   </TOCModal>

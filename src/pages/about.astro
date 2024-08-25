@@ -3,45 +3,10 @@ import { Image } from 'astro:assets';
 import RootLayout from '../layouts/RootLayout.astro';
 import SocialLinkCard from '../components/cards/SocialLinkCard.astro';
 import Divider from '../components/ui/Divider.astro';
-
-const SOCIAL_LINKS = [
-  {
-    icon: 'mdi:email-box',
-    title: 'Email',
-    linkText: 'contact@andrejground.com',
-    href: 'mailto:contact@andrejground.com',
-  },
-  {
-    icon: 'mdi:linkedin',
-    title: 'LinkedIn',
-    linkText: '@andrejforgac87',
-    href: 'https://www.linkedin.com/in/andrejforgac87',
-    isExternalLink: true,
-  },
-  {
-    icon: 'mdi:github',
-    title: 'Github',
-    linkText: '@Ninjaneer87',
-    href: 'https://github.com/Ninjaneer87',
-    isExternalLink: true,
-  },
-  {
-    icon: 'mdi:lightning-bolt',
-    title: 'StackBlitz',
-    linkText: '@Ninjaneer87',
-    href: 'https://stackblitz.com/@Ninjaneer87',
-    isExternalLink: true,
-  },
-  {
-    icon: 'mdi:twitter',
-    title: 'Twitter',
-    linkText: '@AndrejGround',
-    href: 'https://x.com/AndrejGround"',
-    isExternalLink: true,
-  },
-];
+import { AUTHORS } from 'src/utils/config';
 
 const yearsOfExperience = new Date().getFullYear() - 2020;
+const { socialLinks } = AUTHORS.andrej_forgac;
 ---
 
 <RootLayout pageTitle="About">
@@ -75,9 +40,9 @@ const yearsOfExperience = new Date().getFullYear() - 2020;
     <Divider />
 
     <div>
-      <div class="flex flex-wrap gap-4 mt-4 justify-evenly">
-        {SOCIAL_LINKS.map(link => <SocialLinkCard {...link} />)}
-      </div>
+      <ul class="flex flex-wrap gap-4 mt-4 justify-evenly">
+        {socialLinks.map(link => <SocialLinkCard {...link} />)}
+      </ul>
     </div>
   </div>
 </RootLayout>

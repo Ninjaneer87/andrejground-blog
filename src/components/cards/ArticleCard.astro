@@ -27,15 +27,15 @@ const { article } = Astro.props;
       </a>
 
       <Tags tags={article.data.tags} />
+
+      <hr
+        class="my-2 h-0.5 border-t-0 bg-gradient-to-r from-accent to-transparent w-full"
+      />
+      <DateCard date={article.data.pubDate} />
     </div>
 
     <div class="mt-auto flex flex-col gap-2">
-      <AuthorCard
-        author={article.data.author}
-        authorImage={article.data.authorImage}
-      />
-
-      <DateCard date={article.data.pubDate} />
+      <AuthorCard author={article.data.author} />
     </div>
   </div>
 </li>
