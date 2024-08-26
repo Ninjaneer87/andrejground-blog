@@ -19,14 +19,14 @@
   &::before {
     left: 2rem;
     background: rgb(var(--primary));
-    animation: spin 9s linear infinite;
-    -webkit-animation: spin 9s linear infinite;
+    /* animation: spin 9s linear infinite; */
+    /* -webkit-animation: spin 9s linear infinite; */
   }
   &::after {
     right: 2rem;
     background: rgb(var(--secondary));
-    animation: spin 18s linear infinite;
-    -webkit-animation: spin 18s linear infinite;
+    /* animation: spin 18s linear infinite; */
+    /* -webkit-animation: spin 18s linear infinite; */
   }
 }
 

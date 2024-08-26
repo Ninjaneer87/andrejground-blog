@@ -57,6 +57,7 @@ function Filters({
         <div className="flex flex-wrap gap-2">
           {authors.map(author => (
             <AuthorFilterCard
+              key={author}
               author={author}
               isApplied={appliedAuthors.includes(author)}
             />

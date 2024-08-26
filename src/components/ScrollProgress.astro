@@ -28,7 +28,6 @@
     }
 
     function onScroll() {
-      console.log("onScroll called")
       if (!scheduledAnimationFrame) {
         scheduledAnimationFrame = true;
         requestAnimationFrame(updateScrollProgress);
