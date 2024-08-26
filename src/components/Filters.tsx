@@ -23,7 +23,7 @@ function Filters({
   return (
     <form action="/articles" className="flex flex-col gap-8">
       <fieldset>
-        <h3 className="font-thin mb-2">Search</h3>
+        <h3 className="font-thin mb-2">Keywords</h3>
         <Input
           variant="underlined"
           defaultValue={searchQuery || undefined}
@@ -70,7 +70,7 @@ function Filters({
           className="border-secondary border grow bg-background rounded-2xl p-4"
           type="submit"
         >
-          Apply
+          Search
         </button>
         <a
           className={`border-secondary border bg-background rounded-2xl p-4 ${noFiltersApplied ? 'opacity-50 pointer-events-none cursor-not-allowed' : ''}`}
