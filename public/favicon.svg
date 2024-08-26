@@ -28,13 +28,13 @@
   >
   <style>
     @media (prefers-color-scheme: light) {
-       path { fill: rgb(19 33 172); }
-       path { fill: rgb(86 2 189); }
+       #path0 { fill: rgb(86 2 189); }
+       #path2 { fill: rgb(19 33 172); }
     }
 
     @media (prefers-color-scheme: dark) {
-       path { fill: rgb(255 255 255); }
-       path { fill: rgb(161 169 255); }
+       #path0 { fill: rgb(255 255 255); }
+       #path2 { fill: rgb(161 169 255); }
     }
   </style>
 </svg
