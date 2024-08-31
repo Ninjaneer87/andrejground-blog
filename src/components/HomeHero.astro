@@ -38,7 +38,7 @@ import PopularTags from './PopularTags.astro';
   <h2
     class="flex items-center whitespace-nowrap text-[clamp(1.3rem,_4vw,_3.5rem)]"
   >
-  Learn <Icon name="mdi:chevron-right" class="text-accent" /> Apply <Icon
+    Learn <Icon name="mdi:chevron-right" class="text-accent" /> Apply <Icon
       name="mdi:chevron-right"
       class="text-accent"
     /> Share <Icon name="mdi:chevron-right" class="text-accent" /> Repeat
@@ -63,6 +63,8 @@ import PopularTags from './PopularTags.astro';
 <script>
   document.addEventListener('astro:page-load', () => {
     let h = document.querySelector('h1')!;
+    if (!h) return;
+
     let p = h.getBoundingClientRect();
 
     document.body.onmousemove = function (e) {
