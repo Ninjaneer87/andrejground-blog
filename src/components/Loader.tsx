@@ -11,7 +11,7 @@ function Loader() {
       isIndeterminate
       color="secondary"
       aria-label="Page loading..."
-      className="fixed top-0 left-0 max-w-full w-full"
+      className="fixed top-0 left-0 max-w-full w-full z-50"
       classNames={{
         indicator: 'bg-secondary',
         base: 'bg-secondary',
