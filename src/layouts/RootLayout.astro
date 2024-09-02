@@ -5,7 +5,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/base.css';
 import '@fontsource-variable/montserrat';
-import HomeCircles from 'src/components/HomeCircles.astro';
+import BlurredCircles from 'src/components/BlurredCircles.astro';
 import Loader from 'src/components/Loader';
 
 type Props = {
@@ -60,7 +60,7 @@ const { pageTitle } = Astro.props;
     <Loader client:only />
 
     <main class="h-full grow z-0">
-      <HomeCircles />
+      <BlurredCircles />
       <slot />
     </main>
 

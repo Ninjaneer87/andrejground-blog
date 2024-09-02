@@ -30,16 +30,18 @@ function AuthorFilterCard({ author, isApplied }: Props) {
 
       <div
         {...getLabelProps()}
-        className={`flex flex-col rounded-xl gap-2 border-solid border-[1px] items-center ${isFocusVisible ? 'border-secondary' : 'border-transparent'}`}
+        className={`flex flex-col rounded-xl gap-2 border-solid border-[1px] items-center max-w-24 justify-center ${isFocusVisible ? 'border-secondary' : 'border-transparent'}`}
       >
         <img
           className={`rounded-full ${isSelected ? '' : 'grayscale'}`}
           src={`/images/${authorObject.image}`}
-          alt={authorObject.name}
+          alt={`Author: ${authorObject.name}`}
           width={40}
           height={40}
         />
-        <div className={`text-xs ${isSelected ? 'text-accent' : ''}`}>
+        <div
+          className={`text-xs text-center ${isSelected ? 'text-accent' : ''}`}
+        >
           {authorObject.name}
         </div>
       </div>

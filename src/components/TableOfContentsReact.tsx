@@ -40,7 +40,7 @@ function TableOfContentsReact() {
   return (
     <ScrollShadow
       as="ul"
-      className="flex flex-col gap-4 toc-list max-h-[50vh] pr-1 pb-10 scroll-pb-10"
+      className="flex flex-col gap-4 toc-list max-h-[50vh] pr-1 pb-10 scroll-py-10 text-sm"
     >
       {h2sAndH3s.map(({ h2, h3s }) => (
         <Fragment key={h2.id}>
