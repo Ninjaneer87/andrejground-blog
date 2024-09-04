@@ -26,6 +26,6 @@ const { icon, linkText, href, isExternalLink, title, copyValue } = Astro.props;
       target={isExternalLink ? '_blank' : '_self'}
       rel={isExternalLink ? 'noopener noreferrer' : ''}>{linkText}</a
     >
-    <ClipboardCopy client:only text={copyValue} />
+    <ClipboardCopy client:only="react" text={copyValue} />
   </div>
 </li>

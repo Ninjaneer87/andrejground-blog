@@ -4,12 +4,17 @@ import { useSectionIdInView } from '../hooks/useSectionIdInView';
 import { ScrollShadow } from '@nextui-org/react';
 import { isTocModalOpen } from 'src/stores/globalStore';
 import { useStore } from '@nanostores/react';
+import classes from './TableOfContentsReact.module.css';
+import useFloatingBox from 'src/hooks/useFloatingBox';
 
 function TableOfContentsReact() {
-  const { h2sAndH3s } = useHeadings();
+  const { h2sAndH3s, allHeadings } = useHeadings();
   const { idInView } = useSectionIdInView();
   const inViewElement = useRef<HTMLAnchorElement | null>(null);
   const $isModalOpen = useStore(isTocModalOpen);
+
+  const { activeElementRef, allElementsRef, boxSizeAndPosition } =
+    useFloatingBox({ activeItem: idInView, remapObserver: h2sAndH3s });
 
   useEffect(() => {
     if (!idInView) return;
@@ -37,18 +42,30 @@ function TableOfContentsReact() {
     return id === idInView;
   }
 
+  console.log({ boxSizeAndPosition, idInView });
   return (
     <ScrollShadow
       as="ul"
-      className="flex flex-col gap-4 toc-list max-h-[50vh] pr-1 pb-10 scroll-py-10 text-sm"
+      className={`flex flex-col toc-list max-h-[50vh] pr-1 pb-10 scroll-py-10 text-sm z-0 ${classes.list}`}
+      style={boxSizeAndPosition}
     >
       {h2sAndH3s.map(({ h2, h3s }) => (
         <Fragment key={h2.id}>
           <li>
             <a
-              className={`${isInView(h2.id) ? 'text-accent' : ''} break-words`}
+              className={`py-2 break-words`}
               href={`#${h2.id}`}
-              {...(isInView(h2.id) && { ref: inViewElement })}
+              data-key={h2.id}
+              ref={node => {
+                if (!node) return;
+
+                allElementsRef.current[h2.id] = node;
+
+                if (isInView(h2.id)) {
+                  activeElementRef.current = node;
+                  inViewElement.current = node;
+                }
+              }}
               onClick={() => isTocModalOpen.set(false)}
             >
               {h2.text}
@@ -57,11 +74,19 @@ function TableOfContentsReact() {
           {h3s.map(h3 => (
             <li key={h3.id}>
               <a
-                className={`${
-                  isInView(h3.id) ? 'text-accent' : ''
-                } break-words pl-4`}
+                className={`break-words pl-4 py-2`}
                 href={`#${h3.id}`}
-                {...(isInView(h3.id) && { ref: inViewElement })}
+                data-key={h3.id}
+                ref={node => {
+                  if (!node) return;
+
+                  allElementsRef.current[h3.id] = node;
+
+                  if (isInView(h3.id)) {
+                    activeElementRef.current = node;
+                    inViewElement.current = node;
+                  }
+                }}
                 onClick={() => isTocModalOpen.set(false)}
               >
                 {h3.text}

@@ -1,0 +1,35 @@
+/* Floating box container */
+.list {
+  /* Required */
+  position: relative; /* recommended - not required */
+}
+
+/* The floating box */
+.list::after {
+  /* Required */
+  content: '';
+  position: absolute;
+  transform: translate(var(--x, 0), var(--y, -200px));
+  width: var(--width, 0);
+  height: var(--height, 0);
+  height: 0;
+  z-index: -1;
+  transition: all 250ms ease;
+  inset: 0; /* or top-right-bottom-left of choice */
+  top: 70%;
+  transform-origin: center;
+
+  /* border-right: 2px solid rgb(var(--accent)); */
+  border-bottom: 2px solid rgb(var(--accent));
+
+  /* Optional */
+  /* background-color: rgb(var(--secondary)); */
+  /* background: linear-gradient(
+    0deg,
+    rgb(var(--secondary)) -30%,
+    transparent 60.1%,
+    transparent 0
+  ); */
+  box-shadow: 0px 0px 30px 10px rgb(var(--secondary))
+  /* border-radius: 6px; */
+}

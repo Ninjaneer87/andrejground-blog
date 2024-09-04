@@ -57,7 +57,7 @@ const { pageTitle } = Astro.props;
     class="bg-gradient-to-b from-background to-card text-foreground min-h-screen flex flex-col font-montserrat overflow-x-hidden"
   >
     <Header />
-    <Loader client:only />
+    <Loader client:only="react" />
 
     <main class="h-full grow z-0">
       <BlurredCircles />
