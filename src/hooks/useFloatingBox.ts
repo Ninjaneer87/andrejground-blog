@@ -80,16 +80,13 @@ export default function useFloatingBox<ItemElement extends HTMLElement>({
   const activeElementRef: MutableRefObject<ItemElement | null> = useRef(null);
 
   const setActivePosition = useCallback(() => {
-    console.log('setActivePosition called');
     const activeItemPosition = itemPositionsMap.get(activeItem);
-    console.log({ activeItem });
     if (!activeItemPosition) return;
 
     setBoxSizeAndPosition(activeItemPosition);
   }, [activeItem]);
 
   const mapAndSetActivePosition = useCallback(() => {
-    console.log({ allElementsRef: allElementsRef.current });
     if (!allElementsRef.current) return;
 
     const allItems = Object.values(allElementsRef.current);

@@ -8,7 +8,7 @@ import classes from './TableOfContentsReact.module.css';
 import useFloatingBox from 'src/hooks/useFloatingBox';
 
 function TableOfContentsReact() {
-  const { h2sAndH3s, allHeadings } = useHeadings();
+  const { h2sAndH3s } = useHeadings();
   const { idInView } = useSectionIdInView();
   const inViewElement = useRef<HTMLAnchorElement | null>(null);
   const $isModalOpen = useStore(isTocModalOpen);
@@ -42,12 +42,11 @@ function TableOfContentsReact() {
     return id === idInView;
   }
 
-  console.log({ boxSizeAndPosition, idInView });
   return (
     <ScrollShadow
       as="ul"
       className={`flex flex-col toc-list max-h-[50vh] pr-1 pb-10 scroll-py-10 text-sm z-0 ${classes.list}`}
-      style={boxSizeAndPosition}
+      style={idInView ? boxSizeAndPosition : {}}
     >
       {h2sAndH3s.map(({ h2, h3s }) => (
         <Fragment key={h2.id}>
