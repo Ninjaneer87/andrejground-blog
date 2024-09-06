@@ -2,7 +2,6 @@ import React from 'react';
 import { Input } from '@nextui-org/react';
 import TagFilterChip from './TagFilterChip';
 import AuthorFilterCard from './cards/AuthorFilterCard';
-import type { AuthorSlugs } from 'src/utils/config';
 
 type Props = {
   tags: string[];

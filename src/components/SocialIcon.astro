@@ -1,0 +1,26 @@
+---
+import { Icon } from 'astro-icon/components';
+import TwitterIcon from './TwitterIcon.astro';
+import type { SocialPlatform } from 'src/constants';
+
+type Props = {
+  platform: SocialPlatform;
+  classes?: string;
+};
+
+const { platform, classes = '' } = Astro.props;
+
+const isTwitter = platform === 'twitter';
+const isGithub = platform === 'github';
+const isLinkedin = platform === 'linkedin';
+const isEmail = platform === 'email';
+const isWebsite = platform === 'website';
+const isStackblitz = platform === 'stackblitz';
+---
+
+{isTwitter && <TwitterIcon classes={classes} />}
+{isGithub && <Icon name="mdi:github" class={classes} />}
+{isLinkedin && <Icon name="mdi:linkedin" class={classes} />}
+{isEmail && <Icon name="mdi:email-box" class={classes} />}
+{isWebsite && <Icon name="mdi:web" class={classes} />}
+{isStackblitz && <Icon name="mdi:lightning-bolt" class={classes} />}

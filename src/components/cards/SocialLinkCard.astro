@@ -1,9 +1,10 @@
 ---
-import { Icon } from 'astro-icon/components';
 import ClipboardCopy from '../ui/ClipboardCopy';
+import SocialIcon from '../SocialIcon.astro';
+import type { SocialPlatform } from 'src/constants';
 
 type Props = {
-  icon: string;
+  platform: SocialPlatform;
   title: string;
   linkText: string;
   href: string;
@@ -11,12 +12,13 @@ type Props = {
   copyValue: string;
 };
 
-const { icon, linkText, href, isExternalLink, title, copyValue } = Astro.props;
+const { platform, linkText, href, isExternalLink, title, copyValue } =
+  Astro.props;
 ---
 
 <li class="flex flex-col gap-1 bg-glass p-4 rounded-2xl w-96 max-w-full">
   <div class="flex gap-2 items-center">
-    <Icon name={icon} class="text-2xl" />
+    <SocialIcon platform={platform} classes='text-2xl'/>
     {title}
   </div>
   <div class="flex gap-1 items-center">

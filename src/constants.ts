@@ -1,5 +1,135 @@
-export const SITE_TITLE = 'AndrejGround';
-export const SITE_DESCRIPTION =
-  'A blog about software development and career growth.';
-export const HOMEPAGE_ARTICLE_LIMIT = 6;
-export const ARTICLES_PER_PAGE = 12;
+export const WORK_HISTORY = [
+  {
+    position: 'Frontend developer - contract',
+    company: 'Probely',
+    href: 'https://probely.com',
+    duration: 'Mar 2023 - Present',
+    description: 'Cybersecurity DAST tool',
+    isOngoing: true,
+    companyLocation: 'Portugal',
+    technologies: [
+      'React',
+      'TypeScript',
+      'JavaScript',
+      'Redux',
+      'Redux Saga',
+      'Styled Components',
+      'Cypress',
+      'Next JS',
+    ],
+  },
+  {
+    position: 'Frontend developer - contract',
+    company: 'Single Earth',
+    href: 'https://single.earth',
+    duration: 'Oct 2021 - Oct 2022',
+    description: 'Bridging nature and finance, climate and biodiversity',
+    isOngoing: false,
+    companyLocation: 'Estonia',
+    technologies: ['Angular', 'TypeScript', 'RxJS', 'Jest', 'Sass'],
+  },
+  {
+    position: 'Frontend developer - contract',
+    company: 'ApaOne',
+    href: 'https://apaone.com',
+    duration: 'Aug 2019 - Jul 2021',
+    description: 'Digital marketing agency and web solutions',
+    isOngoing: false,
+    companyLocation: 'Serbia',
+    technologies: [
+      'HTML',
+      'CSS',
+      'JavaScript',
+      'React',
+      'Material UI',
+      'Redux',
+      'Redux Saga',
+      'PHP',
+      'MySQL',
+    ],
+  },
+];
+
+export type SocialPlatform =
+  | 'twitter'
+  | 'github'
+  | 'linkedin'
+  | 'email'
+  | 'website'
+  | 'stackblitz';
+
+export type Author = {
+  slug: string;
+  name: string;
+  image: string;
+  position: string;
+  description: string;
+  socialLinks: {
+    platform: SocialPlatform;
+    title: string;
+    linkText: string;
+    href: string;
+    copyValue: string;
+    isExternalLink?: boolean;
+  }[];
+};
+
+export type Authors = Record<string, Author>;
+
+export const AUTHORS: Authors = {
+  andrej_forgac: {
+    slug: 'andrej_forgac',
+    name: 'Andrej Forgac',
+    image: 'andrej.webp',
+    position: 'Frontend Developer',
+    description: 'UI/UX enthusiast',
+    socialLinks: [
+      {
+        platform: 'website',
+        title: 'Website',
+        linkText: 'andrejground.com',
+        href: 'https://andrejground.com',
+        copyValue: 'https://andrejground.com',
+      },
+      {
+        platform: 'email',
+        title: 'Email',
+        linkText: 'contact@andrejground.com',
+        href: 'mailto:contact@andrejground.com',
+        copyValue: 'contact@andrejground.com',
+      },
+      {
+        platform: 'linkedin',
+        title: 'LinkedIn',
+        linkText: '@andrejforgac87',
+        href: 'https://www.linkedin.com/in/andrejforgac87',
+        copyValue: 'https://www.linkedin.com/in/andrejforgac87',
+        isExternalLink: true,
+      },
+      {
+        platform: 'github',
+        title: 'Github',
+        linkText: '@Ninjaneer87',
+        href: 'https://github.com/Ninjaneer87',
+        copyValue: 'https://github.com/Ninjaneer87',
+        isExternalLink: true,
+      },
+      {
+        platform: 'stackblitz',
+        title: 'StackBlitz',
+        linkText: '@Ninjaneer87',
+        href: 'https://stackblitz.com/@Ninjaneer87',
+        copyValue: 'https://stackblitz.com/@Ninjaneer87',
+        isExternalLink: true,
+      },
+      {
+        platform: 'twitter',
+        title: 'X (Twitter)',
+        linkText: '@AndrejGround',
+        href: 'https://x.com/AndrejGround"',
+        copyValue: 'https://x.com/AndrejGround"',
+        isExternalLink: true,
+      },
+    ],
+  },
+} as const;

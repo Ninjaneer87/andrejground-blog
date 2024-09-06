@@ -3,8 +3,8 @@ import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 import Divider from 'src/components/ui/Divider.astro';
+import { AUTHORS } from 'src/constants';
 import RootLayout from 'src/layouts/RootLayout.astro';
-import { AUTHORS } from 'src/utils/config';
 
 const allBlogArticles: CollectionEntry<'blog'>[] = (
   await getCollection('blog')
@@ -14,7 +14,7 @@ const authorSlugs = [
   ...new Set<string>(allBlogArticles.map(article => article.data.author)),
 ];
 
-const authors = authorSlugs.map(slug => AUTHORS[slug as keyof typeof AUTHORS]);
+const authors = authorSlugs.map(slug => AUTHORS[slug]);
 ---
 
 <RootLayout pageTitle="Authors">

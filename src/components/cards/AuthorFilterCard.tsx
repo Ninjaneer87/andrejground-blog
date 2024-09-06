@@ -1,14 +1,13 @@
-import { useCheckbox, VisuallyHidden } from '@nextui-org/react';
-import { Image } from 'astro:assets';
 import React from 'react';
-import { AUTHORS } from 'src/utils/config';
+import { useCheckbox, VisuallyHidden } from '@nextui-org/react';
+import { AUTHORS } from 'src/constants';
 
 type Props = {
   author: string;
   isApplied: boolean;
 };
 function AuthorFilterCard({ author, isApplied }: Props) {
-  const authorObject = AUTHORS[author as keyof typeof AUTHORS];
+  const authorObject = AUTHORS[author];
 
   const {
     isSelected,

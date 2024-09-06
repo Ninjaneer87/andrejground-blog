@@ -5,8 +5,8 @@ import { getCollection } from 'astro:content';
 import ArticleCard from 'src/components/cards/ArticleCard.astro';
 import SocialLinkCard from 'src/components/cards/SocialLinkCard.astro';
 import Divider from 'src/components/ui/Divider.astro';
+import { AUTHORS } from 'src/constants';
 import RootLayout from 'src/layouts/RootLayout.astro';
-import { AUTHORS } from 'src/utils/config';
 
 export async function getStaticPaths() {
   const allBlogArticles: CollectionEntry<'blog'>[] = (
@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 
   return allBlogArticles.map(entry => ({
     params: { slug: entry.data.author },
-    props: { author: AUTHORS[entry.data.author as keyof typeof AUTHORS] },
+    props: { author: AUTHORS[entry.data.author] },
   }));
 }
 

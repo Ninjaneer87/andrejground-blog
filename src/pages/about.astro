@@ -3,7 +3,8 @@ import { Image } from 'astro:assets';
 import RootLayout from '../layouts/RootLayout.astro';
 import SocialLinkCard from '../components/cards/SocialLinkCard.astro';
 import Divider from '../components/ui/Divider.astro';
-import { AUTHORS } from 'src/utils/config';
+import Timeline from 'src/components/WorkTimeline';
+import { AUTHORS } from 'src/constants';
 
 const yearsOfExperience = new Date().getFullYear() - 2020;
 const { socialLinks } = AUTHORS.andrej_forgac;
@@ -39,10 +40,12 @@ const { socialLinks } = AUTHORS.andrej_forgac;
 
     <Divider />
 
-    <div>
+    <div class="mb-16">
       <ul class="flex flex-wrap gap-4 mt-4 justify-evenly">
         {socialLinks.map(link => <SocialLinkCard {...link} />)}
       </ul>
     </div>
+
+    <Timeline client:load />
   </div>
 </RootLayout>
