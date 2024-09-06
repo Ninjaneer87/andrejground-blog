@@ -6,7 +6,6 @@ import Divider from '../components/ui/Divider.astro';
 import Timeline from 'src/components/WorkTimeline';
 import { AUTHORS } from 'src/constants';
 
-const yearsOfExperience = new Date().getFullYear() - 2020;
 const { socialLinks } = AUTHORS.andrej_forgac;
 ---
 
@@ -20,6 +19,7 @@ const { socialLinks } = AUTHORS.andrej_forgac;
         width={200}
         height={200}
       />
+
       <div class="p-4 rounded-2xl">
         <h1 class="font-thin">Andrej Forgac</h1>
         <div class="opacity-70 flex flex-col gap-2">
@@ -31,9 +31,7 @@ const { socialLinks } = AUTHORS.andrej_forgac;
             >
           </div>
 
-          <div>UI/UX enthusiast</div>
-
-          <div>{yearsOfExperience}+ years in the industry</div>
+          <div>UX/UI enthusiast</div>
         </div>
       </div>
     </div>

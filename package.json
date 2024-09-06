@@ -24,6 +24,7 @@
     "@sanity/image-url": "^1.0.2",
     "@sanity/types": "^3.50.0",
     "@sanity/visual-editing": "^2.1.6",
+    "@stackblitz/sdk": "^1.11.0",
     "@types/js-cookie": "^3.0.6",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",

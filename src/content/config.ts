@@ -9,6 +9,7 @@ const blogCollection = defineCollection({
     author: z.string(),
     image: z.string(),
     tags: z.array(z.string()),
+    stackblitzProjectId: z.string(),
   }),
 });
 

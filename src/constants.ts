@@ -82,7 +82,7 @@ export const AUTHORS: Authors = {
     name: 'Andrej Forgac',
     image: 'andrej.webp',
     position: 'Frontend Developer',
-    description: 'UI/UX enthusiast',
+    description: 'UX/UI enthusiast',
     socialLinks: [
       {
         platform: 'website',
