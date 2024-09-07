@@ -7,7 +7,7 @@ type Props = {
 
 function SocialsShare({ url }: Props) {
   return (
-    <div className="flex gap-4 items-center py-4 blur-in">
+    <div className="flex gap-2 items-center blur-in">
       <FacebookShare
         url={url}
         bgColor="rgb(var(--secondary))"
