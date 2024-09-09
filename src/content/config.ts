@@ -7,6 +7,7 @@ const blogCollection = defineCollection({
     isDraft: z.boolean(),
     pubDate: z.date(),
     author: z.string(),
+    metaImage: z.string(),
     image: z.string(),
     tags: z.array(z.string()),
     stackblitzProjectId: z.string(),

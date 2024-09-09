@@ -23,7 +23,7 @@ const initialBoxSizeAndPosition: BoxSizeAndPosition = {
   '--height': '0px',
 };
 
-const itemPositionsMap = new Map<unknown, BoxSizeAndPosition>();
+const itemPositions: Record<string, BoxSizeAndPosition> = {};
 
 const mapAllPositions = (items: HTMLElement[]) => {
   items.forEach(item => {
@@ -38,14 +38,11 @@ const mapAllPositions = (items: HTMLElement[]) => {
       '--height': `${Math.round(offsetHeight)}px`,
     };
 
-    itemPositionsMap.set(itemKey, itemPosition);
+    itemPositions[itemKey] = itemPosition;
   });
 };
 
-type FloatingBox<Item> = {
-  /** Ref for the current active element in the list. */
-  activeElementRef: MutableRefObject<Item | null>;
-
+type SlidingBox<Item> = {
   /** Ref containing an array of all the elements in the list. */
   allElementsRef: MutableRefObject<AllElements<Item>>;
 
@@ -63,24 +60,28 @@ type FloatingBox<Item> = {
   boxSizeAndPosition: BoxSizeAndPosition;
 };
 
-export default function useFloatingBox<ItemElement extends HTMLElement>({
+export default function useSlidingBox<ItemElement extends HTMLElement>({
   activeItem,
-  remapObserver,
+  recalculate = [],
 }: {
   /** A unique value representing active item in the list. */
-  activeItem: unknown;
+  activeItem: string | null | undefined;
 
-  /** Will recalculate (and map) all list elements' sizes and positions when ever this value changes. */
-  remapObserver?: unknown;
-}): FloatingBox<ItemElement> {
+  /** Will recalculate (and map) all list elements' sizes and positions when ever any of these values change.
+   *
+   * Example: new item is added to the list
+   */
+  recalculate?: unknown[];
+}): SlidingBox<ItemElement> {
   const [boxSizeAndPosition, setBoxSizeAndPosition] = useState(
     initialBoxSizeAndPosition,
   );
   const allElementsRef: MutableRefObject<AllElements<ItemElement>> = useRef({});
-  const activeElementRef: MutableRefObject<ItemElement | null> = useRef(null);
 
   const setActivePosition = useCallback(() => {
-    const activeItemPosition = itemPositionsMap.get(activeItem);
+    if (!activeItem) return;
+
+    const activeItemPosition = itemPositions[activeItem];
     if (!activeItemPosition) return;
 
     setBoxSizeAndPosition(activeItemPosition);
@@ -92,14 +93,14 @@ export default function useFloatingBox<ItemElement extends HTMLElement>({
     const allItems = Object.values(allElementsRef.current);
     mapAllPositions(allItems);
     setActivePosition();
-  }, [setActivePosition, remapObserver]);
+  }, [setActivePosition, ...recalculate]);
 
   useEffect(setActivePosition, [activeItem]);
-  useEffect(mapAndSetActivePosition, [remapObserver]);
+  useEffect(mapAndSetActivePosition, [...recalculate]);
   useEffect(() => {
     window.addEventListener('resize', mapAndSetActivePosition);
     return () => window.removeEventListener('resize', mapAndSetActivePosition);
   }, [mapAndSetActivePosition]);
 
-  return { activeElementRef, allElementsRef, boxSizeAndPosition };
+  return { allElementsRef, boxSizeAndPosition };
 }

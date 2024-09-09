@@ -12,7 +12,7 @@ h3 {
   font-size: clamp(1.5rem, 5vw, 1.75rem);
 }
 h4 {
-  font-size: clamp(1.25rem, 5vw, 1.5rem);
+  font-size: clamp(1.25rem, 5vw, 1.25rem);
 }
 h5 {
   font-size: clamp(1rem, 5vw, 1.25rem);
@@ -30,15 +30,42 @@ h6 {
 }
 p {
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: 1.75;
   margin: 1rem 0;
+
+  img {
+    border-radius: 1rem;
+  }
 }
+
+section.heading {
+  ul {
+    padding-left: 1rem;
+    list-style-type: square;
+  }
+
+  ol {
+    padding-left: 1rem;
+    list-style-type: decimal;
+  }
+
+  li {
+    margin-block: 0.5rem;
+  }
+
+  a {
+    color: rgb(var(--accent));
+  }
+}
+
 code {
   color: white;
-  background-color: gray;
+  background-color: rgb(73, 73, 73);
   padding: 0.3rem;
   border-radius: 0.3rem;
+  font-size: 0.875em;
 }
+
 pre {
   padding: 1rem;
   border-radius: 0.5rem;
@@ -74,10 +101,34 @@ pre {
   text-transform: uppercase;
   font-weight: bold;
   opacity: 0.8;
+  background-color: rgb(var(--background));
 }
 
 a {
-  display: block;
+  display: inline-block;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  padding: 1rem 0 0 1rem;
+}
+
+.highlight {
+  padding: 1rem;
+  border-left: 2px solid rgb(var(--accent));
+  background: linear-gradient(
+    90deg,
+    rgb(var(--primary)) -30%,
+    transparent 80%,
+    transparent 0
+  );
+
+  a {
+    color: rgb(var(--accent));
+  }
 }
 
 .code-wrapper {
@@ -115,6 +166,9 @@ a {
   position: relative;
   padding-top: 4rem;
   font-size: 0.875rem;
+  max-height: 60vh;
+  background-color: rgb(33 33 33 / 0.5) !important;
+  /* backdrop-filter: blur(10px); */
 }
 .astro-code.active {
   overflow: hidden !important;

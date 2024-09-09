@@ -133,3 +133,30 @@ export const AUTHORS: Authors = {
     ],
   },
 } as const;
+
+export const POPULAR_TAGS = [
+  {
+    icon: 'mdi:react',
+    title: 'React',
+    tiltDirection: 'left',
+    href: '/articles?tag=react',
+  },
+  {
+    icon: 'mdi:language-typescript',
+    title: 'TypeScript',
+    tiltDirection: 'right',
+    href: '/articles?tag=typescript',
+  },
+  {
+    icon: 'mdi:react',
+    title: 'React',
+    tiltDirection: 'left',
+    href: '/articles?tag=react',
+  },
+  {
+    icon: 'mdi:react',
+    title: 'React',
+    tiltDirection: 'left',
+    href: '/articles?tag=react',
+  },
+];

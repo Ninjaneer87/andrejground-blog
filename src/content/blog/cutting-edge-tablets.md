@@ -1,8 +1,9 @@
 ---
 title: 'Unleash Creativity With These Cutting-Edge Tablets'
-isDraft: false
+isDraft: true
 pubDate: 2024-01-14
 author: 'andrej_forgac'
+metaImage: 'image2.jpeg'
 image: 'image2.jpeg'
 tags: ['css', 'javascript']
 slug: unleash-creativity-with-these-cutting-edge-tablets

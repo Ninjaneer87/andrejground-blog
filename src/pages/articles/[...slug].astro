@@ -13,6 +13,7 @@ import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 import TableOfContentsSkeleton from 'src/components/skeletons/TableOfContentsSkeleton.astro';
 import LiveDemo from 'src/components/LiveDemo.tsx';
+import { Image } from 'astro:assets';
 
 export async function getStaticPaths() {
   const allBlogArticles: CollectionEntry<'blog'>[] = (
@@ -30,7 +31,7 @@ if (!entry) {
   return Astro.redirect('/404');
 }
 
-const { title, pubDate, author, tags, stackblitzProjectId } = entry.data;
+const { title, pubDate, author, tags, stackblitzProjectId, image } = entry.data;
 
 const { Content } = await entry.render();
 const currentPath = Astro.url.origin + Astro.url.pathname;
@@ -61,7 +62,7 @@ const currentPath = Astro.url.origin + Astro.url.pathname;
   <div class="container mx-auto p-4 z-0 relative gradient-top">
     <div class="flex gap-4 xl:gap-24">
       <div class="hidden xl:block">
-        <div class="flex-col gap-2 sticky top-[150px] w-74 max-w-74 p-4">
+        <div class="flex-col gap-2 sticky top-[150px] w-72 max-w-72 p-4">
           <TableOfContentsReact client:only="react">
             <TableOfContentsSkeleton slot="fallback" />
           </TableOfContentsReact>
@@ -80,7 +81,15 @@ const currentPath = Astro.url.origin + Astro.url.pathname;
         <h1 class="mb-16 max-w-screen-lg mx-auto">
           {title}
         </h1>
-        
+
+        <Image
+          class="rounded-2xl mb-8"
+          src={`/${image}`}
+          alt="Hero image"
+          width={768}
+          height={384}
+        />
+
         <AuthorCard author={author} />
         <DateCard date={pubDate} />
         <Divider />
@@ -92,7 +101,9 @@ const currentPath = Astro.url.origin + Astro.url.pathname;
         }
         <Divider />
 
-        <div class="flex flex-col gap-4 sm:flex-row sm:justify-between items-start">
+        <div
+          class="flex flex-col gap-4 sm:flex-row sm:justify-between items-start"
+        >
           <Tags tags={tags} />
           <SocialsShare url={currentPath} client:only="react" />
         </div>

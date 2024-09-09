@@ -1,6 +1,6 @@
 import React from 'react';
-import useFloatingBox from 'src/hooks/useFloatingBox';
 import classes from './MainNav.module.css';
+import useSlidingBox from 'src/hooks/useSlidingBox';
 
 type Props = {
   links: {
@@ -13,11 +13,12 @@ function MainNav({ links }: Props) {
   const activeLinkHref = links
     .filter(link => link.isActive)
     .map(link => link.href)[0];
-  const { activeElementRef, allElementsRef, boxSizeAndPosition } =
-    useFloatingBox({
+  const { allElementsRef, boxSizeAndPosition } =
+    useSlidingBox({
       activeItem: activeLinkHref,
-      remapObserver: activeLinkHref,
+      recalculate: [activeLinkHref],
     });
+
   return (
     <ul
       className={`flex items-center ${classes.list} z-0`}
@@ -31,10 +32,6 @@ function MainNav({ links }: Props) {
             if (!node) return;
 
             allElementsRef.current[link.href] = node;
-
-            if (link.isActive) {
-              activeElementRef.current = node;
-            }
           }}
         >
           <a

@@ -13,7 +13,7 @@ const appliedAuthors = Astro.url.searchParams.getAll('author');
 
 const allBlogArticles: CollectionEntry<'blog'>[] = (await getCollection('blog'))
   .filter(entry => !entry.data.isDraft)
-  .sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const uniqueTags = [
   ...new Set<string>(allBlogArticles.flatMap(article => article.data.tags)),
@@ -73,7 +73,7 @@ const noSearchResults = !noFiltersApplied && filteredArticles.length === 0;
       </div>
       <div></div>
     </div>
-    <ul class="flex gap-16 items-center justify-center flex-wrap">
+    <ul class="flex gap-16 items-center flex-wrap">
       {filteredArticles.map(article => <ArticleCard article={article} />)}
     </ul>
     {

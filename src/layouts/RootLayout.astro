@@ -6,14 +6,23 @@ import '../styles/base.css';
 import '@fontsource-variable/montserrat';
 import BlurredCircles from 'src/components/BlurredCircles.astro';
 import Loader from 'src/components/Loader';
-import { SITE_DESCRIPTION } from 'src/utils/config';
-import { SITE_TITLE } from 'src/utils/config';
+import {
+  SITE_DESCRIPTION,
+  SITE_META_IMAGE,
+  SITE_URL,
+  SITE_TITLE,
+  TWITTER_DOMAIN,
+  SITE_TYPE,
+  TWITTER_CARD,
+} from 'src/utils/config';
 
 type Props = {
   pageTitle: string;
+  metaImage?: string;
 };
 
-const { pageTitle } = Astro.props;
+const { pageTitle, metaImage } = Astro.props;
+const title = `${SITE_TITLE} | ${pageTitle}`;
 ---
 
 <!doctype html>
@@ -31,26 +40,26 @@ const { pageTitle } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={SITE_DESCRIPTION} />
 
-    <meta property="og:title" content="AndrejGround" />
-    <meta property="og:description" content="All things Frontend" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://andrejground.com/" />
-    <meta property="og:image" content="/meta-img.webp" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={SITE_DESCRIPTION} />
+    <meta property="og:type" content={SITE_TYPE} />
+    <meta property="og:url" content={SITE_URL} />
+    <meta property="og:image" content=`/${metaImage ?? SITE_META_IMAGE}` />
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta property="twitter:domain" content="andrejground.com" />
-    <meta property="twitter:url" content="https://andrejground.com/" />
-    <meta name="twitter:title" content="AndrejGround" />
-    <meta name="twitter:description" content="All things frontend" />
-    <meta name="twitter:image" content="/meta-img.webp" />
+    <meta name="twitter:card" content={TWITTER_CARD} />
+    <meta property="twitter:domain" content={TWITTER_DOMAIN} />
+    <meta property="twitter:url" content={SITE_URL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={SITE_DESCRIPTION} />
+    <meta name="twitter:image" content=`/${SITE_META_IMAGE}` />
 
-    <meta name="dc.coverage" content="AndrejGround" />
-    <meta name="dc:description" content="All things frontend" />
-    <meta name="dc.publisher" content="AndrejGround" />
-    <meta name="dc.title" content="AndrejGround" />
-    <meta name="dc.type" content="website" />
+    <meta name="dc.coverage" content={SITE_TITLE} />
+    <meta name="dc:description" content={SITE_DESCRIPTION} />
+    <meta name="dc.publisher" content={SITE_TITLE} />
+    <meta name="dc.title" content={title} />
+    <meta name="dc.type" content={SITE_TYPE} />
 
-    <title>{SITE_TITLE} | {pageTitle}</title>
+    <title>{title}</title>
     <ViewTransitions />
   </head>
 
