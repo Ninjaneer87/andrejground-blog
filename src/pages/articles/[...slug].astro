@@ -31,7 +31,8 @@ if (!entry) {
   return Astro.redirect('/404');
 }
 
-const { title, pubDate, author, tags, stackblitzProjectId, image } = entry.data;
+const { title, pubDate, author, tags, stackblitzProjectId, image, metaImage } =
+  entry.data;
 
 const { Content } = await entry.render();
 const currentPath = Astro.url.origin + Astro.url.pathname;
@@ -57,7 +58,7 @@ const currentPath = Astro.url.origin + Astro.url.pathname;
   }
 </style>
 
-<RootLayout pageTitle={title}>
+<RootLayout pageTitle={title} metaImage={metaImage}>
   <ScrollProgress />
   <div class="container mx-auto p-4 z-0 relative gradient-top">
     <div class="flex gap-4 xl:gap-24">
