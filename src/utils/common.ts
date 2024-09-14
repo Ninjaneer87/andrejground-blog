@@ -60,3 +60,17 @@ export function getHeadingsHierarchy() {
 
   return hierarchy;
 }
+
+export function getQueryParams(url: string) {
+  const params = new URLSearchParams(url);
+  const result: Record<string, string[]> = {};
+
+  params.forEach((value, key) => {
+    if (!result[key]) {
+      result[key] = [];
+    }
+    result[key].push(value);
+  });
+
+  return result;
+}

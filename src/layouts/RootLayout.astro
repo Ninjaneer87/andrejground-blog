@@ -5,7 +5,7 @@ import Footer from '../components/Footer.astro';
 import '../styles/base.css';
 import '@fontsource-variable/montserrat';
 import BlurredCircles from 'src/components/BlurredCircles.astro';
-import Loader from 'src/components/Loader';
+import Loader from 'src/components/Loader.tsx';
 import {
   SITE_DESCRIPTION,
   SITE_META_IMAGE,
@@ -51,7 +51,7 @@ const title = `${SITE_TITLE} | ${pageTitle}`;
     <meta property="twitter:url" content={SITE_URL} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={SITE_DESCRIPTION} />
-    <meta name="twitter:image" content=`/${metaImage ?? SITE_META_IMAGE}`  />
+    <meta name="twitter:image" content=`/${metaImage ?? SITE_META_IMAGE}` />
 
     <meta name="dc.coverage" content={SITE_TITLE} />
     <meta name="dc:description" content={SITE_DESCRIPTION} />
@@ -81,7 +81,7 @@ const title = `${SITE_TITLE} | ${pageTitle}`;
 </html>
 
 <script>
-  import { isPageLoading } from 'src/stores/globalStore';
+  import { isPageLoading, isTocModalOpen } from 'src/stores/globalStore';
 
   document.addEventListener('astro:before-preparation', () => {
     isPageLoading.set(true);
@@ -89,5 +89,6 @@ const title = `${SITE_TITLE} | ${pageTitle}`;
 
   document.addEventListener('astro:page-load', () => {
     isPageLoading.set(false);
+    isTocModalOpen.set(false);
   });
 </script>

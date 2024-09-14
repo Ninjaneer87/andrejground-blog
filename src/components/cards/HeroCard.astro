@@ -1,6 +1,5 @@
 ---
 import { Icon } from 'astro-icon/components';
-import Divider from '../ui/Divider.astro';
 
 type Props = {
   icon: string;
@@ -16,16 +15,16 @@ const tiltClassRight = tiltDirection === 'right' ? '-rotate-6' : '';
 
 <a
   href={href}
-  class={`flex flex-col min-h-24 sm:min-h-60 justify-between p-2 sm:p-8 items-center w-24 sm:w-60 rounded-xl border-accent/50 border-solid ${tiltClassLeft} ${tiltClassRight} transition-transform hover:rotate-0 group`}
+  class={`flex flex-col min-h-60 justify-between p-8 items-center w-60 rounded-xl border-accent/50 border-solid ${tiltClassLeft} ${tiltClassRight} transition-transform hover:rotate-0 group`}
 >
   <Icon
     name={icon}
-    class="text-foreground text-2xl sm:text-6xl group-hover:animate-pulse font-thin"
+    class="text-foreground text-6xl group-hover:animate-pulse font-thin"
   />
 
   <hr
-    class="my-4 sm:my-8 h-0.5 border-t-0 bg-gradient-to-r from-accent to-transparent w-full"
+    class="my-8 h-0.5 border-t-0 bg-gradient-to-r from-accent to-transparent w-full"
   />
 
-  <div class="sm:text-2xl font-thin">{title}</div>
+  <div class="text-2xl font-thin">{title}</div>
 </a>

@@ -1,15 +1,12 @@
 ---
-export const prerender = false;
-
 import RootLayout from '../../layouts/RootLayout.astro';
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import ArticleCard from '../../components/cards/ArticleCard.astro';
 import Filters from '../../components/Filters.tsx';
-
-const query = Astro.url.searchParams.get('q');
-const appliedTags = Astro.url.searchParams.getAll('tag');
-const appliedAuthors = Astro.url.searchParams.getAll('author');
+import ArticlesFilteredList from '../../components/ArticlesFilteredList.tsx';
+import FiltersSkeleton from 'src/components/skeletons/FiltersSkeleton.astro';
+import ArticlesFilteredListSkeleton from 'src/components/skeletons/ArticlesFilteredListSkeleton.astro';
 
 const allBlogArticles: CollectionEntry<'blog'>[] = (await getCollection('blog'))
   .filter(entry => !entry.data.isDraft)
@@ -22,39 +19,6 @@ const uniqueTags = [
 const uniqueAuthors = [
   ...new Set<string>(allBlogArticles.map(article => article.data.author)),
 ];
-
-let filteredArticles = allBlogArticles;
-
-if (appliedTags.length > 0) {
-  filteredArticles = filteredArticles.filter(article => {
-    return appliedTags.some(tag => article.data.tags.includes(tag));
-  });
-}
-
-if (appliedAuthors.length > 0) {
-  filteredArticles = filteredArticles.filter(article => {
-    return appliedAuthors.includes(article.data.author);
-  });
-}
-
-if (query) {
-  filteredArticles = filteredArticles.filter(article => {
-    const titleMatch = article.data.title
-      .toLowerCase()
-      .includes(query.toLowerCase());
-    const bodyMatch = article.body.toLowerCase().includes(query.toLowerCase());
-    const tagMatch = article.data.tags.some(tag =>
-      tag.toLowerCase().includes(query.toLowerCase()),
-    );
-    const slugMatch = article.slug.toLowerCase().includes(query.toLowerCase());
-
-    return titleMatch || bodyMatch || tagMatch || slugMatch;
-  });
-}
-
-const noFiltersApplied =
-  appliedTags.length === 0 && !query && appliedAuthors.length === 0;
-const noSearchResults = !noFiltersApplied && filteredArticles.length === 0;
 ---
 
 <RootLayout pageTitle="Articles">
@@ -62,22 +26,28 @@ const noSearchResults = !noFiltersApplied && filteredArticles.length === 0;
     <div>
       <div class="md:sticky md:top-[200px] md:w-[320px] max-w-full">
         <Filters
-          client:load
+          client:only="react"
           tags={uniqueTags}
-          appliedTags={appliedTags}
           authors={uniqueAuthors}
-          appliedAuthors={appliedAuthors}
-          searchQuery={query || ''}
-          noFiltersApplied={noFiltersApplied}
-        />
+          allBlogArticles={allBlogArticles}
+        >
+          <FiltersSkeleton slot="fallback" />
+        </Filters>
+
       </div>
       <div></div>
     </div>
+
     <ul class="flex gap-16 items-center flex-wrap">
-      {filteredArticles.map(article => <ArticleCard article={article} />)}
+      {[].map(article => <ArticleCard article={article} />)}
     </ul>
+
+    <ArticlesFilteredList client:only="react" allBlogArticles={allBlogArticles}>
+      <ArticlesFilteredListSkeleton slot="fallback" />
+    </ArticlesFilteredList>
+
     {
-      noSearchResults && (
+      false && (
         <div class="text-center text-2xl text-accent">
           No articles found matching these filters
         </div>

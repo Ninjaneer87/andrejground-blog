@@ -1,31 +1,25 @@
-import React from 'react';
 import { Input } from '@nextui-org/react';
 import TagFilterChip from './TagFilterChip';
 import AuthorFilterCard from './cards/AuthorFilterCard';
+import useFilteredResults from 'src/hooks/useFilteredResults';
+import type { CollectionEntry } from 'astro:content';
 
 type Props = {
   tags: string[];
-  appliedTags: string[];
   authors: string[];
-  appliedAuthors: string[];
-  searchQuery: string;
-  noFiltersApplied: boolean;
+  allBlogArticles: CollectionEntry<'blog'>[];
 };
-function Filters({
-  tags,
-  appliedTags,
-  searchQuery,
-  noFiltersApplied,
-  authors,
-  appliedAuthors,
-}: Props) {
+function Filters({ tags, authors, allBlogArticles }: Props) {
+  const { appliedAuthors, appliedTags, noFiltersApplied, query } =
+    useFilteredResults(allBlogArticles);
+
   return (
     <form action="/articles" className="flex flex-col gap-8">
       <fieldset>
         <h3 className="font-thin mb-2">Keywords</h3>
         <Input
           variant="underlined"
-          defaultValue={searchQuery || undefined}
+          defaultValue={query || undefined}
           color="secondary"
           type="text"
           autoComplete="off"
