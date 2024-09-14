@@ -4,7 +4,7 @@ isDraft: false
 pubDate: 2024-09-08
 author: 'andrej_forgac'
 metaImage: 'react-vite-tailwind-ts.webp'
-image: 'react-vite-tailwind-ts.webp'
+image: 'r-t-t-v.webp'
 tags: ['react', 'typescript', 'tailwind', 'vite']
 slug: set-up-react-tailwind-typescript-in-vite
 stackblitzProjectId: ''
