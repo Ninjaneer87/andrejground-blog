@@ -33,7 +33,9 @@ import PopularTags from './PopularTags.astro';
 <div
   class="p-4 lg:p-8 flex flex-col gap-8 mx-auto gradient-wrapper container items-center"
 >
-  <h1 class="hero-title" data-text="AndrejGround">Andrej<span class="max-lg:text-foreground">Ground</span></h1>
+  <h1 class="hero-title" data-text="AndrejGround">
+    Andrej<span class="max-lg:text-foreground">Ground</span>
+  </h1>
 
   <h2
     class="flex items-center whitespace-nowrap text-[clamp(1.3rem,_4vw,_3.5rem)]"
@@ -63,18 +65,16 @@ import PopularTags from './PopularTags.astro';
 <script>
   document.addEventListener('astro:page-load', () => {
     let h = document.querySelector('h1')!;
-    if (!h) return;
-
-    let p = h.getBoundingClientRect();
 
     document.body.onmousemove = function (e) {
+      if (!h) return;
+
       h.style.setProperty('--x', e.clientX + 'px');
       h.style.setProperty('--y', e.clientY + 'px');
     };
 
     document.body.onresize = function () {
       h = document.querySelector('h1')!;
-      p = h.getBoundingClientRect();
     };
   });
 </script>

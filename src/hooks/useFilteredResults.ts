@@ -1,12 +1,7 @@
-import { useStore } from '@nanostores/react';
 import type { CollectionEntry } from 'astro:content';
-import { blogPageArticles } from 'src/stores/globalStore';
 import { getQueryParams } from 'src/utils/common';
 
-function useFilteredResults($allBlogArticles: CollectionEntry<'blog'>[]) {
-  //   const $allBlogArticles = useStore(blogPageArticles);
-  //   const $allBlogArticles = blogPageArticles.get();
-
+function useFilteredResults(allBlogArticles: CollectionEntry<'blog'>[]) {
   const params = getQueryParams(window.location.search);
   const { q, tag, author } = params;
 
@@ -14,8 +9,7 @@ function useFilteredResults($allBlogArticles: CollectionEntry<'blog'>[]) {
   const appliedTags = tag || [];
   const appliedAuthors = author || [];
 
-  let filteredArticles = $allBlogArticles;
-  console.log({ $allBlogArticles });
+  let filteredArticles = allBlogArticles;
 
   if (appliedTags.length > 0) {
     filteredArticles = filteredArticles.filter(article => {

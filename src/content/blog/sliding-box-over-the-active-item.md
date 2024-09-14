@@ -39,7 +39,7 @@ Now when changing the active element, these few lines are doing the magic:
 }
 ```
 
-Let's break this in a couple of steps and see how it all fits together in the end.
+Let's break this in a couple of steps and see how they fit together.
 
 ## Starting a new react project
 
@@ -93,11 +93,11 @@ Let's add all the necessary styles which will make this effect possible.
 
 ## The `List` component
 
-Now, we can create our `List` component which will hold a couple of items (buttons) we'll be using for the demo.
+Now, we can create `List` component which will hold a couple of items (buttons) we'll be using for the demo.
 
 When clicking the item, it becomes _active_ and the box slides over it.
 
-Also we want this effect to work on a list with a dynamic number of items, so we are adding a button just for that purpose.
+Also we want this effect to work on a list with a dynamic number of items, so we'll add another button just for that purpose.
 
 ```tsx
 /* List.tsx */
@@ -167,7 +167,7 @@ Let's create a small todo here:
 
 ### 1. Create the hook
 
-In our `hooks` folder we'll create `useSlidingBox.ts` file, which will contain the hook.
+In the `hooks` folder we'll create `useSlidingBox.ts` file, which will contain the hook.
 
 The hook will accept a configuration object with two properties:
 
@@ -190,7 +190,7 @@ export default function useSlidingBox({
 
 ### 2. `boxSizeAndPosition` _state_
 
-First, let's see what type this state is going to be. In order to pass this to the `style` property of our `List`, this state needs to behave like a style object with CSS properties. So that is exactly where we are going to start from.
+First, let's see what type this state is going to be. In order to pass this to the `style` property of our `List`, this state needs to take shape of a style object with CSS properties. So that is exactly where we are going to start from.
 
 ```ts
 interface BoxSizeAndPosition extends CSSProperties {
@@ -254,9 +254,9 @@ For this, we're going to use the `useRef` hook but not in a way that we usually 
 
 So as usual, let's get the types out of the way first.
 
-To allow for a maximum type accuracy, our hook will accept a _generic_ type which we will use for our elements in the list. If no type is explicitly provided to the hook, we still have a type that extends `HTMLElement`.
+To allow for a maximum type accuracy, the hook will accept a _generic_ type which we will use for the elements in the list. If no type is explicitly provided to the hook, we still have a type that extends `HTMLElement`.
 
-Now our hook will look something like this:
+Now the hook will look something like this:
 
 ```ts
 /* useSlidingBox.ts */
@@ -272,7 +272,7 @@ export default function useSlidingBox<ItemElement extends HTMLElement>(
 }
 ```
 
-Our `AllElements` type is also going te be a generic. It will make use of the `ItemElement` type. Now we have it all connected.
+`AllElements` type is also going to be a generic. It will make use of the `ItemElement` type. Now we have it all connected.
 
 ```ts
 /* useSlidingBox.ts */
@@ -297,7 +297,7 @@ export default function useSlidingBox<ItemElement extends HTMLElement>(
 
 #### 4.a Save sizes and positions
 
-We will save this in our `itemPositions` object outside of the hook and create the `mapAllPositions` function that accepts the list of all the elements and maps them into our object.
+We will save this in `itemPositions` object outside of the hook and create the `mapAllPositions` function that accepts the list of all the elements and maps them into the object.
 
 For `itemKey`, we need the same unique identifier we use for the _active item_. To achieve that we will be attaching this value to all the elements in the list using the `data-key` attribute.
 
@@ -335,7 +335,7 @@ const setActivePosition = useCallback(() => {
 }, [activeItem]);
 ```
 
-<p class="highlight">Since we're dealing with potentially expensive operations of extracting <b>width</b>, <b>height</b>, <b>offsetLeft</b> and <b>offsetRight</b>, we will use a small optimisation tactics - <b>useCallback</b> and be careful about calling our expensive <b>mapAllPositions</b> function.
+<p class="highlight">Since we're dealing with potentially expensive operations of extracting <b>width</b>, <b>height</b>, <b>offsetLeft</b> and <b>offsetRight</b>, we will use a small optimisation tactics - <b>useCallback</b> and be careful about calling the expensive <b>mapAllPositions</b> function.
 <br /> <br />
 We don't necessarily want to calculate everything each time the active item changes. We just grab cached values from the <code>itemPositions</code> object.
 </p>
@@ -575,7 +575,7 @@ function List() {
 export default List;
 ```
 
-To see it in action, we just need to add the `List` component to our `App.tsx`
+To see it in action, we just need to add the `List` component to `App.tsx`
 
 ```tsx
 /* App.tsx */
