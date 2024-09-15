@@ -1,29 +1,37 @@
+---
+const width = 900;
+const height = 30000;
+const verticalDistance = 300;
+const numberOfCircles = height / verticalDistance;
+
+const randomCircleCoords = (index: number) => {
+  const cx = Math.floor(Math.random() * 700);
+  const cy = index * verticalDistance;
+  const fill =
+    index % 2 === 0 ? 'rgb(var(--primary))' : 'rgb(var(--secondary))';
+  const r = Math.floor(Math.random() * 100) + 60;
+  return { cx, cy, fill, r };
+};
+---
+
 <svg
   id="visual"
   viewBox="0 0 900 600"
-  width="900"
-  height="3000"
+  width={width}
+  height={height}
   xmlns="http://www.w3.org/2000/svg"
   xmlns:xlink="http://www.w3.org/1999/xlink"
   version="1.1"
 >
-  <rect x="0" y="0" width="900" height="3000" fill="rgb(var(--background))"
+  <rect x="0" y="0" width={width} height={height} fill="transparent"
   ></rect>
   <g>
-    <circle fill="rgb(var(--primary))" r="130" cx="648" cy="73"></circle>
-    <circle fill="rgb(var(--secondary))" r="57" cx="538" cy="598"></circle>
-    <circle fill="rgb(var(--primary))" r="76" cx="137" cy="524"></circle>
-    <circle fill="rgb(var(--secondary))" r="115" cx="801" cy="354"></circle>
-
-    <circle fill="rgb(var(--secondary))" r="115" cx="137" cy="1354"></circle>
-    <circle fill="rgb(var(--primary))" r="76" cx="538" cy="1524"></circle>
-    <circle fill="rgb(var(--secondary))" r="57" cx="648" cy="1598"></circle>
-    <circle fill="rgb(var(--primary))" r="130" cx="801" cy="1073"></circle>
-
-    <circle fill="rgb(var(--primary))" r="130" cx="648" cy="2073"></circle>
-    <circle fill="rgb(var(--secondary))" r="57" cx="538" cy="2598"></circle>
-    <circle fill="rgb(var(--primary))" r="76" cx="137" cy="2524"></circle>
-    <circle fill="rgb(var(--secondary))" r="115" cx="801" cy="2354"></circle>
+    {
+      Array.from({ length: numberOfCircles }).map((_, index) => {
+        const { cx, cy, fill, r } = randomCircleCoords(index);
+        return <circle fill={fill} r={r} cx={cx} cy={cy} />;
+      })
+    }
   </g>
 </svg>
 
@@ -33,11 +41,10 @@
     inset: 0;
     height: 100vh;
     width: 100%;
-    /* z-index: -1; */
     overflow: visible;
     filter: blur(6rem);
     pointer-events: none;
     z-index: -1;
-    /* opacity: .2; */
+    /* opacity: 0.6; */
   }
 </style>
