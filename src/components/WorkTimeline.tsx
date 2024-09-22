@@ -1,19 +1,5 @@
-// src/components/Timeline.tsx
-
 import { Icon } from '@iconify-icon/react';
-import React from 'react';
 import { WORK_HISTORY } from 'src/constants';
-
-type Experience = {
-  position: string;
-  duration: string;
-  company: string;
-  description: string;
-  isOngoing: boolean;
-  href: string;
-  companyLocation: string;
-  technologies: string[];
-};
 
 function Timeline() {
   return (

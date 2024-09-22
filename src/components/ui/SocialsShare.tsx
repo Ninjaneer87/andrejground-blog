@@ -1,4 +1,3 @@
-import React from 'react';
 import { FacebookShare, LinkedinShare, TwitterShare } from 'react-share-kit';
 
 type Props = {

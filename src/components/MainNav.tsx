@@ -1,4 +1,3 @@
-import React from 'react';
 import classes from './MainNav.module.css';
 import useSlidingBox from 'src/hooks/useSlidingBox';
 

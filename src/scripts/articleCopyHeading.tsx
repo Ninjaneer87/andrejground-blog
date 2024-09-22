@@ -1,4 +1,3 @@
-import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { getAllHeadings } from 'src/utils/common';
 import ClipboardCopy from 'src/components/ui/ClipboardCopy';
