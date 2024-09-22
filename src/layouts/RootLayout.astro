@@ -81,14 +81,14 @@ const title = `${SITE_TITLE} | ${pageTitle}`;
 </html>
 
 <script>
-  import { isPageLoading, isTocModalOpen } from 'src/stores/globalStore';
+  import { isPageLoadingAtom, isTocModalOpenAtom } from 'src/stores/globalStore';
 
   document.addEventListener('astro:before-preparation', () => {
-    isPageLoading.set(true);
+    isPageLoadingAtom.set(true);
   });
 
   document.addEventListener('astro:page-load', () => {
-    isPageLoading.set(false);
-    isTocModalOpen.set(false);
+    isPageLoadingAtom.set(false);
+    isTocModalOpenAtom.set(false);
   });
 </script>

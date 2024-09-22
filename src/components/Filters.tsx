@@ -1,31 +1,55 @@
 import { Input } from '@nextui-org/react';
 import TagFilterChip from './TagFilterChip';
 import AuthorFilterCard from './cards/AuthorFilterCard';
-import useFilteredResults from 'src/hooks/useFilteredResults';
+import useApplyFiltersFromUrl from 'src/hooks/useApplyFiltersFromUrl';
 import type { CollectionEntry } from 'astro:content';
+import { useReducer } from 'react';
+import { getQueryParams, pushFiltersToUrl } from 'src/utils/common';
+import { useStore } from '@nanostores/react';
+import { filtersAtom } from 'src/stores/globalStore';
 
 type Props = {
   tags: string[];
   authors: string[];
   allBlogArticles: CollectionEntry<'blog'>[];
 };
+
 function Filters({ tags, authors, allBlogArticles }: Props) {
-  const { appliedAuthors, appliedTags, noFiltersApplied, query } =
-    useFilteredResults(allBlogArticles);
+  const { q } = getQueryParams(window.location.search);
+  useApplyFiltersFromUrl(allBlogArticles);
+
+  const [, forceRender] = useReducer(x => x + 1, 0);
+
+  const { appliedTags, appliedAuthors, noFiltersApplied } =
+    useStore(filtersAtom);
 
   return (
-    <form action="/articles" className="flex flex-col gap-8">
+    <form
+      onSubmit={e => e.preventDefault()}
+      className="flex flex-col gap-8 gradient-circle"
+    >
       <fieldset>
         <h3 className="font-thin mb-2">Keywords</h3>
         <Input
           variant="underlined"
-          defaultValue={query || undefined}
+          defaultValue={q?.[0] || ''}
           color="secondary"
           type="text"
           autoComplete="off"
+          isClearable
+          onChange={e => {
+            pushFiltersToUrl({ q: e.target.value.trim() });
+            forceRender();
+          }}
+          onClear={() => {
+            pushFiltersToUrl({ q: '' });
+            forceRender();
+          }}
           autoCorrect=""
           spellCheck={false}
-          className="text-accent placeholder:text-foreground/45"
+          classNames={{
+            input: 'text-accent placeholder:text-foreground/45',
+          }}
           name="q"
           id="q"
           placeholder="Search titles and content..."
@@ -40,6 +64,10 @@ function Filters({ tags, authors, allBlogArticles }: Props) {
               key={tag}
               tag={tag}
               isApplied={appliedTags.includes(tag)}
+              onChange={() => {
+                pushFiltersToUrl({ tag });
+                forceRender();
+              }}
             />
           ))}
         </div>
@@ -53,24 +81,26 @@ function Filters({ tags, authors, allBlogArticles }: Props) {
               key={author}
               author={author}
               isApplied={appliedAuthors.includes(author)}
+              onChange={() => {
+                pushFiltersToUrl({ author });
+                forceRender();
+              }}
             />
           ))}
         </div>
       </fieldset>
 
-      <fieldset className="flex gap-4">
-        <button
-          className="border-secondary border grow bg-background rounded-2xl p-4"
-          type="submit"
-        >
-          Search
-        </button>
+      <fieldset>
         <a
-          className={`border-secondary border bg-background rounded-2xl p-4 ${noFiltersApplied ? 'opacity-50 pointer-events-none cursor-not-allowed' : ''}`}
+          className={`block transition-opacity grow text-center border-secondary border bg-background rounded-2xl p-4 ${
+            noFiltersApplied
+              ? 'opacity-50 pointer-events-none cursor-not-allowed'
+              : ''
+          }`}
           href="/articles"
           tabIndex={noFiltersApplied ? -1 : 0}
         >
-          Clear
+          Clear all filters
         </a>
       </fieldset>
     </form>

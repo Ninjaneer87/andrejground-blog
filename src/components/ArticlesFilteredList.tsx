@@ -1,15 +1,12 @@
-import type { CollectionEntry } from 'astro:content';
-import useFilteredResults from 'src/hooks/useFilteredResults';
 import ArticleCard from './cards/ArticleCard';
+import { filtersAtom } from 'src/stores/globalStore';
+import { useStore } from '@nanostores/react';
 
-type Props = {
-  allBlogArticles: CollectionEntry<'blog'>[];
-};
-function ArticlesFilteredList({ allBlogArticles }: Props) {
-  const { filteredArticles } = useFilteredResults(allBlogArticles);
+function ArticlesFilteredList() {
+  const { filteredArticles } = useStore(filtersAtom);
 
   return (
-    <ul className="flex gap-16 items-center flex-wrap">
+    <ul className="flex gap-16 items-center flex-wrap max-md:justify-center">
       {filteredArticles.map(article => (
         <ArticleCard key={article.id} article={article} />
       ))}

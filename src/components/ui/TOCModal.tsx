@@ -3,21 +3,21 @@ import { Icon } from '@iconify-icon/react';
 import { useStore } from '@nanostores/react';
 import { Modal, ModalBody, ModalContent, ModalHeader } from '@nextui-org/react';
 import ClientOnlyPortal from './Portal';
-import { isTocModalOpen } from 'src/stores/globalStore';
+import { isTocModalOpenAtom } from 'src/stores/globalStore';
 
 type Props = {
   children: React.ReactNode;
 };
 
 function TOCModal({ children }: Props) {
-  const $isModalOpen = useStore(isTocModalOpen);
+  const isTocModalOpen = useStore(isTocModalOpenAtom);
 
   function close() {
-    isTocModalOpen.set(false);
+    isTocModalOpenAtom.set(false);
   }
 
   function toggle() {
-    isTocModalOpen.set(!$isModalOpen);
+    isTocModalOpenAtom.set(!isTocModalOpen);
   }
 
   return (
@@ -31,7 +31,7 @@ function TOCModal({ children }: Props) {
       </button>
 
       <Modal
-        isOpen={$isModalOpen}
+        isOpen={isTocModalOpen}
         backdrop="blur"
         onClose={close}
         scrollBehavior="inside"

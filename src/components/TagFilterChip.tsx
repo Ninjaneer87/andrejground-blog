@@ -1,36 +1,17 @@
-import React from 'react';
-import { useCheckbox, VisuallyHidden } from '@nextui-org/react';
-
 type Props = {
   tag: string;
   isApplied: boolean;
+  onChange: () => void;
 };
 
-export default function TagFilterChip({ tag, isApplied }: Props) {
-  const {
-    isSelected,
-    isFocusVisible,
-    getBaseProps,
-    getLabelProps,
-    getInputProps,
-  } = useCheckbox({
-    defaultSelected: isApplied,
-    name: 'tag',
-    value: tag,
-  });
-
+export default function TagFilterChip({ tag, isApplied, onChange }: Props) {
+  
   return (
-    <label {...getBaseProps()}>
-      <VisuallyHidden>
-        <input {...getInputProps()} />
-      </VisuallyHidden>
-
-      <div
-        {...getLabelProps()}
-        className={`text-xs ${isSelected ? 'text-accent border-accent' : ''} border-solid border-[1px] px-2 py-1 rounded-lg uppercase ${isFocusVisible ? 'border-secondary' : ''}`}
-      >
-        {tag}
-      </div>
-    </label>
+    <button
+      onClick={onChange}
+      className={`text-xs ${isApplied ? 'text-accent border-accent' : ''} border-solid border-[1px] px-2 py-1 rounded-lg uppercase focus-visible:border-secondary cursor-pointer select-none`}
+    >
+      {tag}
+    </button>
   );
 }

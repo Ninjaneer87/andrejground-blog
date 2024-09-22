@@ -1,11 +1,10 @@
 import { useStore } from '@nanostores/react';
 import { Progress } from '@nextui-org/react';
-import React from 'react';
-import { isPageLoading } from 'src/stores/globalStore';
+import { isPageLoadingAtom } from 'src/stores/globalStore';
 
 function Loader() {
-  const isLoading = useStore(isPageLoading);
-  return isLoading ? (
+  const isPageLoading = useStore(isPageLoadingAtom);
+  return isPageLoading ? (
     <Progress
       size="sm"
       isIndeterminate

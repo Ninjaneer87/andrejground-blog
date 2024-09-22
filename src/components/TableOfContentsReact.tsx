@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useRef } from 'react';
 import { useHeadings } from '../hooks/useHeadings';
 import { useSectionIdInView } from '../hooks/useSectionIdInView';
 import { ScrollShadow } from '@nextui-org/react';
-import { isTocModalOpen } from 'src/stores/globalStore';
+import { isTocModalOpenAtom } from 'src/stores/globalStore';
 import { useStore } from '@nanostores/react';
 import classes from './TableOfContentsReact.module.css';
 import useSlidingBox from '../hooks/useSlidingBox';
@@ -11,7 +11,7 @@ function TableOfContentsReact() {
   const { h2sAndH3s } = useHeadings();
   const { idInView } = useSectionIdInView();
   const inViewElement = useRef<HTMLAnchorElement | null>(null);
-  const $isModalOpen = useStore(isTocModalOpen);
+  const isTocModalOpen = useStore(isTocModalOpenAtom);
 
   const { allElementsRef, boxSizeAndPosition } =
     useSlidingBox({ activeItem: idInView, recalculate: [h2sAndH3s] });
@@ -28,7 +28,7 @@ function TableOfContentsReact() {
   }, [idInView]);
 
   useEffect(() => {
-    if (!idInView || !$isModalOpen) return;
+    if (!idInView || !isTocModalOpen) return;
 
     setTimeout(() => {
       inViewElement.current?.scrollIntoView({
@@ -36,7 +36,7 @@ function TableOfContentsReact() {
         inline: 'nearest',
       });
     }, 0);
-  }, [$isModalOpen]);
+  }, [isTocModalOpen]);
 
   function isInView(id: string) {
     return id === idInView;
@@ -64,7 +64,7 @@ function TableOfContentsReact() {
                   inViewElement.current = node;
                 }
               }}
-              onClick={() => isTocModalOpen.set(false)}
+              onClick={() => isTocModalOpenAtom.set(false)}
             >
               {h2.text}
             </a>
@@ -84,7 +84,7 @@ function TableOfContentsReact() {
                     inViewElement.current = node;
                   }
                 }}
-                onClick={() => isTocModalOpen.set(false)}
+                onClick={() => isTocModalOpenAtom.set(false)}
               >
                 {h3.text}
               </a>
