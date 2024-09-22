@@ -12,6 +12,7 @@ function AuthorFilterCard({ author, isApplied, onChange }: Props) {
     <button
       className={`flex flex-col rounded-xl gap-2  items-center max-w-24 justify-center  cursor-pointer`}
       onClick={onChange}
+      type="button"
     >
       <img
         className={`rounded-full ${isApplied ? '' : 'grayscale'}`}
