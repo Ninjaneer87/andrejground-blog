@@ -1,5 +1,3 @@
-// @ts-nocheck  
-
 import { FILTER_KEYS, type FilterKey } from 'src/constants';
 
 export function getQueryParams(url: string) {
@@ -31,7 +29,7 @@ export function pushFiltersToUrl(newFilters: { [key in FilterKey]?: string }) {
         continue;
       }
 
-      if (newFilters[filterKey].length) newSearchParams.append(filterKey, newFilters[filterKey]);
+      if (newFilters[filterKey]!.length) newSearchParams.append(filterKey, newFilters[filterKey]!);
       continue;
     }
 
@@ -43,11 +41,11 @@ export function pushFiltersToUrl(newFilters: { [key in FilterKey]?: string }) {
     }
 
     if (!currentQueryParams[filterKey]) {
-      newSearchParams.append(filterKey, newFilters[filterKey]);
+      newSearchParams.append(filterKey, newFilters[filterKey]!);
       continue;
     }
 
-    if (currentQueryParams[filterKey].includes(newFilters[filterKey])) {
+    if (currentQueryParams[filterKey].includes(newFilters[filterKey]!)) {
       currentQueryParams[filterKey].forEach(value => {
         if (value === newFilters[filterKey]) return;
         newSearchParams.append(filterKey, value);
@@ -58,7 +56,7 @@ export function pushFiltersToUrl(newFilters: { [key in FilterKey]?: string }) {
     currentQueryParams[filterKey].forEach(value => {
       newSearchParams.append(filterKey, value);
     });
-    newSearchParams.append(filterKey, newFilters[filterKey]);
+    newSearchParams.append(filterKey, newFilters[filterKey]!);
   }
 
   const newSearchString = newSearchParams.toString();
