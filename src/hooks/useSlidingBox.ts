@@ -14,7 +14,7 @@ interface BoxSizeAndPosition extends CSSProperties {
   '--height': `${number}px`;
 }
 
-type AllElements<T> = { [key: PropertyKey]: T };
+type ListItems<T> = { [key: PropertyKey]: T };
 
 const initialBoxSizeAndPosition: BoxSizeAndPosition = {
   '--x': '0px',
@@ -44,7 +44,7 @@ const mapAllPositions = (items: HTMLElement[]) => {
 
 type SlidingBox<Item> = {
   /** Ref containing an array of all the elements in the list. */
-  allElementsRef: MutableRefObject<AllElements<Item>>;
+  listItemsRef: MutableRefObject<ListItems<Item>>;
 
   /**
    * Object containing the following CSS (variables) properties of the active item:
@@ -76,7 +76,7 @@ export default function useSlidingBox<ItemElement extends HTMLElement>({
   const [boxSizeAndPosition, setBoxSizeAndPosition] = useState(
     initialBoxSizeAndPosition,
   );
-  const allElementsRef: MutableRefObject<AllElements<ItemElement>> = useRef({});
+  const listItemsRef: MutableRefObject<ListItems<ItemElement>> = useRef({});
 
   const setActivePosition = useCallback(() => {
     if (!activeItem) return;
@@ -88,9 +88,9 @@ export default function useSlidingBox<ItemElement extends HTMLElement>({
   }, [activeItem]);
 
   const mapAndSetActivePosition = useCallback(() => {
-    if (!allElementsRef.current) return;
+    if (!listItemsRef.current) return;
 
-    const allItems = Object.values(allElementsRef.current);
+    const allItems = Object.values(listItemsRef.current);
     mapAllPositions(allItems);
     setActivePosition();
   }, [setActivePosition, ...recalculate]);
@@ -102,5 +102,5 @@ export default function useSlidingBox<ItemElement extends HTMLElement>({
     return () => window.removeEventListener('resize', mapAndSetActivePosition);
   }, [mapAndSetActivePosition]);
 
-  return { allElementsRef, boxSizeAndPosition };
+  return { listItemsRef, boxSizeAndPosition };
 }

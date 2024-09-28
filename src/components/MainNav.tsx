@@ -12,7 +12,7 @@ function MainNav({ links }: Props) {
   const activeLinkHref = links
     .filter(link => link.isActive)
     .map(link => link.href)[0];
-  const { allElementsRef, boxSizeAndPosition } =
+  const { listItemsRef, boxSizeAndPosition } =
     useSlidingBox({
       activeItem: activeLinkHref,
       recalculate: [activeLinkHref],
@@ -30,7 +30,7 @@ function MainNav({ links }: Props) {
           ref={node => {
             if (!node) return;
 
-            allElementsRef.current[link.href] = node;
+            listItemsRef.current[link.href] = node;
           }}
         >
           <a

@@ -248,7 +248,7 @@ export default function useSlidingBox({
 
 With this, our type-safe state is ready.
 
-### 3. `allElementsRef` _ref_
+### 3. `listItemsRef` _ref_
 
 For this, we're going to use the `useRef` hook but not in a way that we usually do. This _ref_ will hold an object with a unique identifier as a <b>key</b> and the actual HTML element as a <b>value</b>.
 
@@ -272,14 +272,14 @@ export default function useSlidingBox<ItemElement extends HTMLElement>(
 }
 ```
 
-`AllElements` type is also going to be a generic. It will make use of the `ItemElement` type. Now we have it all connected.
+`ListItems` type is also going to be a generic. It will make use of the `ItemElement` type. Now we have it all connected.
 
 ```ts
 /* useSlidingBox.ts */
 
 // ...
 
-type AllElements<T> = { [key: PropertyKey]: T };
+type ListItems<T> = { [key: PropertyKey]: T };
 
 export default function useSlidingBox<ItemElement extends HTMLElement>(
   {
@@ -287,7 +287,7 @@ export default function useSlidingBox<ItemElement extends HTMLElement>(
   },
 ) {
   // ...
-  const allElementsRef: MutableRefObject<AllElements<ItemElement>> = useRef({});
+  const listItemsRef: MutableRefObject<ListItems<ItemElement>> = useRef({});
 }
 ```
 
@@ -346,9 +346,9 @@ To do this, we take all the items in the list, calculate sizes and positions, an
 
 ```ts
 const mapAndSetActivePosition = useCallback(() => {
-  if (!allElementsRef.current) return;
+  if (!listItemsRef.current) return;
 
-  const allItems = Object.values(allElementsRef.current);
+  const allItems = Object.values(listItemsRef.current);
   mapAllPositions(allItems);
   setActivePosition();
 }, [setActivePosition, ...recalculate]);
@@ -370,7 +370,7 @@ useEffect(() => {
 
 #### 4.e The hook is ready
 
-Our hook returns an object with `allElementsRef` and `boxSizeAndPosition`, and now it looks like this
+Our hook returns an object with `listItemsRef` and `boxSizeAndPosition`, and now it looks like this
 
 ```ts
 /* useSlidingBox.ts */
@@ -384,7 +384,7 @@ import {
   MutableRefObject,
 } from 'react';
 
-type AllElements<T> = { [key: PropertyKey]: T };
+type ListItems<T> = { [key: PropertyKey]: T };
 
 interface BoxSizeAndPosition extends CSSProperties {
   '--x': `${number}px`;
@@ -420,7 +420,7 @@ const mapAllPositions = (items: HTMLElement[]) => {
 };
 
 type SlidingBox<Item> = {
-  allElementsRef: MutableRefObject<AllElements<Item>>;
+  listItemsRef: MutableRefObject<ListItems<Item>>;
   boxSizeAndPosition: BoxSizeAndPosition;
 };
 
@@ -434,7 +434,7 @@ export default function useSlidingBox<ItemElement extends HTMLElement>({
   const [boxSizeAndPosition, setBoxSizeAndPosition] = useState(
     initialBoxSizeAndPosition,
   );
-  const allElementsRef: MutableRefObject<AllElements<ItemElement>> = useRef({});
+  const listItemsRef: MutableRefObject<ListItems<ItemElement>> = useRef({});
 
   const setActivePosition = useCallback(() => {
     if (!activeItem) return;
@@ -446,9 +446,9 @@ export default function useSlidingBox<ItemElement extends HTMLElement>({
   }, [activeItem]);
 
   const mapAndSetActivePosition = useCallback(() => {
-    if (!allElementsRef.current) return;
+    if (!listItemsRef.current) return;
 
-    const allItems = Object.values(allElementsRef.current);
+    const allItems = Object.values(listItemsRef.current);
     mapAllPositions(allItems);
     setActivePosition();
   }, [setActivePosition, ...recalculate]);
@@ -460,7 +460,7 @@ export default function useSlidingBox<ItemElement extends HTMLElement>({
     return () => window.removeEventListener('resize', mapAndSetActivePosition);
   }, [mapAndSetActivePosition]);
 
-  return { allElementsRef, boxSizeAndPosition };
+  return { listItemsRef, boxSizeAndPosition };
 }
 ```
 
@@ -471,7 +471,7 @@ All we need to do now, is to use the hook inside the `List` component, namely, a
 First part is straight forward
 
 ```ts
-const { allElementsRef, boxSizeAndPosition } = useSlidingBox({
+const { listItemsRef, boxSizeAndPosition } = useSlidingBox({
   activeItem,
   recalculate: [items.length], // we want to recalculate in case our list changes
 });
@@ -491,7 +491,7 @@ For the other part, we will pass the `data-key` and use a function to attach the
       ref={node => {
         if (!node) return;
 
-        allElementsRef.current[item] = node; // -> allItemsPositions[item]
+        listItemsRef.current[item] = node; // -> allItemsPositions[item]
       }}
     >
       <button
@@ -519,7 +519,7 @@ const initialItems = ['home', 'about', 'contact'];
 function List() {
   const [items, setItems] = useState(initialItems);
   const [activeItem, setActiveItem] = useState(items[0]);
-  const { allElementsRef, boxSizeAndPosition } = useSlidingBox({
+  const { listItemsRef, boxSizeAndPosition } = useSlidingBox({
     activeItem,
     recalculate: [items.length],
   });
@@ -556,7 +556,7 @@ function List() {
             ref={node => {
               if (!node) return;
 
-              allElementsRef.current[item] = node;
+              listItemsRef.current[item] = node;
             }}
           >
             <button

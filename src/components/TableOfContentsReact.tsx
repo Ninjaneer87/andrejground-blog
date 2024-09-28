@@ -13,7 +13,7 @@ function TableOfContentsReact() {
   const inViewElement = useRef<HTMLAnchorElement | null>(null);
   const isTocModalOpen = useStore(isTocModalOpenAtom);
 
-  const { allElementsRef, boxSizeAndPosition } =
+  const { listItemsRef, boxSizeAndPosition } =
     useSlidingBox({ activeItem: idInView, recalculate: [h2sAndH3s] });
 
   useEffect(() => {
@@ -58,7 +58,7 @@ function TableOfContentsReact() {
               ref={node => {
                 if (!node) return;
 
-                allElementsRef.current[h2.id] = node;
+                listItemsRef.current[h2.id] = node;
 
                 if (isInView(h2.id)) {
                   inViewElement.current = node;
@@ -78,7 +78,7 @@ function TableOfContentsReact() {
                 ref={node => {
                   if (!node) return;
 
-                  allElementsRef.current[h3.id] = node;
+                  listItemsRef.current[h3.id] = node;
 
                   if (isInView(h3.id)) {
                     inViewElement.current = node;
