@@ -486,9 +486,10 @@ export default function useActiveBoxPosition<ItemElement extends HTMLElement>({
 ## Plug and play
 
 To recap the important steps:
+
 - Add/connect the active box styles
 - Call the hook inside the `List` component
-- Inject `activeBoxPosition` styles (css variables) into the list element 
+- Inject `activeBoxPosition` styles (css variables) into the list element
 - Save references to all the elements in the list
 
 ### `List.module.css`
@@ -575,9 +576,9 @@ function List() {
         Add new item
       </button>
 
-      <ul 
-      className={classes.list} // -> apply the class from CSS module
-      style={activeBoxPosition} // -> inject --width, --height, --x and --y
+      <ul
+        className={classes.list} // -> apply the class from CSS module
+        style={activeBoxPosition} // -> inject --width, --height, --x and --y
       >
         {items.map(item => (
           <li
