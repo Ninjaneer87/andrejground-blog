@@ -5,7 +5,7 @@ import { ScrollShadow } from '@nextui-org/react';
 import { isTocModalOpenAtom } from 'src/stores/globalStore';
 import { useStore } from '@nanostores/react';
 import classes from './TableOfContentsReact.module.css';
-import useSlidingBox from '../hooks/useSlidingBox';
+import { useActiveBoxPosition } from '@andrejground/hooks';
 
 function TableOfContentsReact() {
   const { h2sAndH3s } = useHeadings();
@@ -13,8 +13,8 @@ function TableOfContentsReact() {
   const inViewElement = useRef<HTMLAnchorElement | null>(null);
   const isTocModalOpen = useStore(isTocModalOpenAtom);
 
-  const { listItemsRef, boxSizeAndPosition } =
-    useSlidingBox({ activeItem: idInView, recalculate: [h2sAndH3s] });
+  const { listItemsRef, activeBoxPosition } =
+    useActiveBoxPosition({ activeItem: idInView, recalculate: [h2sAndH3s] });
 
   useEffect(() => {
     if (!idInView) return;
@@ -46,7 +46,7 @@ function TableOfContentsReact() {
     <ScrollShadow
       as="ul"
       className={`grow flex flex-col toc-list max-h-[50vh] pr-1 scroll-py-10 text-sm z-0 ${classes.list}`}
-      style={idInView ? boxSizeAndPosition : {}}
+      style={idInView ? activeBoxPosition : {}}
     >
       {h2sAndH3s.map(({ h2, h3s }) => (
         <Fragment key={h2.id}>

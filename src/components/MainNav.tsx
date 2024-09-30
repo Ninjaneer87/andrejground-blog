@@ -1,5 +1,5 @@
 import classes from './MainNav.module.css';
-import useSlidingBox from 'src/hooks/useSlidingBox';
+import { useActiveBoxPosition } from '@andrejground/hooks';
 
 type Props = {
   links: {
@@ -12,16 +12,15 @@ function MainNav({ links }: Props) {
   const activeLinkHref = links
     .filter(link => link.isActive)
     .map(link => link.href)[0];
-  const { listItemsRef, boxSizeAndPosition } =
-    useSlidingBox({
-      activeItem: activeLinkHref,
-      recalculate: [activeLinkHref],
-    });
+  const { listItemsRef, activeBoxPosition } = useActiveBoxPosition({
+    activeItem: activeLinkHref,
+    recalculate: [activeLinkHref],
+  });
 
   return (
     <ul
       className={`flex items-center ${classes.list} z-0`}
-      style={!!activeLinkHref ? boxSizeAndPosition : {}}
+      style={!!activeLinkHref ? activeBoxPosition : {}}
     >
       {links.map(link => (
         <li

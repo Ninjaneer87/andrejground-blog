@@ -43,7 +43,7 @@ Let's break this in a couple of steps and see how they fit together.
 
 ## Starting a new react project
 
-This is totally optional, you can use any of your existing react projects or a playground like <a href="https://stackblitz.com/" target="_blank">stackblitz &#8599;</a>
+This is optional, you can use any of your existing react projects or a playground like <a href="https://stackblitz.com/" target="_blank">stackblitz &#8599;</a>
 
 If you do want to create a new project from scratch, you can follow the steps in <a href="/articles/set-up-react-tailwind-typescript-in-vite" target="_blank">this article &#8599;</a>
 
@@ -58,8 +58,8 @@ Let's add all the necessary styles which will make this effect possible.
 
 /* Sliding box container */
 .list {
-  /* Required */
-  position: relative; /* recommended - not required */
+  /* Recommended */
+  position: relative;
 
   /* Optional */
   width: fit-content;
@@ -135,7 +135,7 @@ function List() {
         Add new item
       </button>
 
-      <ul className={classes.list} style={boxSizeAndPosition}>
+      <ul className={classes.list} style={activeBoxPosition}>
         {items.map(item => (
           <li key={item}>
             <button
@@ -154,20 +154,20 @@ function List() {
 export default List;
 ```
 
-## Introducing `useSlidingBox` hook
+## Introducing `useActiveBoxPosition` hook
 
 Let's create a small todo here:
 
 1. Create the hook
-2. Add a state to keep track of the sliding box size (width, height) and position (offsetLeft, offsetTop).
-3. Add references to all the elements we want to slide over.
-4. Add a reference to the active element.
-5. Add logic for making them all work together.
-6. Lastly, plug and play.
+2. Add a state to keep track of the sliding box size (width, height) and position (offsetLeft, offsetTop)
+3. Save references to all the elements we want to slide over
+4. Save positions of all the elements
+5. Add logic for making them all work together
+6. Lastly, plug and play
 
 ### 1. Create the hook
 
-In the `hooks` folder we'll create `useSlidingBox.ts` file, which will contain the hook.
+In the `hooks` folder we'll create `useActiveBoxPosition.ts` file, which will contain the hook.
 
 The hook will accept a configuration object with two properties:
 
@@ -175,9 +175,9 @@ The hook will accept a configuration object with two properties:
 - `recalculate` - a list of values we will be watching. Whenever any of these values change, we will recalculate all sizes and positions of the elements in the list.
 
 ```ts
-/* useSlidingBox.ts */
+/* useActiveBoxPosition.ts */
 
-export default function useSlidingBox({
+export default function useActiveBoxPosition({
   activeItem,
   recalculate = [],
 }: {
@@ -188,12 +188,12 @@ export default function useSlidingBox({
 }
 ```
 
-### 2. `boxSizeAndPosition` _state_
+### 2. `activeBoxPosition` _state_
 
-First, let's see what type this state is going to be. In order to pass this to the `style` property of our `List`, this state needs to take shape of a style object with CSS properties. So that is exactly where we are going to start from.
+First, let's see what type this state is going to be. In order to pass this to the `style` property of our `List`, this state needs to take shape of a style object with CSS properties. So we'll start from there.
 
 ```ts
-interface BoxSizeAndPosition extends CSSProperties {
+interface BoxPosition extends CSSProperties {
   '--x': `${number}px`;
   '--y': `${number}px`;
   '--width': `${number}px`;
@@ -206,7 +206,7 @@ As you see, we're using template literal types to enforce the value in `px`.
 Now we can create the initial state
 
 ```ts
-const initialBoxSizeAndPosition: BoxSizeAndPosition = {
+const initialBoxPosition: BoxPosition = {
   '--x': '0px',
   '--y': '0px',
   '--width': '0px',
@@ -217,32 +217,31 @@ const initialBoxSizeAndPosition: BoxSizeAndPosition = {
 ... and finally add the state to the hook
 
 ```ts
-/* useSlidingBox.ts */
+/* useActiveBoxPosition.ts */
 
-interface BoxSizeAndPosition extends CSSProperties {
+interface BoxPosition extends CSSProperties {
   '--x': `${number}px`;
   '--y': `${number}px`;
   '--width': `${number}px`;
   '--height': `${number}px`;
 }
 
-const initialBoxSizeAndPosition: BoxSizeAndPosition = {
+const initialBoxPosition: BoxPosition = {
   '--x': '0px',
   '--y': '0px',
   '--width': '0px',
   '--height': '0px',
 };
 
-export default function useSlidingBox({
+export default function useActiveBoxPosition({
   activeItem,
   recalculate = [],
 }: {
   activeItem: string;
   recalculate?: unknown[];
 }) {
-  const [boxSizeAndPosition, setBoxSizeAndPosition] = useState(
-    initialBoxSizeAndPosition,
-  );
+  const [activeBoxPosition, setActiveBoxPosition] =
+    useState(initialBoxPosition);
 }
 ```
 
@@ -250,20 +249,20 @@ With this, our type-safe state is ready.
 
 ### 3. `listItemsRef` _ref_
 
-For this, we're going to use the `useRef` hook but not in a way that we usually do. This _ref_ will hold an object with a unique identifier as a <b>key</b> and the actual HTML element as a <b>value</b>.
+To keep track of all the elements in the list, we'll be using the `useRef` hook but not in a way that we usually do. This _ref_ will hold an object with a unique identifier as a <b>key</b> and an HTML element as a <b>value</b>.
 
-So as usual, let's get the types out of the way first.
+Let's get the types out of the way first.
 
-To allow for a maximum type accuracy, the hook will accept a _generic_ type which we will use for the elements in the list. If no type is explicitly provided to the hook, we still have a type that extends `HTMLElement`.
+To allow for some type flexibility, the hook accepts a _generic_ type which we will use for the elements in the list. If no type is explicitly provided to the hook, we still have a type that extends `HTMLElement`.
 
 Now the hook will look something like this:
 
 ```ts
-/* useSlidingBox.ts */
+/* useActiveBoxPosition.ts */
 
 // ...
 
-export default function useSlidingBox<ItemElement extends HTMLElement>(
+export default function useActiveBoxPosition<ItemElement extends HTMLElement>(
   {
     // ...
   },
@@ -275,13 +274,13 @@ export default function useSlidingBox<ItemElement extends HTMLElement>(
 `ListItems` type is also going to be a generic. It will make use of the `ItemElement` type. Now we have it all connected.
 
 ```ts
-/* useSlidingBox.ts */
+/* useActiveBoxPosition.ts */
 
 // ...
 
 type ListItems<T> = { [key: PropertyKey]: T };
 
-export default function useSlidingBox<ItemElement extends HTMLElement>(
+export default function useActiveBoxPosition<ItemElement extends HTMLElement>(
   {
     // ...
   },
@@ -291,35 +290,36 @@ export default function useSlidingBox<ItemElement extends HTMLElement>(
 }
 ```
 
-<p class='highlight'>We are using <b>MutableRefObject</b> because we don't want the TS to complain about the non-traditional way we're going to attach our refs to the elements in the list.</p>
+<p class='highlight'>We are using <b>MutableRefObject</b> because we don't want the TS to complain about the non-traditional way we're going to attach `listItemsRef` to the elements in the list.</p>
 
 ### 4. Glue 'em together
 
-#### 4.a Save sizes and positions
+#### 4.a Save positions of all list items
 
-We will save this in `itemPositions` object outside of the hook and create the `mapAllPositions` function that accepts the list of all the elements and maps them into the object.
+We will use `listItemsPositionsRef` for this.
 
-For `itemKey`, we need the same unique identifier we use for the _active item_. To achieve that we will be attaching this value to all the elements in the list using the `data-key` attribute.
+But before we can save, we need to use `listItemsRef` to get all the keys and calculate positions for all the items.
 
 ```ts
-const itemPositions: Record<string, BoxSizeAndPosition> = {};
+// The ref to keep track of all items positions
+const listItemsPositionsRef: MutableRefObject<ListItems<BoxPosition>> = useRef(
+  {},
+);
 
-const mapAllPositions = (items: HTMLElement[]) => {
-  items.forEach(item => {
-    const itemKey = item.dataset.key;
-    if (!itemKey) return;
+// ...
 
-    const { offsetTop, offsetLeft, offsetWidth, offsetHeight } = item;
-    const itemPosition: BoxSizeAndPosition = {
-      '--x': `${Math.round(offsetLeft)}px`,
-      '--y': `${Math.round(offsetTop)}px`,
-      '--width': `${Math.round(offsetWidth)}px`,
-      '--height': `${Math.round(offsetHeight)}px`,
-    };
+// Loop over all the items, calculate and save positions
+Object.entries(listItemsRef.current).forEach(([key, item]) => {
+  const { offsetTop, offsetLeft, offsetWidth, offsetHeight } = item;
+  const itemPosition: BoxPosition = {
+    '--x': `${Math.round(offsetLeft)}px`,
+    '--y': `${Math.round(offsetTop)}px`,
+    '--width': `${Math.round(offsetWidth)}px`,
+    '--height': `${Math.round(offsetHeight)}px`,
+  };
 
-    itemPositions[itemKey] = itemPosition;
-  });
-};
+  listItemsPositionsRef.current[key] = itemPosition;
+});
 ```
 
 #### 4.b Set active box position
@@ -327,191 +327,216 @@ const mapAllPositions = (items: HTMLElement[]) => {
 As we stated above, we will use the `activeItem` identifier to grab the size and position of the active element.
 
 ```ts
-const setActivePosition = useCallback(() => {
-  const activeItemPosition = itemPositions[activeItem];
+const setPosition = useCallback(() => {
+  if (!activeItem) return;
+
+  const activeItemPosition = listItemsPositionsRef.current[activeItem];
   if (!activeItemPosition) return;
 
-  setBoxSizeAndPosition(activeItemPosition);
+  setActiveBoxPosition(activeItemPosition);
 }, [activeItem]);
 ```
 
-<p class="highlight">Since we're dealing with potentially expensive operations of extracting <b>width</b>, <b>height</b>, <b>offsetLeft</b> and <b>offsetRight</b>, we will use a small optimisation tactics - <b>useCallback</b> and be careful about calling the expensive <b>mapAllPositions</b> function.
+<p class="highlight">Since we're dealing with expensive operations of extracting <b>width</b>, <b>height</b>, <b>offsetLeft</b> and <b>offsetRight</b>, we will use <b>useCallback</b> and be careful about calling the expensive <b>recalcAndSetPosition</b> function.
 <br /> <br />
 We don't necessarily want to calculate everything each time the active item changes. We just grab cached values from the <code>itemPositions</code> object.
 </p>
 
-#### 4.c Calculate, save and set the active box
-
-To do this, we take all the items in the list, calculate sizes and positions, and lastly set the active box size and position.
+#### 4.c `recalcAndSetPosition` is taking care of 4.a and 4.b
 
 ```ts
-const mapAndSetActivePosition = useCallback(() => {
-  if (!listItemsRef.current) return;
-
-  const allItems = Object.values(listItemsRef.current);
-  mapAllPositions(allItems);
-  setActivePosition();
-}, [setActivePosition, ...recalculate]);
-```
-
-#### 4.d The logic to control all these pieces
-
-Here we create the logic for when to only set the active box, when to calculate everything and set the active box, and we will add a `resize` event listener so that we don't lose positions when the screen size changes for any reason.
-
-```ts
-useEffect(setActivePosition, [activeItem]); // set the active box
-useEffect(mapAndSetActivePosition, [...recalculate]); // calc and set the active box
-useEffect(() => {
-  //calc and set on screen size change
-  window.addEventListener('resize', mapAndSetActivePosition);
-  return () => window.removeEventListener('resize', mapAndSetActivePosition);
-}, [mapAndSetActivePosition]);
-```
-
-#### 4.e The hook is ready
-
-Our hook returns an object with `listItemsRef` and `boxSizeAndPosition`, and now it looks like this
-
-```ts
-/* useSlidingBox.ts */
-
-import {
-  useEffect,
-  useRef,
-  useState,
-  useCallback,
-  CSSProperties,
-  MutableRefObject,
-} from 'react';
-
-type ListItems<T> = { [key: PropertyKey]: T };
-
-interface BoxSizeAndPosition extends CSSProperties {
-  '--x': `${number}px`;
-  '--y': `${number}px`;
-  '--width': `${number}px`;
-  '--height': `${number}px`;
-}
-
-const initialBoxSizeAndPosition: BoxSizeAndPosition = {
-  '--x': '0px',
-  '--y': '0px',
-  '--width': '0px',
-  '--height': '0px',
-};
-
-const itemPositions: Record<string, BoxSizeAndPosition> = {};
-
-const mapAllPositions = (items: HTMLElement[]) => {
-  items.forEach(item => {
-    const itemKey = item.dataset.key;
-    if (!itemKey) return;
-
+const recalcAndSetPosition = useCallback(() => {
+  Object.entries(listItemsRef.current).forEach(([key, item]) => {
     const { offsetTop, offsetLeft, offsetWidth, offsetHeight } = item;
-    const itemPosition: BoxSizeAndPosition = {
+    const itemPosition: BoxPosition = {
       '--x': `${Math.round(offsetLeft)}px`,
       '--y': `${Math.round(offsetTop)}px`,
       '--width': `${Math.round(offsetWidth)}px`,
       '--height': `${Math.round(offsetHeight)}px`,
     };
 
-    itemPositions[itemKey] = itemPosition;
+    listItemsPositionsRef.current[key] = itemPosition;
   });
+
+  setPosition();
+}, [setPosition, ...recalculate]);
+```
+
+#### 4.d The logic to control all these pieces
+
+Here we create the logic to only set the active box, or to calculate everything and set the active box.
+
+Also we will add a `resize` event listener so that we recalculate positions when the screen size changes for any reason.
+
+```ts
+useEffect(setPosition, [activeItem]); // set the active box position
+useEffect(recalcAndSetPosition, [...recalculate]); // calc and set the active box position
+useEffect(() => {
+  //calc and set on screen size change
+  window.addEventListener('resize', recalcAndSetPosition);
+  return () => window.removeEventListener('resize', recalcAndSetPosition);
+}, [recalcAndSetPosition]);
+```
+
+#### 4.e The hook is ready
+
+Our hook returns an object with `listItemsRef` and `activeBoxPosition`, and now it looks like this
+
+```ts
+/* useActiveBoxPosition.ts */
+
+import {
+  useEffect,
+  useRef,
+  useState,
+  useCallback,
+  type CSSProperties,
+  type MutableRefObject,
+} from 'react';
+
+type ListItems<T> = { [key: PropertyKey]: T };
+
+interface BoxPosition extends CSSProperties {
+  '--x': `${number}px`;
+  '--y': `${number}px`;
+  '--width': `${number}px`;
+  '--height': `${number}px`;
+}
+
+const initialBoxPosition: BoxPosition = {
+  '--x': '0px',
+  '--y': '0px',
+  '--width': '0px',
+  '--height': '0px',
 };
 
 type SlidingBox<Item> = {
+  /** Ref containing an array of all the elements in the list. */
   listItemsRef: MutableRefObject<ListItems<Item>>;
-  boxSizeAndPosition: BoxSizeAndPosition;
+
+  /**
+   * Object containing the following CSS (variables) properties of the active item:
+   *
+   * `--x`(offsetLeft): x-axis position in `px`
+   *
+   * `--y`(offsetTop):  y-axis position in `px`
+   *
+   * `--width`(width): width in `px`
+   *
+   * `--height`(height): height in `px`
+   */
+  activeBoxPosition: BoxPosition;
 };
 
-export default function useSlidingBox<ItemElement extends HTMLElement>({
+export default function useActiveBoxPosition<ItemElement extends HTMLElement>({
   activeItem,
   recalculate = [],
 }: {
+  /** A unique value representing active item in the list. */
   activeItem: string | null | undefined;
+
+  /** Will recalculate (and map) all list elements' sizes and positions when ever any of these values change.
+   *
+   * Example: new item is added to the list
+   */
   recalculate?: unknown[];
 }): SlidingBox<ItemElement> {
-  const [boxSizeAndPosition, setBoxSizeAndPosition] = useState(
-    initialBoxSizeAndPosition,
-  );
+  const [activeBoxPosition, setActiveBoxPosition] =
+    useState(initialBoxPosition);
   const listItemsRef: MutableRefObject<ListItems<ItemElement>> = useRef({});
+  const listItemsPositionsRef: MutableRefObject<ListItems<BoxPosition>> =
+    useRef({});
 
-  const setActivePosition = useCallback(() => {
+  const setPosition = useCallback(() => {
     if (!activeItem) return;
 
-    const activeItemPosition = itemPositions[activeItem];
+    const activeItemPosition = listItemsPositionsRef.current[activeItem];
     if (!activeItemPosition) return;
 
-    setBoxSizeAndPosition(activeItemPosition);
+    setActiveBoxPosition(activeItemPosition);
   }, [activeItem]);
 
-  const mapAndSetActivePosition = useCallback(() => {
-    if (!listItemsRef.current) return;
+  const recalcAndSetPosition = useCallback(() => {
+    Object.entries(listItemsRef.current).forEach(([key, item]) => {
+      const { offsetTop, offsetLeft, offsetWidth, offsetHeight } = item;
+      const itemPosition: BoxPosition = {
+        '--x': `${Math.round(offsetLeft)}px`,
+        '--y': `${Math.round(offsetTop)}px`,
+        '--width': `${Math.round(offsetWidth)}px`,
+        '--height': `${Math.round(offsetHeight)}px`,
+      };
 
-    const allItems = Object.values(listItemsRef.current);
-    mapAllPositions(allItems);
-    setActivePosition();
-  }, [setActivePosition, ...recalculate]);
+      listItemsPositionsRef.current[key] = itemPosition;
+    });
 
-  useEffect(setActivePosition, [activeItem]);
-  useEffect(mapAndSetActivePosition, [...recalculate]);
+    setPosition();
+  }, [setPosition, ...recalculate]);
+
+  useEffect(setPosition, [activeItem]);
+  useEffect(recalcAndSetPosition, [...recalculate]);
   useEffect(() => {
-    window.addEventListener('resize', mapAndSetActivePosition);
-    return () => window.removeEventListener('resize', mapAndSetActivePosition);
-  }, [mapAndSetActivePosition]);
+    window.addEventListener('resize', recalcAndSetPosition);
+    return () => window.removeEventListener('resize', recalcAndSetPosition);
+  }, [recalcAndSetPosition]);
 
-  return { listItemsRef, boxSizeAndPosition };
+  return { listItemsRef, activeBoxPosition };
 }
 ```
 
 ## Plug and play
 
-All we need to do now, is to use the hook inside the `List` component, namely, assign `boxSizeAndPosition` to inline _style_ property of the list element and attach the refs to the elements in the list.
+To recap the important steps:
+- Add/connect the active box styles
+- Call the hook inside the `List` component
+- Inject `activeBoxPosition` styles (css variables) into the list element 
+- Save references to all the elements in the list
 
-First part is straight forward
+### `List.module.css`
 
-```ts
-const { listItemsRef, boxSizeAndPosition } = useSlidingBox({
-  activeItem,
-  recalculate: [items.length], // we want to recalculate in case our list changes
-});
+```css
+/* List.module.css */
+
+/* Sliding box container */
+.list {
+  /* Recommended */
+  position: relative;
+
+  /* Optional */
+  width: fit-content;
+  display: flex;
+  flex-flow: row;
+  margin-inline: auto;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 1rem;
+  max-width: 600px;
+}
+
+/* The sliding box */
+.list::after {
+  /* Required */
+  content: '';
+  position: absolute;
+  transform: translate(var(--x), var(--y));
+  width: var(--width);
+  height: var(--height);
+  z-index: -1;
+  transition: all 250ms ease;
+  inset: 0; /* or top-right-bottom-left of choice */
+
+  /* Optional */
+  background: rgb(102, 0, 255);
+  border-radius: 6px;
+}
 ```
 
-For the other part, we will pass the `data-key` and use a function to attach the refs to elements in the list.
-
-```tsx
-<ul
-  className={classes.list} // -> apply the class from CSS module
-  style={boxSizeAndPosition} // -> set --width, --height, --x and --y
->
-  {items.map(item => (
-    <li
-      key={item}
-      data-key={item} // -> a key in allItemsPositions object
-      ref={node => {
-        if (!node) return;
-
-        listItemsRef.current[item] = node; // -> allItemsPositions[item]
-      }}
-    >
-      <button
-        className="cursor-pointer p-2 hover:opacity-70 transition-opacity"
-        onClick={() => onClick(item)}
-      >
-        {item}
-      </button>
-    </li>
-  ))}
-</ul>
-```
-
-Now the `List` component is ready and it looks like this
+### `List.tsx`
 
 ```tsx
 /* List.tsx */
-
 import { useState } from 'react';
-import useSlidingBox from '../hooks/useSlidingBox';
+import useActiveBoxPosition from '../hooks/useActiveBoxPosition';
 import classes from './List.module.css';
 
 const initialItems = ['home', 'about', 'contact'];
@@ -519,9 +544,11 @@ const initialItems = ['home', 'about', 'contact'];
 function List() {
   const [items, setItems] = useState(initialItems);
   const [activeItem, setActiveItem] = useState(items[0]);
-  const { listItemsRef, boxSizeAndPosition } = useSlidingBox({
+
+  // Call the hook
+  const { listItemsRef, activeBoxPosition } = useActiveBoxPosition({
     activeItem,
-    recalculate: [items.length],
+    recalculate: [items.length], // recalculate in case the list changes
   });
 
   function onClick(item: string) {
@@ -548,15 +575,17 @@ function List() {
         Add new item
       </button>
 
-      <ul className={classes.list} style={boxSizeAndPosition}>
+      <ul 
+      className={classes.list} // -> apply the class from CSS module
+      style={activeBoxPosition} // -> inject --width, --height, --x and --y
+      >
         {items.map(item => (
           <li
             key={item}
-            data-key={item}
             ref={node => {
               if (!node) return;
 
-              listItemsRef.current[item] = node;
+              listItemsRef.current[item] = node; // -> Save the reference to the list item
             }}
           >
             <button
@@ -575,7 +604,9 @@ function List() {
 export default List;
 ```
 
-To see it in action, we just need to add the `List` component to `App.tsx`
+### `App.tsx`
+
+To see everything in action, we just need to add the `List` component to `App.tsx`
 
 ```tsx
 /* App.tsx */
