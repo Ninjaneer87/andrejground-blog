@@ -9,12 +9,9 @@ type Props = {
   }[];
 };
 function MainNav({ links }: Props) {
-  const activeLinkHref = links
-    .filter(link => link.isActive)
-    .map(link => link.href)[0];
+  const activeLinkHref = links.find(link => link.isActive)?.href;
   const { listItemsRef, activeBoxPosition } = useActiveBoxPosition({
     activeItem: activeLinkHref,
-    recalculate: [activeLinkHref],
   });
 
   return (
