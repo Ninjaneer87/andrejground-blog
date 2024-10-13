@@ -6,7 +6,8 @@ h1 {
 h2 {
   scroll-margin-top: 130px;
   font-size: clamp(1.75rem, 5vw, 2.25rem);
-  margin: 3rem 0 2rem 0;
+  margin: 3rem 0 1.5rem 0;
+  text-wrap: balance;
 }
 h3 {
   font-size: clamp(1.5rem, 5vw, 1.75rem);
@@ -24,9 +25,10 @@ h3,
 h4,
 h5,
 h6 {
+  text-wrap: balance;
   scroll-margin-top: 130px;
   font-weight: 200;
-  margin: 2rem 0;
+  margin: 2rem 0 1rem 0;
 }
 p {
   font-size: 1rem;
@@ -119,6 +121,7 @@ h6 {
 .highlight {
   padding: 1rem;
   border-left: 2px solid rgb(var(--accent));
+  border-radius: 0.5rem;
   background: linear-gradient(
     90deg,
     rgb(var(--primary)) -30%,
