@@ -9,7 +9,7 @@
   /* Required */
   content: '';
   position: absolute;
-  width: var(--width, 0);
+  width: 100%;
   height: var(--height, 0);
   transform: translate(var(--x), var(--y));
   display: flex;

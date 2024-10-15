@@ -290,7 +290,7 @@ export default function useActiveBoxPosition<ItemElement extends HTMLElement>(
 }
 ```
 
-<p class='highlight'>We are using <b>MutableRefObject</b> because we don't want the TS to complain about the non-traditional way we're going to attach `listItemsRef` to the elements in the list.</p>
+<p class='highlight'>We are using <b>MutableRefObject</b> because we don't want the TS to complain about the non-traditional way we're going to attach <code>listItemsRef</code> to the elements in the list.</p>
 
 ### 4. Glue 'em together
 
