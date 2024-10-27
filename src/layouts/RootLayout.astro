@@ -1,5 +1,6 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
+import SpeedInsights from '@vercel/speed-insights/astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/base.css';
@@ -61,6 +62,7 @@ const title = `${SITE_TITLE} | ${pageTitle}`;
 
     <title>{title}</title>
     <ViewTransitions />
+    <SpeedInsights />
   </head>
 
   <body
