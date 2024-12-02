@@ -1,0 +1,65 @@
+.logo {
+  position: relative;
+}
+
+.A,
+.rest {
+  fill: transparent;
+  stroke: transparent;
+  stroke-width: 10;
+  stroke-dasharray: 700;
+  stroke-dashoffset: 0;
+  transform: translateZ(40px);
+}
+.A {
+  animation: letter 10s ease-in-out forwards;
+}
+.rest {
+  animation: lines 10s ease-in-out forwards;
+}
+.infinite {
+  animation-iteration-count: infinite;
+}
+
+/* Animations */
+@keyframes lines {
+  0% {
+    stroke-dashoffset: 700;
+    filter: blur(10px);
+  }
+  8% {
+    stroke: rgb(var(--accent));
+  }
+  16% {
+    stroke-dashoffset: 0;
+    fill: transparent;
+  }
+  10%,
+  100% {
+    stroke: transparent;
+    stroke: rgb(var(--accent));
+    /* fill: rgb(var(--foreground)); */
+    filter: blur(0);
+  }
+}
+
+@keyframes letter {
+  0% {
+    stroke-dashoffset: 700;
+    filter: blur(10px);
+  }
+  8% {
+    stroke: rgb(var(--foreground));
+  }
+  16% {
+    stroke-dashoffset: 0;
+    fill: transparent;
+  }
+  10%,
+  100% {
+    stroke: transparent;
+    stroke: rgb(var(--foreground));
+    /* fill: rgb(var(--accent)); */
+    filter: blur(0);
+  }
+}

@@ -1,12 +1,12 @@
 import { Icon } from '@iconify-icon/react';
-import { WORK_HISTORY } from 'src/constants';
+import { JOBS_LIST } from 'src/constants';
 
 function Timeline() {
   return (
     <div className="max-w-2xl mx-auto p-4 md:p-6">
-      <h2 className="text-3xl font-thin mb-16 text-center">Work history</h2>
+      <h2 className="text-3xl font-thin mb-16 text-center">Career path</h2>
       <div className="relative border-l border-gray-200/30">
-        {WORK_HISTORY.map(
+        {JOBS_LIST.map(
           ({
             position,
             duration,

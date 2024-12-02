@@ -1,11 +1,30 @@
-export const WORK_HISTORY = [
+export const JOBS_LIST = [
+  {
+    position: 'Frontend developer - contract',
+    company: 'Snyk',
+    href: 'https://snyk.io',
+    duration: 'Nov 2024 - Present',
+    description: 'Developer-first security in action',
+    isOngoing: true,
+    companyLocation: 'United States',
+    technologies: [
+      'React',
+      'TypeScript',
+      'JavaScript',
+      'Redux',
+      'Redux Saga',
+      'Styled Components',
+      'Cypress',
+      'Next JS',
+    ],
+  },
   {
     position: 'Frontend developer - contract',
     company: 'Probely',
     href: 'https://probely.com',
-    duration: 'Mar 2023 - Present',
+    duration: 'Mar 2023 - Nov 2024',
     description: 'Cybersecurity DAST tool',
-    isOngoing: true,
+    isOngoing: false,
     companyLocation: 'Portugal',
     technologies: [
       'React',

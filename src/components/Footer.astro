@@ -1,7 +1,13 @@
 ---
+import LogoAnimated from './LogoAnimated';
+
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="mt-auto min-h-96 flex flex-col z-0">
-  <p class="text-center p-4 m-auto">© {currentYear} <span class="text-accent">Andrej</span>Ground</p>
+<footer class="mt-auto min-h-96 flex flex-col z-0 items-center justify-center">
+  <LogoAnimated width={100} client:only="react" transition:persist />
+  <p class="text-center p-4 mx-auto">
+    © {currentYear}
+    <span class="text-accent">Andrej</span>Ground
+  </p>
 </footer>
