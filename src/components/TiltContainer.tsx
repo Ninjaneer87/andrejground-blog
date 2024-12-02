@@ -1,4 +1,4 @@
-import { useRef, type CSSProperties, type MouseEvent } from 'react';
+import { useRef, type MouseEvent } from 'react';
 
 function capRotateValue(value: number, maxRotationDeg: number) {
   if (value > maxRotationDeg) return maxRotationDeg;
