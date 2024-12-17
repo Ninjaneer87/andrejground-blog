@@ -34,7 +34,7 @@ function FiltersModal({ children }: Props) {
         isOpen={isFiltersModalOpen}
         backdrop="blur"
         onClose={close}
-        scrollBehavior="inside"
+        scrollBehavior="outside"
         hideCloseButton
         shouldBlockScroll
       >
