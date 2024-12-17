@@ -7,6 +7,7 @@ import ArticlesFilteredList from '../../components/ArticlesFilteredList.tsx';
 import FiltersSkeleton from '../../components/skeletons/FiltersSkeleton.astro';
 import ArticlesFilteredListSkeleton from '../../components/skeletons/ArticlesFilteredListSkeleton.astro';
 import NoArticlesFound from '../../components/NoArticlesFound';
+import FiltersModal from 'src/components/ui/FiltersModal';
 
 const allBlogArticles: CollectionEntry<'blog'>[] = (await getCollection('blog'))
   .filter(entry => !entry.data.isDraft)
@@ -22,9 +23,13 @@ const uniqueAuthors = [
 ---
 
 <RootLayout pageTitle="Articles">
-  <div class="container mx-auto flex max-md:flex-col gap-8 pt-20 p-4">
-    <div>
-      <div class="md:sticky md:top-[200px] md:w-[320px] max-w-full">
+  <h1 class="sr-only">Articles</h1>
+  <div class="gradient-circle"></div>
+
+  <div class="container mx-auto flex max-md:flex-col gap-8 pt-28 p-4 grow">
+    <!-- Sticky desktop filters -->
+    <div class="max-md:hidden gradient-circle">
+      <div class="sticky top-[200px] w-[320px] max-w-full z-20">
         <Filters
           client:only="react"
           tags={uniqueTags}
@@ -43,4 +48,16 @@ const uniqueAuthors = [
 
     <NoArticlesFound client:only="react" />
   </div>
+
+  <!-- Mobile filters modal -->
+  <FiltersModal client:only>
+    <Filters
+      client:only="react"
+      tags={uniqueTags}
+      authors={uniqueAuthors}
+      allBlogArticles={allBlogArticles}
+    >
+      <FiltersSkeleton slot="fallback" />
+    </Filters>
+  </FiltersModal>
 </RootLayout>

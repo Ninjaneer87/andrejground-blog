@@ -70,6 +70,7 @@ const title = `${SITE_TITLE} | ${pageTitle}`;
   >
     <Header />
     <Loader client:only="react" />
+    <div id="portal" />
 
     <main class="h-full grow z-0 pt-32">
       <BlurredCircles />
@@ -77,13 +78,15 @@ const title = `${SITE_TITLE} | ${pageTitle}`;
     </main>
 
     <Footer />
-
-    <div id="portal"></div>
   </body>
 </html>
 
 <script>
-  import { isPageLoadingAtom, isTocModalOpenAtom } from 'src/stores/globalStore';
+  import {
+    isFiltersModalOpenAtom,
+    isPageLoadingAtom,
+    isTocModalOpenAtom,
+  } from 'src/stores/globalStore';
 
   document.addEventListener('astro:before-preparation', () => {
     isPageLoadingAtom.set(true);
@@ -92,5 +95,6 @@ const title = `${SITE_TITLE} | ${pageTitle}`;
   document.addEventListener('astro:page-load', () => {
     isPageLoadingAtom.set(false);
     isTocModalOpenAtom.set(false);
+    isFiltersModalOpenAtom.set(false);
   });
 </script>

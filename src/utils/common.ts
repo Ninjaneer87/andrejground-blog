@@ -14,7 +14,15 @@ export function getQueryParams(url: string) {
   return result;
 }
 
-export function pushFiltersToUrl(newFilters: { [key in FilterKey]?: string }) {
+export function pushFiltersToUrl(
+  newFilters: { [key in FilterKey]?: string },
+  reset = false,
+) {
+  if (reset) {
+    window.history.pushState({}, '', window.location.pathname);
+    return;
+  }
+
   const currentSearchQuery = window.location.search;
   const currentQueryParams = getQueryParams(currentSearchQuery);
 
@@ -29,7 +37,8 @@ export function pushFiltersToUrl(newFilters: { [key in FilterKey]?: string }) {
         continue;
       }
 
-      if (newFilters[filterKey]!.length) newSearchParams.append(filterKey, newFilters[filterKey]!);
+      if (newFilters[filterKey]!.length)
+        newSearchParams.append(filterKey, newFilters[filterKey]!);
       continue;
     }
 
