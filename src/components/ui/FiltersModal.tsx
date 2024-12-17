@@ -39,7 +39,7 @@ function FiltersModal({ children }: Props) {
         placement="bottom-center"
         hideCloseButton
       >
-        <ModalContent className="bg-glass h-[500px]">
+        <ModalContent className="bg-glass">
           <ModalBody>{children}</ModalBody>
         </ModalContent>
       </Modal>
