@@ -34,7 +34,8 @@ function FiltersModal({ children }: Props) {
         isOpen={isFiltersModalOpen}
         backdrop="blur"
         onClose={close}
-        scrollBehavior="outside"
+        scrollBehavior="inside"
+        style={{ height: '100lvh' }}
         placement="bottom-center"
         hideCloseButton
       >
