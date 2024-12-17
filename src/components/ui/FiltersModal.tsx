@@ -38,7 +38,7 @@ function FiltersModal({ children }: Props) {
         hideCloseButton
         shouldBlockScroll
       >
-        <ModalContent className="bg-glass">
+        <ModalContent className="bg-glass h-[500px]">
           <ModalBody>{children}</ModalBody>
         </ModalContent>
       </Modal>
