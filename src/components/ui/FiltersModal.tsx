@@ -35,11 +35,11 @@ function FiltersModal({ children }: Props) {
         backdrop="blur"
         onClose={close}
         scrollBehavior="inside"
-        style={{ height: '100lvh', overflow: 'hidden' }}
         placement="bottom-center"
         hideCloseButton
+        classNames={{wrapper: 'h-[100lvh] overflow-hidden'}}
       >
-        <ModalContent className="bg-glass">
+        <ModalContent className="bg-glass h-[500px] overflow-hidden">
           <ModalBody>{children}</ModalBody>
         </ModalContent>
       </Modal>
