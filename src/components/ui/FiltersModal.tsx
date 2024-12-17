@@ -34,11 +34,11 @@ function FiltersModal({ children }: Props) {
         isOpen={isFiltersModalOpen}
         backdrop="blur"
         onClose={close}
-        // scrollBehavior="outside"
+        scrollBehavior="inside"
+        placement="bottom-center"
         hideCloseButton
-        shouldBlockScroll
       >
-        <ModalContent className="bg-glass h-[500px]">
+        <ModalContent className="bg-glass h-[500px] max-h-[500px] min-h-[500px]">
           <ModalBody>{children}</ModalBody>
         </ModalContent>
       </Modal>
