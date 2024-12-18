@@ -2,11 +2,12 @@
 import RootLayout from '../layouts/RootLayout.astro';
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
-import ArticleCard from '../components/cards/ArticleCard.astro';
 import HomeHero from 'src/components/HomeHero.astro';
-import ArticleGroupCard from 'src/components/cards/ArticleGroupCard.astro';
+import ArticlesSlider from 'src/components/ArticlesSlider';
 
-const allBlogArticles: CollectionEntry<'blog'>[] = (await getCollection('blog'))
+const latestBlogArticles: CollectionEntry<'blog'>[] = (
+  await getCollection('blog')
+)
   .filter(entry => !entry.data.isDraft)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
@@ -14,25 +15,10 @@ const allBlogArticles: CollectionEntry<'blog'>[] = (await getCollection('blog'))
 <RootLayout pageTitle="All things Frontend - UI - UX">
   <HomeHero />
 
-  <div class="container mx-auto">
-    <div class="flex gap-8 items-center mt-20 relative mx-4">
-      <ul
-        class="flex gap-16 overflow-x-auto items-center pr-4 snap-x snap-mandatory"
-      >
-        <div
-          class="absolute top-0 bottom-0 left-[-1px] w-2 bg-gradient-to-b from-secondary to-primary z-20"
-        >
-        </div>
-        <div
-          class="absolute top-0 bottom-0 right-[-1px] w-2 bg-gradient-to-b from-primary to-secondary z-20"
-        >
-        </div>
-        <ArticleGroupCard
-          title="Latest articles"
-          description="See what has been cooking lately"
-        />
-        {allBlogArticles.map(article => <ArticleCard article={article} />)}
-      </ul>
-    </div>
-  </div>
+  <ArticlesSlider
+    client:only="react"
+    sectionTitle="Latest articles"
+    sectionDescription="See what has been cooking lately"
+    articles={latestBlogArticles}
+  />
 </RootLayout>
