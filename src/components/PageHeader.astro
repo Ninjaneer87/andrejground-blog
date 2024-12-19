@@ -1,0 +1,33 @@
+---
+import { Icon } from 'astro-icon/components';
+
+type Props = {
+  words: string[];
+  desc: string;
+};
+
+const { words, desc } = Astro.props;
+---
+
+<div
+  class="p-4 lg:p-8 flex flex-col gap-8 mx-auto gradient-wrapper container items-center"
+>
+  <h2
+    class="flex items-center whitespace-nowrap text-[clamp(1.3rem,_4vw,_3.5rem)] bg-gradient-to-r from-foreground via-accent to-foreground bg-clip-text text-transparent"
+  >
+    {
+      words.map((word, index) => (
+        <>
+          <span class="">{word}</span>
+          {index !== words.length - 1 && (
+            <Icon name="mdi:chevron-right" class="text-accent" />
+          )}
+        </>
+      ))
+    }
+  </h2>
+
+  <h3 class="text-center opacity-60 text-[clamp(1rem,_4vw,_1.5rem)]">
+    {desc}
+  </h3>
+</div>

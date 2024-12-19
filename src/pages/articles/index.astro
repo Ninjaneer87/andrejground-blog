@@ -7,7 +7,10 @@ import ArticlesFilteredList from '../../components/ArticlesFilteredList.tsx';
 import FiltersSkeleton from '../../components/skeletons/FiltersSkeleton.astro';
 import ArticlesFilteredListSkeleton from '../../components/skeletons/ArticlesFilteredListSkeleton.astro';
 import NoArticlesFound from '../../components/NoArticlesFound';
-import FiltersModal from 'src/components/ui/FiltersModal';
+import FilterSearch from 'src/components/FilterSearch';
+import PageHeader from 'src/components/PageHeader.astro';
+import Divider from 'src/components/ui/Divider.astro';
+import SearchFilterSkeleton from 'src/components/skeletons/SearchFilterSkeleton.astro';
 
 const allBlogArticles: CollectionEntry<'blog'>[] = (await getCollection('blog'))
   .filter(entry => !entry.data.isDraft)
@@ -24,12 +27,26 @@ const uniqueAuthors = [
 
 <RootLayout pageTitle="Articles">
   <h1 class="sr-only">Articles</h1>
-  <div class="gradient-circle"></div>
 
-  <div class="container mx-auto flex max-md:flex-col gap-8 pt-12 p-4 grow min-h-screen">
+  <PageHeader
+    words={['AndrejGround', 'Blog']}
+    desc="Thoughts and tutorials on frontend development"
+  />
+
+  <div class="w-fit mx-auto pb-8">
+    <FilterSearch client:only="react" allBlogArticles={allBlogArticles}>
+      <SearchFilterSkeleton slot='fallback'  />
+    </FilterSearch>
+  </div>
+
+  <Divider />
+
+  <div
+    class="container mx-auto flex max-md:flex-col gap-8 pt-12 p-4 grow min-h-screen"
+  >
     <!-- Sticky desktop filters -->
-    <div class="max-md:hidden gradient-circle">
-      <div class="sticky top-[180px] w-[320px] max-w-full z-20">
+    <div class="gradient-circle">
+      <div class="sticky top-[180px] md:w-[320px] max-w-full z-20 ">
         <Filters
           client:only="react"
           tags={uniqueTags}
@@ -48,16 +65,4 @@ const uniqueAuthors = [
 
     <NoArticlesFound client:only="react" />
   </div>
-
-  <!-- Mobile filters modal -->
-  <FiltersModal client:only="react">
-    <Filters
-      client:only="react"
-      tags={uniqueTags}
-      authors={uniqueAuthors}
-      allBlogArticles={allBlogArticles}
-    >
-      <FiltersSkeleton slot="fallback" />
-    </Filters>
-  </FiltersModal>
 </RootLayout>
