@@ -5,7 +5,7 @@
   &::before,
   &::after {
     content: '';
-    position: fixed;
+    position: absolute;
     top: 0;
     width: 60vmin;
     height: 80vmin;
