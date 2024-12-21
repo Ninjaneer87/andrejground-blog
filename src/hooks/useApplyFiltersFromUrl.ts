@@ -1,3 +1,4 @@
+import { useStore } from '@nanostores/react';
 import type { CollectionEntry } from 'astro:content';
 import { useEffect } from 'react';
 import { filtersAtom } from 'src/stores/globalStore';
@@ -7,6 +8,8 @@ const fallbackAppliedTags: string[] = [];
 const fallbackAppliedAuthors: string[] = [];
 
 function useApplyFiltersFromUrl(allBlogArticles: CollectionEntry<'blog'>[]) {
+  const filters = useStore(filtersAtom);
+
   useEffect(() => {
     const params = getQueryParams(window.location.search);
     const { q, tag, author } = params;
@@ -53,6 +56,7 @@ function useApplyFiltersFromUrl(allBlogArticles: CollectionEntry<'blog'>[]) {
     const noSearchResults = !noFiltersApplied && filteredArticles.length === 0;
 
     filtersAtom.set({
+      ...filters,
       query,
       appliedTags,
       appliedAuthors,
