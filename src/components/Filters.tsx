@@ -1,13 +1,13 @@
-import { Input } from '@nextui-org/react';
 import TagFilterChip from './TagFilterChip';
 import AuthorFilterCard from './cards/AuthorFilterCard';
 import useApplyFiltersFromUrl from 'src/hooks/useApplyFiltersFromUrl';
 import type { CollectionEntry } from 'astro:content';
 import { useReducer } from 'react';
-import { getQueryParams, pushFiltersToUrl } from 'src/utils/common';
+import { pushFiltersToUrl } from 'src/utils/common';
 import { useStore } from '@nanostores/react';
 import { filtersAtom } from 'src/stores/globalStore';
 import { Icon } from '@iconify-icon/react';
+import SortArticlesDropdown from './SortArticlesDropdown';
 
 type Props = {
   tags: string[];
@@ -16,19 +16,21 @@ type Props = {
 };
 
 function Filters({ tags, authors, allBlogArticles }: Props) {
-  const { q } = getQueryParams(window.location.search);
   useApplyFiltersFromUrl(allBlogArticles);
 
   const [, forceRender] = useReducer(x => x + 1, 0);
 
-  const { appliedTags, appliedAuthors, noFiltersApplied } =
-    useStore(filtersAtom);
+  const { appliedTags, appliedAuthors } = useStore(filtersAtom);
 
   return (
     <form
       onSubmit={e => e.preventDefault()}
-      className="relative flex flex-col gap-8 max-h-[60vh] overflow-y-auto pr-2 pb-4"
+      className="relative flex flex-col gap-8 max-h-[60vh] overflow-y-auto md:p-2 pb-4"
     >
+      <fieldset>
+        <SortArticlesDropdown />
+      </fieldset>
+
       <fieldset>
         <h3 className="text-lg font-thin mb-4 flex gap-2 items-center opacity-60">
           Tags
