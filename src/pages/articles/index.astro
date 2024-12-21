@@ -33,7 +33,7 @@ const uniqueAuthors = [
     desc="Thoughts and tutorials on frontend development"
   />
 
-  <div class="w-fit mx-auto pb-8">
+  <div class="container p-4 mx-auto pb-8">
     <FilterSearch client:only="react" allBlogArticles={allBlogArticles}>
       <SearchFilterSkeleton slot='fallback'  />
     </FilterSearch>

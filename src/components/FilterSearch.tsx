@@ -53,7 +53,7 @@ function FilterSearch({ allBlogArticles }: Props) {
         inputWrapper:
           'bg-glass group-data-[focus=true]:bg-glass group-data-[hover=true]:bg-glass',
         innerWrapper: 'bg-transparent',
-        base: 'w-[320px] max-w-full',
+        base: 'w-full md:w-[320px] max-w-full mx-auto',
         input: 'bg-transparent text-accent placeholder:text-foreground/45',
         clearButton: 'text-accent',
       }}
