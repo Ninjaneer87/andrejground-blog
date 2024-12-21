@@ -25,7 +25,7 @@ function Filters({ tags, authors, allBlogArticles }: Props) {
   return (
     <form
       onSubmit={e => e.preventDefault()}
-      className="relative flex flex-col gap-8 max-h-[60vh] overflow-y-auto md:p-2 pb-4"
+      className="relative flex flex-col gap-8 md:px-2 pb-4"
     >
       <fieldset>
         <SortArticlesDropdown />
