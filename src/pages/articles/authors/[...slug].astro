@@ -36,7 +36,7 @@ const { description, image, name, position, socialLinks } = author;
 
 <RootLayout pageTitle=`Authors | ${name}`>
   <h1 class="sr-only">Author - {name}</h1>
-  
+
   <PageHeader
     words={['AndrejGround', 'Author']}
     desc="Meet and see the articles by this author"
@@ -44,8 +44,8 @@ const { description, image, name, position, socialLinks } = author;
 
   <Divider />
 
-  <div class="container mx-auto p-4 pt-16 relative">
-    <div class="flex md:gap-16 items-center">
+  <div class="container mx-auto p-4 relative">
+    <div class="flex gap-4 md:gap-16 items-center max-md:justify-center mb-8">
       <Image
         class="rounded-full mb-4 flex shrink max-md:w-20"
         src=`/images/${image}`
@@ -53,7 +53,7 @@ const { description, image, name, position, socialLinks } = author;
         width={200}
         height={200}
       />
-      <div class="p-4 rounded-2xl">
+      <div class="rounded-2xl">
         <div class="font-thin italic">Articles by</div>
         <h2 class="font-thin">{name}</h2>
         <div class="opacity-70 flex flex-col gap-2">
@@ -63,15 +63,13 @@ const { description, image, name, position, socialLinks } = author;
       </div>
     </div>
 
-    <div>
-      <ul class="flex flex-wrap gap-4">
-        {socialLinks.map(link => <SocialLinkCard {...link} />)}
-      </ul>
-    </div>
+    <ul class="flex flex-wrap gap-4 max-md:justify-center">
+      {socialLinks.map(link => <SocialLinkCard {...link} />)}
+    </ul>
 
     <Divider />
 
-    <ul class="flex gap-16 items-center flex-wrap">
+    <ul class="flex gap-4 md:gap-16 items-center flex-wrap max-md:justify-center">
       {authorArticles.map(article => <ArticleCard article={article} />)}
     </ul>
   </div>

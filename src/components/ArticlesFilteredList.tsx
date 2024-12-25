@@ -36,7 +36,7 @@ function ArticlesFilteredList() {
     <>
       <h2 className="sr-only">Filtered articles list</h2>
 
-      <ul className="flex gap-16 items-start flex-wrap max-md:justify-center">
+      <ul className="flex gap-4 md:gap-16 items-start flex-wrap max-md:justify-center">
         {sortedArticles.map(article => (
           <ArticleCard key={article.id} article={article} />
         ))}
