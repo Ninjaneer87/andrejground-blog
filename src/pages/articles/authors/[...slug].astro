@@ -27,7 +27,7 @@ if (!author) {
 
 const authorArticles: CollectionEntry<'blog'>[] = (await getCollection('blog'))
   .filter(
-    article => article.data.author === author.slug && !article.data.isDraft,
+    article => article.data.author === author.id && !article.data.isDraft,
   )
   .sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
 

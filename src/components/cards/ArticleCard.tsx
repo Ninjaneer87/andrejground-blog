@@ -13,7 +13,7 @@ function ArticleCard({ article }: Props) {
       <div className="flex flex-col h-[500px] max-h-[60vh] w-full p-8 rounded-2xl justify-between">
         <div className="flex flex-col gap-4">
           <a
-            href={`/articles/${article.slug}`}
+            href={`/articles/${article.id}`}
             className="block text-xl text-foreground hover:text-accent transition-colors"
           >
             {article.data.title}

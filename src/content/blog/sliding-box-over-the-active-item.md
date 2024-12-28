@@ -6,7 +6,7 @@ author: 'andrej_forgac'
 metaImage: 'sliding-box.webp'
 image: 'sliding-box-gif.gif'
 tags: ['react', 'typescript', 'css']
-slug: sliding-box-over-the-active-item
+id: sliding-box-over-the-active-item
 stackblitzProjectId: 'andrejground-react-sliding-box'
 ---
 
@@ -626,4 +626,4 @@ function App() {
 export default App;
 ```
 
-We're done!
+Well done!

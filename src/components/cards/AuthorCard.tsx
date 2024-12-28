@@ -11,7 +11,7 @@ function AuthorCard({ author }: Props) {
 
   return (
     <a
-      href={`/articles/authors/${authorObject.slug}`}
+      href={`/articles/authors/${authorObject.id}`}
       className="flex gap-2 items-center hover:text-accent transition-colors"
     >
       <img
