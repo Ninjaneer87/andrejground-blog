@@ -11,7 +11,7 @@ export default defineConfig({
   image: {
     service: passthroughImageService(),
   },
-  output: 'hybrid',
+  output: 'static',
   adapter: vercel({
     webAnalytics: { enabled: true },
   }),
