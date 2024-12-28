@@ -4,20 +4,20 @@ import { isPageLoadingAtom } from 'src/stores/globalStore';
 
 function Loader() {
   const isPageLoading = useStore(isPageLoadingAtom);
-  return isPageLoading ? (
+
+  return (
     <Progress
-      size="sm"
       isIndeterminate
       color="secondary"
       aria-label="Page loading..."
-      className="fixed top-0 left-0 max-w-full w-full z-50"
+      className={`${isPageLoading ? 'opacity-100' : 'opacity-0'} duration-500 transition-opacity fixed top-0 left-0 max-w-full w-full z-50 h-[6px]`}
       classNames={{
         indicator: 'bg-secondary',
         base: 'bg-secondary',
-        track: 'bg-accent',
+        track: 'bg-primary',
       }}
     />
-  ) : null;
+  );
 }
 
 export default Loader;
