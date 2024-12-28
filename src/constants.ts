@@ -78,7 +78,7 @@ export type SocialPlatform =
   | 'stackblitz';
 
 export type Author = {
-  slug: string;
+  id: string;
   name: string;
   image: string;
   position: string;
@@ -97,7 +97,7 @@ export type Authors = Record<string, Author>;
 
 export const AUTHORS: Authors = {
   andrej_forgac: {
-    slug: 'andrej_forgac',
+    id: 'andrej_forgac',
     name: 'Andrej Forgac',
     image: 'andrej.webp',
     position: 'Frontend Developer',

@@ -15,7 +15,7 @@ const authorSlugs = [
   ...new Set<string>(allBlogArticles.map(article => article.data.author)),
 ];
 
-const authors = authorSlugs.map(slug => AUTHORS[slug]);
+const authors = authorSlugs.map(id => AUTHORS[id]);
 ---
 
 <RootLayout pageTitle="Authors">
@@ -33,7 +33,7 @@ const authors = authorSlugs.map(slug => AUTHORS[slug]);
       {
         authors.map(author => (
           <li class="w-64 max-w-full bg-glass rounded-2xl">
-            <a href=`authors/${author.slug}` class="p-4 block rounded-2xl" >
+            <a href=`authors/${author.id}` class="p-4 block rounded-2xl" >
                 <Image
                     class="rounded-full mb-4 mx-auto"
                     src=`/images/${author.image}`

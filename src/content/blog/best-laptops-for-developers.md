@@ -6,7 +6,7 @@ author: 'andrej_forgac'
 metaImage: 'image1.webp'
 image: 'image1.webp'
 tags: ['react', 'typescript']
-slug: the-best-laptops-for-developers-in-2024
+id: the-best-laptops-for-developers-in-2024
 stackblitzProjectId: 'andrejground-react-floating-box'
 ---
 
@@ -45,11 +45,11 @@ For developers who are also gamers or multimedia enthusiasts, the Razer Blade 15
 const newWay: Tag[] = [
   {
     name: 'react',
-    slug: 'react',
+    id: 'react',
   },
   {
     name: 'typescript',
-    slug: 'typescript',
+    id: 'typescript',
   },
 ];
 ```
@@ -106,11 +106,11 @@ For developers who are also gamers or multimedia enthusiasts, the Razer Blade 15
 const newWay: Tag[] = [
   {
     name: 'tech',
-    slug: 'tech',
+    id: 'tech',
   },
   {
     name: 'javascript',
-    slug: 'javascript',
+    id: 'javascript',
   },
 ];
 ```

@@ -6,7 +6,7 @@ author: 'andrej_forgac'
 metaImage: 'image2.jpeg'
 image: 'image2.jpeg'
 tags: ['css', 'javascript']
-slug: unleash-creativity-with-these-cutting-edge-tablets
+id: unleash-creativity-with-these-cutting-edge-tablets
 stackblitzProjectId: ''
 ---
 

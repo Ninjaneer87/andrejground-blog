@@ -4,7 +4,7 @@ import Tags from '../../components/Tags.astro';
 import Divider from '../../components/ui/Divider.astro';
 import TOCModal from '../../components/ui/TOCModal.tsx';
 import SocialsShare from '../../components/ui/SocialsShare.tsx';
-import './article-styles.css';
+import 'src/styles/article.css';
 import ScrollProgress from '../../components/ScrollProgress.astro';
 import TableOfContentsReact from '../../components/TableOfContentsReact';
 import AuthorCard from '../../components/cards/AuthorCard.astro';
@@ -14,6 +14,7 @@ import { getCollection } from 'astro:content';
 import TableOfContentsSkeleton from 'src/components/skeletons/TableOfContentsSkeleton.astro';
 import LiveDemo from 'src/components/LiveDemo.tsx';
 import { Image } from 'astro:assets';
+import { render } from 'astro:content';
 
 export async function getStaticPaths() {
   const allBlogArticles: CollectionEntry<'blog'>[] = (
@@ -21,7 +22,7 @@ export async function getStaticPaths() {
   ).filter(entry => !entry.data.isDraft);
 
   return allBlogArticles.map(entry => ({
-    params: { slug: entry.slug },
+    params: { slug: entry.id },
     props: { entry },
   }));
 }
@@ -34,7 +35,7 @@ if (!entry) {
 const { title, pubDate, author, tags, stackblitzProjectId, image, metaImage } =
   entry.data;
 
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 const currentPath = Astro.url.origin + Astro.url.pathname;
 ---
 

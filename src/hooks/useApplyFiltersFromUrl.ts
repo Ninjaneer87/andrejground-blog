@@ -37,13 +37,13 @@ function useApplyFiltersFromUrl(allBlogArticles: CollectionEntry<'blog'>[]) {
         const titleMatch = article.data.title
           .toLowerCase()
           .includes(query.toLowerCase());
-        const bodyMatch = article.body
-          .toLowerCase()
-          .includes(query.toLowerCase());
+        const bodyMatch =
+          article.body &&
+          article.body.toLowerCase().includes(query.toLowerCase());
         const tagMatch = article.data.tags.some(tag =>
           tag.toLowerCase().includes(query.toLowerCase()),
         );
-        const slugMatch = article.slug
+        const slugMatch = article.id
           .toLowerCase()
           .includes(query.toLowerCase());
 
