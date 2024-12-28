@@ -37,17 +37,21 @@ function useApplyFiltersFromUrl(allBlogArticles: CollectionEntry<'blog'>[]) {
         const titleMatch = article.data.title
           .toLowerCase()
           .includes(query.toLowerCase());
-        const bodyMatch =
-          article.body &&
-          article.body.toLowerCase().includes(query.toLowerCase());
-        const tagMatch = article.data.tags.some(tag =>
-          tag.toLowerCase().includes(query.toLowerCase()),
-        );
+        // const bodyMatch =
+        //   article.body &&
+        //   article.body.toLowerCase().includes(query.toLowerCase());
+        // const tagMatch = article.data.tags.some(tag =>
+        //   tag.toLowerCase().includes(query.toLowerCase()),
+        // );
         const slugMatch = article.id
           .toLowerCase()
           .includes(query.toLowerCase());
 
-        return titleMatch || bodyMatch || tagMatch || slugMatch;
+        return (
+          // bodyMatch ||
+          // tagMatch ||
+          titleMatch || slugMatch
+        );
       });
     }
 
