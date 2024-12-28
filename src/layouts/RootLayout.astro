@@ -1,5 +1,5 @@
 ---
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 import SpeedInsights from '@vercel/speed-insights/astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -61,7 +61,7 @@ const title = `${SITE_TITLE} | ${pageTitle}`;
     <meta name="dc.type" content={SITE_TYPE} />
 
     <title>{title}</title>
-    <ViewTransitions />
+    <ClientRouter />
     <SpeedInsights />
   </head>
 
