@@ -21,6 +21,7 @@ export const GET: APIRoute = async ({ params }) => {
 
   try {
     const post = await postsRef.doc(params.id).get();
+    console.log({ post });
 
     // New post
     if (!post.exists) {
@@ -45,6 +46,7 @@ export const GET: APIRoute = async ({ params }) => {
     }
 
     const postData = post.data();
+    console.log({ postData });
 
     // Existing post
 
@@ -63,7 +65,6 @@ export const GET: APIRoute = async ({ params }) => {
         },
       );
     }
-
 
     // Production
     await postsRef.doc(params.id).update({
