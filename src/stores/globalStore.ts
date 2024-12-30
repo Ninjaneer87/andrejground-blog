@@ -5,6 +5,10 @@ export const isTocModalOpenAtom = atom(false);
 export const isFiltersModalOpenAtom = atom(false);
 export const isPageLoadingAtom = atom(false);
 export const headingIdInViewAtom = atom<string | null>(null);
+export const postStatsAtom = atom<{
+  viewsCount: number | null;
+  likesCount: number | null;
+}>({ viewsCount: null, likesCount: null });
 
 export const sortingOptions = ['Latest', 'Oldest', 'A - Z', 'Z - A'] as const;
 export type Sorting = (typeof sortingOptions)[number];
