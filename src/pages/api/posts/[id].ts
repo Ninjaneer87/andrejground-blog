@@ -23,7 +23,7 @@ export const GET: APIRoute = async ({ params }) => {
     const post = await postsRef.doc(params.id).get();
 
     // New post
-    if (!post.exists && !isProd) {
+    if (!post.exists) {
       await postsRef.doc(params.id).set({
         viewsCount: 1,
         likesCount: 0,
