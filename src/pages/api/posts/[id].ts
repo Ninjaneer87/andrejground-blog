@@ -13,6 +13,12 @@ const db = getFirestore(app);
 const postsRef = db.collection('posts');
 
 export const GET: APIRoute = async ({ params }) => {
+  if (isProd) {
+    return new Response('Not yet available in PROD', {
+      status: 404,
+    });
+  }
+
   if (!params.id) {
     return new Response('Post id not provided', {
       status: 404,
@@ -91,6 +97,12 @@ export const GET: APIRoute = async ({ params }) => {
 };
 
 export const POST: APIRoute = async ({ params, request }) => {
+  if (isProd) {
+    return new Response('Not yet available in PROD', {
+      status: 404,
+    });
+  }
+
   const formData = await request.formData();
 
   const incrementLikes = formData.get('incrementLikes');
