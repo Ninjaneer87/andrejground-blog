@@ -1,4 +1,6 @@
 ---
+export const prerender = true;
+
 import RootLayout from '../../layouts/RootLayout.astro';
 import Tags from '../../components/Tags.astro';
 import Divider from '../../components/ui/Divider.astro';
@@ -15,6 +17,7 @@ import TableOfContentsSkeleton from 'src/components/skeletons/TableOfContentsSke
 import LiveDemo from 'src/components/LiveDemo.tsx';
 import { Image } from 'astro:assets';
 import { render } from 'astro:content';
+import PostStats from 'src/components/PostStats';
 
 export async function getStaticPaths() {
   const allBlogArticles: CollectionEntry<'blog'>[] = (
@@ -68,11 +71,19 @@ const currentPath = Astro.url.origin + Astro.url.pathname;
           <TableOfContentsReact client:only="react">
             <TableOfContentsSkeleton slot="fallback" />
           </TableOfContentsReact>
-          <Divider />
+          <hr
+            class="my-4 h-0.5 border-t-0 bg-gradient-to-r from-accent to-transparent w-full"
+          />
+
           <AuthorCard author={author} />
           <DateCard date={pubDate} />
           <div class="mb-4"></div>
-          <SocialsShare url={currentPath} client:only="react" />
+
+          <div class="flex items-center justify-between">
+            <SocialsShare url={currentPath} client:only="react" />
+
+            <PostStats client:only="react" slug={entry.id} />
+          </div>
         </div>
 
         <!-- This is a placeholder for sticky sidebar -->
@@ -94,14 +105,19 @@ const currentPath = Astro.url.origin + Astro.url.pathname;
 
         <AuthorCard author={author} />
         <DateCard date={pubDate} />
-        <Divider />
+        <hr
+          class="my-8 h-0.5 border-t-0 bg-gradient-to-r from-accent to-transparent w-full"
+        />
+
         <Content />
         {
           !!stackblitzProjectId && (
             <LiveDemo client:visible projectId={stackblitzProjectId} />
           )
         }
-        <Divider />
+        <hr
+          class="my-8 h-0.5 border-t-0 bg-gradient-to-r from-accent to-transparent w-full"
+        />
 
         <div
           class="flex flex-col gap-4 sm:flex-row sm:justify-between items-start"
