@@ -85,7 +85,7 @@ export const GET: APIRoute = async ({ params }) => {
       },
     );
   } catch (error) {
-    return new Response('Something went wrong', {
+    return new Response(JSON.stringify(error), {
       status: 500,
     });
   }
