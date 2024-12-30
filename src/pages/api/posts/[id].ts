@@ -46,7 +46,6 @@ export const GET: APIRoute = async ({ params }) => {
     }
 
     const postData = post.data();
-    console.log({ postData });
 
     // Existing post
 
