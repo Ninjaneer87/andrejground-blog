@@ -26,6 +26,7 @@ export const GET: APIRoute = async ({ params }) => {
   }
 
   try {
+    console.log('fetching post', { id: params.id, postsRef });
     const post = await postsRef.doc(params.id).get();
     console.log({ post });
 
