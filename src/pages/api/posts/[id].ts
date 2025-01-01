@@ -1,8 +1,36 @@
 import type { APIRoute } from 'astro';
 import { app } from '../../../firebase/server';
 import { FieldValue, getFirestore } from 'firebase-admin/firestore';
+import { getCollection } from 'astro:content';
+import { ALLOWED_ORIGINS } from 'src/utils/config';
 
 const isProd = import.meta.env.PROD;
+
+const allActivePostIds = (await getCollection('blog'))
+  .filter(entry => !entry.data.isDraft)
+  .map(entry => entry.id);
+
+async function checkIfPostExists(id: string) {
+  return allActivePostIds.some(postId => postId === id);
+}
+
+function handleUnsupportedHosts(request: Request) {
+  // Check referrer
+  const referrer = request.headers.get('referer');
+  if (!referrer) {
+    return new Response('Protected route', {
+      status: 400,
+    });
+  }
+
+  // Check host
+  const host = new URL(referrer).host;
+  if (!ALLOWED_ORIGINS.includes(host)) {
+    return new Response('Protected route', {
+      status: 400,
+    });
+  }
+}
 
 export type PostInfo = {
   id: string;
@@ -12,12 +40,8 @@ export type PostInfo = {
 const db = getFirestore(app);
 const postsRef = db.collection('posts');
 
-export const GET: APIRoute = async ({ params }) => {
-  // if (isProd) {
-  //   return new Response('Not yet available in PROD', {
-  //     status: 404,
-  //   });
-  // }
+export const GET: APIRoute = async ({ params, request }) => {
+  handleUnsupportedHosts(request);
 
   if (!params.id) {
     return new Response('Post id not provided', {
@@ -26,12 +50,17 @@ export const GET: APIRoute = async ({ params }) => {
   }
 
   try {
-    console.log('fetching post', { id: params.id, postsRef });
-    const post = await postsRef.doc(params.id).get();
-    console.log({ post });
+    const postSnapshot = await postsRef.doc(params.id).get();
 
-    // New post
-    if (!post.exists) {
+    if (!postSnapshot.exists) {
+      const postExists = await checkIfPostExists(params.id);
+      if (!postExists) {
+        return new Response('Post does not exist', {
+          status: 404,
+        });
+      }
+
+      // New post
       await postsRef.doc(params.id).set({
         viewsCount: 1,
         likesCount: 0,
@@ -52,7 +81,7 @@ export const GET: APIRoute = async ({ params }) => {
       );
     }
 
-    const postData = post.data();
+    const postData = postSnapshot.data();
 
     // Existing post
 
@@ -60,7 +89,7 @@ export const GET: APIRoute = async ({ params }) => {
     if (!isProd) {
       return new Response(
         JSON.stringify({
-          id: post.id,
+          id: postSnapshot.id,
           ...postData,
         }),
         {
@@ -79,7 +108,7 @@ export const GET: APIRoute = async ({ params }) => {
 
     return new Response(
       JSON.stringify({
-        id: post.id,
+        id: postSnapshot.id,
         ...postData,
         viewsCount: postData?.viewsCount + 1,
       }),
@@ -98,11 +127,7 @@ export const GET: APIRoute = async ({ params }) => {
 };
 
 export const POST: APIRoute = async ({ params, request }) => {
-  if (isProd) {
-    return new Response('Not yet available in PROD', {
-      status: 404,
-    });
-  }
+  handleUnsupportedHosts(request);
 
   const formData = await request.formData();
 
@@ -130,15 +155,15 @@ export const POST: APIRoute = async ({ params, request }) => {
   }
 
   try {
-    const post = await postsRef.doc(params.id).get();
+    const postSnapshot = await postsRef.doc(params.id).get();
 
-    if (!post.exists) {
+    if (!postSnapshot.exists) {
       return new Response('Post does not exist', {
         status: 404,
       });
     }
 
-    const postData = post.data();
+    const postData = postSnapshot.data();
 
     await postsRef.doc(params.id).update({
       likesCount: FieldValue.increment(likesIncrementValue),
@@ -146,9 +171,9 @@ export const POST: APIRoute = async ({ params, request }) => {
 
     return new Response(
       JSON.stringify({
-        id: post.id,
+        id: postSnapshot.id,
         ...postData,
-        likesCount: postData?.likesCount + 1,
+        likesCount: postData?.likesCount + likesIncrementValue,
       }),
       {
         status: 200,

@@ -12,7 +12,6 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
 
   const setValue = useCallback(
     (value: T | ((prev: T) => T)) => {
-      console.log('setValue');
       const prevValue = getValue();
       const newValue = value instanceof Function ? value(prevValue) : value;
 

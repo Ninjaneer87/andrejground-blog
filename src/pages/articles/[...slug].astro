@@ -18,6 +18,8 @@ import LiveDemo from 'src/components/LiveDemo.tsx';
 import { Image } from 'astro:assets';
 import { render } from 'astro:content';
 import PostStats from 'src/components/PostStats';
+import FetchPostStats from 'src/components/FetchPostStats';
+import LikeButton from 'src/components/LikeButton';
 
 export async function getStaticPaths() {
   const allBlogArticles: CollectionEntry<'blog'>[] = (
@@ -63,6 +65,7 @@ const currentPath = Astro.url.origin + Astro.url.pathname;
 </style>
 
 <RootLayout pageTitle={title} metaImage={metaImage}>
+  <FetchPostStats client:only="react" slug={entry.id} />
   <ScrollProgress />
   <div class="container mx-auto p-4 z-0 relative gradient-top">
     <div class="flex gap-4 xl:gap-24">
@@ -82,7 +85,7 @@ const currentPath = Astro.url.origin + Astro.url.pathname;
           <div class="flex items-center justify-between">
             <SocialsShare url={currentPath} client:only="react" />
 
-            <PostStats client:only="react" slug={entry.id} />
+            <PostStats client:only="react" />
           </div>
         </div>
 
@@ -103,8 +106,14 @@ const currentPath = Astro.url.origin + Astro.url.pathname;
           height={384}
         />
 
-        <AuthorCard author={author} />
-        <DateCard date={pubDate} />
+        <div class="flex justify-between">
+          <div>
+            <AuthorCard author={author} />
+            <DateCard date={pubDate} />
+          </div>
+
+          <PostStats client:only="react" />
+        </div>
         <hr
           class="my-8 h-0.5 border-t-0 bg-gradient-to-r from-accent to-transparent w-full"
         />
@@ -112,7 +121,10 @@ const currentPath = Astro.url.origin + Astro.url.pathname;
         <Content />
         {
           !!stackblitzProjectId && (
-            <LiveDemo client:visible projectId={stackblitzProjectId} />
+            <LiveDemo
+              client:visible
+              projectId={stackblitzProjectId}
+            />
           )
         }
         <hr
@@ -124,6 +136,10 @@ const currentPath = Astro.url.origin + Astro.url.pathname;
         >
           <Tags tags={tags} />
           <SocialsShare url={currentPath} client:only="react" />
+        </div>
+        
+        <div class="flex justify-center mt-8">
+          <LikeButton client:only="react" slug={entry.id} />
         </div>
       </section>
     </div>
