@@ -17,7 +17,7 @@ import TableOfContentsSkeleton from 'src/components/skeletons/TableOfContentsSke
 import LiveDemo from 'src/components/LiveDemo.tsx';
 import { Image } from 'astro:assets';
 import { render } from 'astro:content';
-// import PostStats from 'src/components/PostStats';
+import PostStats from 'src/components/PostStats';
 
 export async function getStaticPaths() {
   const allBlogArticles: CollectionEntry<'blog'>[] = (
@@ -82,7 +82,7 @@ const currentPath = Astro.url.origin + Astro.url.pathname;
           <div class="flex items-center justify-between">
             <SocialsShare url={currentPath} client:only="react" />
 
-            <!-- <PostStats client:only="react" slug={entry.id} /> -->
+            <PostStats client:only="react" slug={entry.id} />
           </div>
         </div>
 

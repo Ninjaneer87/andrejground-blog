@@ -13,11 +13,11 @@ const db = getFirestore(app);
 const postsRef = db.collection('posts');
 
 export const GET: APIRoute = async ({ params }) => {
-  if (isProd) {
-    return new Response('Not yet available in PROD', {
-      status: 404,
-    });
-  }
+  // if (isProd) {
+  //   return new Response('Not yet available in PROD', {
+  //     status: 404,
+  //   });
+  // }
 
   if (!params.id) {
     return new Response('Post id not provided', {
