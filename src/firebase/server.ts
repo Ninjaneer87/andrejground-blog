@@ -19,7 +19,9 @@ const initApp = () => {
   if (import.meta.env.PROD) {
     console.info('PROD env detected. Using default service account.');
     // Use default config in firebase functions. Should be already injected in the server by Firebase.
-    const app = initializeApp();
+    const app = initializeApp({
+      credential: cert(serviceAccount as ServiceAccount),
+    });
     console.info('Project ID:', import.meta.env.FIREBASE_PROJECT_ID);
     return app;
   }
