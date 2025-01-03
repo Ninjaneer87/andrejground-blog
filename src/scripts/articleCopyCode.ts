@@ -56,11 +56,11 @@ document.addEventListener('astro:page-load', () => {
       wrapper.classList.add('active');
       block.classList.add('active');
 
-      // setTimeout(() => {
-      //   button.innerText = copyLabel;
-      //   wrapper.classList.remove('active');
-      //   block.classList.remove('active');
-      // }, 1000);
+      setTimeout(() => {
+        button.innerText = copyLabel;
+        wrapper.classList.remove('active');
+        block.classList.remove('active');
+      }, 1000);
     }
   }
 });
