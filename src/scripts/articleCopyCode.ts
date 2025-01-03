@@ -3,6 +3,9 @@ document.addEventListener('astro:page-load', () => {
     window.location.href.includes('/articles/') &&
     !window.location.href.includes('authors')
   ) {
+    const wrapperExists = document.querySelector('.code-wrapper');
+    if (wrapperExists) return;
+
     let copyLabel = 'Copy';
     const codeBlocks = Array.from(document.querySelectorAll('.astro-code'));
 
@@ -53,11 +56,11 @@ document.addEventListener('astro:page-load', () => {
       wrapper.classList.add('active');
       block.classList.add('active');
 
-      setTimeout(() => {
-        button.innerText = copyLabel;
-        wrapper.classList.remove('active');
-        block.classList.remove('active');
-      }, 1000);
+      // setTimeout(() => {
+      //   button.innerText = copyLabel;
+      //   wrapper.classList.remove('active');
+      //   block.classList.remove('active');
+      // }, 1000);
     }
   }
 });
