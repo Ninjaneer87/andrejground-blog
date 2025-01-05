@@ -13,7 +13,10 @@ const authorImage = authorObject.image;
 const authorName = authorObject.name;
 ---
 
-<a href=`/articles/authors/${authorObject.id}` class="flex gap-2 items-center hover:text-accent transition-colors">
+<a
+  href=`/articles/authors/${authorObject.id}`
+  class="flex gap-2 items-center hover:text-accent transition-colors"
+>
   <Image
     class="rounded-full"
     src=`/images/${authorImage}`

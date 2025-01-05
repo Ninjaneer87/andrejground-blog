@@ -35,18 +35,23 @@ const authors = authorSlugs.map(id => AUTHORS[id]);
       {
         authors.map(author => (
           <li class="w-64 max-w-full bg-glass rounded-2xl">
-            <a href=`authors/${author.id}` class="p-4 block rounded-2xl" >
-                <Image
-                    class="rounded-full mb-4 mx-auto"
-                    src=`/images/${author.image}`
-                    alt={author.name}
-                    width={100}
-                    height={100}
-                />
-                <h3 class="font-thin">{author.name}</h3>
-                <Divider />
-                <p>{author.position}</p>
-                <p>{author.description}</p>
+            <a
+              href={`/articles/authors/${author.id}`}
+              class="p-4 block rounded-2xl"
+            >
+              <Image
+                class="rounded-full mb-4 mx-auto"
+                src={`/images/${author.image}`}
+                alt={author.name}
+                width={100}
+                height={100}
+              />
+              <h3 class="font-thin">{author.name}</h3>
+
+              <hr class="my-4 h-0.5 border-t-0 bg-gradient-to-r from-accent to-transparent w-full" />
+
+              <p>{author.position}</p>
+              <p>{author.description}</p>
             </a>
           </li>
         ))

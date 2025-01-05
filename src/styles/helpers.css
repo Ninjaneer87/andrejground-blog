@@ -13,7 +13,7 @@
     filter: blur(150px);
     z-index: -1;
     overflow: visible;
-    /* pointer-events: none; */
+    pointer-events: none;
     /* opacity: 0.8; */
   }
   &::before {

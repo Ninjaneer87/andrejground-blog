@@ -8,7 +8,7 @@ import Divider from '../components/ui/Divider.astro';
 import Timeline from 'src/components/WorkTimeline';
 import { AUTHORS } from 'src/constants';
 import LogoAnimated from 'src/components/LogoAnimated';
-import TiltContainer from 'src/components/TiltContainer';
+import Tilter from 'src/components/Tilter';
 import PageHeader from 'src/components/PageHeader.astro';
 // import Thumbnail from 'src/components/Thumbnail.astro';
 
@@ -56,9 +56,13 @@ const { socialLinks } = AUTHORS.andrej_forgac;
       </div>
 
       <div class="ml-auto max-xl:mr-auto">
-        <TiltContainer client:only="react">
+        <Tilter
+          client:only="react"
+          elevation={100}
+          classNames={{ cardRoot: 'rounded-xl border border-accent/20' }}
+        >
           <LogoAnimated width={280} client:only="react" />
-        </TiltContainer>
+        </Tilter>
       </div>
     </div>
 
