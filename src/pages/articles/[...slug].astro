@@ -41,7 +41,7 @@ const { title, pubDate, author, tags, stackblitzProjectId, image, metaImage } =
   entry.data;
 
 const { Content } = await render(entry);
-const currentPath = Astro.url.origin + Astro.url.pathname;
+const currentPath = import.meta.env.PUBLIC_WEBSITE_URL + Astro.url.pathname;
 ---
 
 <style>
@@ -121,10 +121,7 @@ const currentPath = Astro.url.origin + Astro.url.pathname;
         <Content />
         {
           !!stackblitzProjectId && (
-            <LiveDemo
-              client:visible
-              projectId={stackblitzProjectId}
-            />
+            <LiveDemo client:visible projectId={stackblitzProjectId} />
           )
         }
         <hr
@@ -137,7 +134,7 @@ const currentPath = Astro.url.origin + Astro.url.pathname;
           <Tags tags={tags} />
           <SocialsShare url={currentPath} client:only="react" />
         </div>
-        
+
         <div class="flex justify-center mt-8">
           <LikeButton client:only="react" slug={entry.id} />
         </div>
