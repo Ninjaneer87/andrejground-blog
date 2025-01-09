@@ -28,7 +28,7 @@
     "astro": "^5.1.1",
     "astro-icon": "^1.1.0",
     "astro-portabletext": "^0.10.0",
-    "class-variance-authority": "^0.7.0",
+    "class-variance-authority": "^0.7.1",
     "easymde": "^2.18.0",
     "firebase": "^11.1.0",
     "firebase-admin": "^13.0.2",
