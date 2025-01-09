@@ -16,7 +16,7 @@
     "@astrojs/tailwind": "^5.1.4",
     "@astrojs/vercel": "^8.0.1",
     "@fontsource-variable/montserrat": "^5.0.19",
-    "@iconify-json/mdi": "^1.1.66",
+    "@iconify-json/mdi": "^1.2.2",
     "@nanostores/react": "^0.7.2",
     "@nextui-org/react": "^2.6.8",
     "@portabletext/types": "^2.0.13",
