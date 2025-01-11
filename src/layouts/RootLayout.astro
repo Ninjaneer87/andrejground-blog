@@ -47,7 +47,7 @@ const title = `${SITE_TITLE} | ${pageTitle}`;
     <meta property="og:type" content={SITE_TYPE} />
     <meta
       property="og:url"
-      content={`${SITE_URL}/${Astro.url.pathname ?? ''}`}
+      content={`${SITE_URL}${Astro.url.pathname ?? ''}`}
     />
     <meta
       property="og:image"
@@ -58,7 +58,7 @@ const title = `${SITE_TITLE} | ${pageTitle}`;
     <meta property="twitter:domain" content={TWITTER_DOMAIN} />
     <meta
       property="twitter:url"
-      content={`${SITE_URL}/${Astro.url.pathname ?? ''}`}
+      content={`${SITE_URL}${Astro.url.pathname ?? ''}`}
     />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={SITE_DESCRIPTION} />
