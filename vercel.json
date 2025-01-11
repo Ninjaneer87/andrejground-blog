@@ -18,6 +18,10 @@
         {
           "key": "Strict-Transport-Security",
           "value": "max-age=15768000;includeSubdomains"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
         }
       ]
     }
