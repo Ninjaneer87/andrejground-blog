@@ -6,7 +6,7 @@ author: 'andrej_forgac'
 metaImage: 'sliding-box.webp'
 image: 'sliding-box-gif.gif'
 tags: ['react', 'typescript', 'css']
-id: sliding-box-over-the-active-item
+id: sliding-active-box
 stackblitzProjectId: 'andrejground-react-sliding-box'
 ---
 
@@ -45,7 +45,7 @@ Let's break this in a couple of steps and see how they fit together.
 
 This is optional, you can use any of your existing react projects or a playground like <a href="https://stackblitz.com/" target="_blank">stackblitz &#8599;</a>
 
-If you do want to create a new project from scratch, you can follow the steps in <a href="/articles/set-up-react-tailwind-typescript-in-vite" target="_blank">this article &#8599;</a>
+If you do want to create a new project from scratch, you can follow the steps in <a href="/articles/start-react-tailwind-typescript-in-vite" target="_blank">this article &#8599;</a>
 
 <p class="highlight"><b>Tailwind CSS</b> is not required here, though we're using it for the convenience, but we will also be using <b>react css modules</b> for styling the list and the sliding box.</p>
 
