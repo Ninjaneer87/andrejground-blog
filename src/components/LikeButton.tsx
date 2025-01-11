@@ -67,7 +67,7 @@ function LikeButton({ slug }: Props) {
         isIconOnly
         aria-label="Like"
         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-background border-[1px] border-accent rounded-full p-6 z-10 opacity-70 text-accent"
-        onClick={handleLike}
+        onPress={handleLike}
       >
         <Icon
           icon={`${isLiked ? 'mdi:heart' : 'mdi:heart-outline'}`}
