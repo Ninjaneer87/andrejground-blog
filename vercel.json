@@ -5,7 +5,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "frame-ancestors 'none'; default-src 'self'"
+          "value": "Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.vercel.app https://*.andrejground.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https:; connect-src 'self' https://*.vercel.app https://*.andrejground.com; object-src 'none'; frame-src 'none'; base-uri 'self';"
         },
         {
           "key": "Referrer-Policy",
