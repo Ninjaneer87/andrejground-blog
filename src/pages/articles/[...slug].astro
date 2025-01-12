@@ -35,6 +35,7 @@ const { entry } = Astro.props;
 if (!entry) {
   return Astro.redirect('/404');
 }
+console.log({ entryId: entry.id });
 
 const { title, pubDate, author, tags, stackblitzProjectId, image, metaImage } =
   entry.data;
