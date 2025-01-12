@@ -14,7 +14,7 @@
   transform: translate(var(--x), var(--y));
   display: flex;
   flex-grow: 1;
-  z-index: -1;
+  /* z-index: -1; */
   transition: all 250ms ease;
   inset: 0; /* or top-right-bottom-left of choice */
   border-right: 2px solid rgb(var(--accent));
