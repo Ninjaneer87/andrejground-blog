@@ -11,7 +11,7 @@
     height: 80vmin;
     border-radius: 30%;
     filter: blur(150px);
-    /* z-index: -1; */
+    z-index: -1;
     overflow: visible;
     pointer-events: none;
   }
@@ -43,7 +43,7 @@
     height: 500px;
     border-radius: 30%;
     filter: blur(6rem);
-    /* z-index: -1; */
+    z-index: -1;
     overflow: visible;
   }
 }

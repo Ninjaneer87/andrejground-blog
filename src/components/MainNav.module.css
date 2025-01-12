@@ -13,7 +13,7 @@
   width: var(--width, 0);
   height: var(--height, 0);
   height: 0;
-  /* z-index: -1; */
+  z-index: -1;
   transition: all 250ms ease;
   inset: 0; /* or top-right-bottom-left of choice */
   top: 70%;

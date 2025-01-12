@@ -81,7 +81,7 @@ Let's add all the necessary styles which will make this effect possible.
   transform: translate(var(--x), var(--y));
   width: var(--width);
   height: var(--height);
-  /* z-index: -1; */
+  z-index: -1;
   transition: all 250ms ease;
   inset: 0; /* or top-right-bottom-left of choice */
 
@@ -522,7 +522,7 @@ To recap the important steps:
   transform: translate(var(--x), var(--y));
   width: var(--width);
   height: var(--height);
-  /* z-index: -1; */
+  z-index: -1;
   transition: all 250ms ease;
   inset: 0; /* or top-right-bottom-left of choice */
 
