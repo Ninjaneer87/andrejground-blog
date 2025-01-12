@@ -9,7 +9,7 @@ type Props = {
 
 function ArticleCard({ article }: Props) {
   return (
-    <li className="rounded-2xl max-w-[300px] flex grow flex-col justify-center bg-background/50 z-10 shrink-0 snap-center snap-always">
+    <li className="rounded-2xl max-w-[300px] flex grow flex-col justify-center bg-card/50 z-0 shrink-0 snap-center snap-always">
       <div className="flex flex-col h-[500px] max-h-[60vh] w-full p-8 rounded-2xl justify-between">
         <div className="flex flex-col gap-4">
           <a

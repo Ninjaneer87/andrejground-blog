@@ -58,7 +58,7 @@
 }
 @layer components {
   .bg-glass {
-    @apply backdrop-blur-lg bg-background/50;
+    @apply backdrop-blur-lg bg-card/50;
   }
 
   /* .gradient-wrapper {
