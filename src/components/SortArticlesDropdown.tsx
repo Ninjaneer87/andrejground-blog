@@ -60,7 +60,7 @@ function SortArticlesDropdown() {
         <Button
           className="capitalize bg-glass text-accent w-full justify-start"
           startContent={<Icon icon="mdi:sort" />}
-          onPressEnd={() => {
+          onClick={() => {
             setIsOpen(true);
           }}
         >
