@@ -6,7 +6,7 @@ author: 'andrej_forgac'
 metaImage: 'sliding-box.webp'
 image: 'sliding-box-gif.gif'
 tags: ['react', 'typescript', 'css']
-id: sliding-active-box
+id: sliding-box-over-the-active-item
 stackblitzProjectId: 'andrejground-react-sliding-box'
 ---
 

@@ -6,7 +6,7 @@ author: 'andrej_forgac'
 metaImage: 'react-vite-tailwind-ts.webp'
 image: 'r-t-t-v.webp'
 tags: ['react', 'typescript', 'tailwind', 'vite']
-id: start-react-tailwind-typescript-in-vite
+id: setup-react-with-typescript-tailwind-in-vite
 stackblitzProjectId: ''
 ---
 

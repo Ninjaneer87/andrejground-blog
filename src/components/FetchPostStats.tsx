@@ -3,13 +3,13 @@ import type { PostInfo } from 'src/pages/api/posts/[id]';
 import { postStatsAtom } from 'src/stores/globalStore';
 
 type Props = {
-  slug: string;
+  postId: string;
 };
-function FetchPostStats({ slug }: Props) {
+function FetchPostStats({ postId }: Props) {
   useEffect(() => {
     async function fetchPostInfo() {
       try {
-        const response = await fetch(`/api/posts/${slug}`);
+        const response = await fetch(`/api/posts/${postId}`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
