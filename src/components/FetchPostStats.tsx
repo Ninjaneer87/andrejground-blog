@@ -16,7 +16,7 @@ function FetchPostStats({ postId }: Props) {
         const postInfoData: PostInfo = await response.json();
         postStatsAtom.set(postInfoData);
       } catch (error) {
-        console.error('Error fetching or parsing user data:', error);
+        console.error('Error fetching or parsing data:', error);
       }
     }
 

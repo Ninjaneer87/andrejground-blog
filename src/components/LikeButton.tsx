@@ -55,7 +55,7 @@ function LikeButton({ slug }: Props) {
       setIsLiked(prev => !prev);
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching or parsing user data:', error);
+      console.error('Error fetching or parsing data:', error);
       setLoading(false);
     }
   }

@@ -1,11 +1,18 @@
 export const JOBS_LIST = [
   {
-    position: 'Frontend developer - contract',
     company: 'Snyk',
+    positions: [
+      {
+        title: 'Senior software engineer - Full-time',
+        period: 'Jan 2025 - Present',
+      },
+      {
+        title: 'Frontend developer - Contract',
+        period: 'Nov 2024 - Jan 2025',
+      },
+    ],
     href: 'https://snyk.io',
-    duration: 'Nov 2024 - Present',
     description: 'Developer-first security in action',
-    isOngoing: true,
     companyLocation: 'United States',
     technologies: [
       'React',
@@ -19,12 +26,15 @@ export const JOBS_LIST = [
     ],
   },
   {
-    position: 'Frontend developer - contract',
     company: 'Probely',
+    positions: [
+      {
+        title: 'Frontend developer - Contract',
+        period: 'Mar 2023 - Nov 2024',
+      },
+    ],
     href: 'https://probely.com',
-    duration: 'Mar 2023 - Nov 2024',
     description: 'Cybersecurity DAST tool',
-    isOngoing: false,
     companyLocation: 'Portugal',
     technologies: [
       'React',
@@ -38,22 +48,28 @@ export const JOBS_LIST = [
     ],
   },
   {
-    position: 'Frontend developer - contract',
     company: 'Single Earth',
+    positions: [
+      {
+        title: 'Frontend developer - Contract',
+        period: 'Oct 2021 - Oct 2022',
+      },
+    ],
     href: 'https://single.earth',
-    duration: 'Oct 2021 - Oct 2022',
     description: 'Bridging nature and finance, climate and biodiversity',
-    isOngoing: false,
     companyLocation: 'Estonia',
     technologies: ['Angular', 'TypeScript', 'RxJS', 'Jest', 'Sass'],
   },
   {
-    position: 'Frontend developer - contract',
     company: 'ApaOne',
+    positions: [
+      {
+        title: 'Frontend developer - Contract',
+        period: 'Aug 2019 - Jul 2021',
+      },
+    ],
     href: 'https://apaone.com',
-    duration: 'Aug 2019 - Jul 2021',
     description: 'Digital marketing agency and web solutions',
-    isOngoing: false,
     companyLocation: 'Serbia',
     technologies: [
       'HTML',
@@ -182,5 +198,4 @@ export const POPULAR_TAGS = [
 
 export const FILTER_KEYS = ['tag', 'author', 'q'] as const;
 
-export type FilterKey = typeof FILTER_KEYS[number];
-
+export type FilterKey = (typeof FILTER_KEYS)[number];
