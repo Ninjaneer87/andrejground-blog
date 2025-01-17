@@ -18,11 +18,11 @@ export const JOBS_LIST = [
       'React',
       'TypeScript',
       'JavaScript',
+      'Redux Toolkit',
       'Redux',
       'Redux Saga',
       'Styled Components',
       'Cypress',
-      'Next JS',
     ],
   },
   {
@@ -34,7 +34,7 @@ export const JOBS_LIST = [
       },
     ],
     href: 'https://probely.com',
-    description: 'Cybersecurity DAST tool',
+    description: 'Cybersecurity DAST tool (Acquired by Snyk in Q4 2024)',
     companyLocation: 'Portugal',
     technologies: [
       'React',
@@ -116,7 +116,7 @@ export const AUTHORS: Authors = {
     id: 'andrej_forgac',
     name: 'Andrej Forgac',
     image: 'andrej.webp',
-    position: 'Frontend Developer',
+    position: 'Frontend developer',
     description: 'UX/UI enthusiast',
     socialLinks: [
       {

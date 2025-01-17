@@ -16,8 +16,8 @@ function ClipboardCopy({ text }: Props) {
   return (
     <button
       aria-label="Copy text"
-      aria-description="Copy the social link"
-      className="blur-in cursor-pointer"
+      aria-description="Copy to clipboard"
+      className="blur-in cursor-pointer text-accent"
       onClick={onCopy}
     >
       <Icon icon={`mdi:${copied ? 'check-all' : 'content-copy'}`} />
