@@ -16,13 +16,13 @@ const links = [
 ];
 ---
 
-<header class="flex gap-4 justify-between p-4 fixed top-0 w-full z-10">
-  <div class="container mx-auto flex justify-between bg-glass rounded-2xl p-4">
+<header class="flex gap-4 justify-between p-4 fixed top-0 w-full z-20">
+  <div class="container mx-auto flex justify-between bg-glass rounded-2xl p-4 shadow-3d">
     <a href="/" class="flex gap-4 items-center">
       <Tilter
         client:load
         classNames={{
-          cardRoot: 'bg-card/50 rounded-2xl',
+          cardRoot: 'shadow-3d rounded-2xl',
         }}
       >
         <LogoAnimated width={90} client:load />

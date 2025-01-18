@@ -58,7 +58,7 @@ function SortArticlesDropdown() {
     >
       <DropdownTrigger>
         <Button
-          className="capitalize bg-glass text-accent w-full justify-start"
+          className="capitalize bg-glass text-accent w-full justify-start shadow-3d"
           startContent={<Icon icon="mdi:sort" />}
           onClick={() => {
             setIsOpen(true);

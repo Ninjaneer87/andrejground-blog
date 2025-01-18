@@ -8,7 +8,7 @@ function Tags({ tags }: Props) {
       {tags.map(tag => (
         <li key={tag}>
           <a
-            className="text-xs border-accent border-solid border-[1px] text-accent px-2 py-1 rounded-lg uppercase"
+            className="flex text-xs text-accent px-4 py-2 rounded-lg uppercase shadow-3d"
             href={`/articles?tag=${tag}`}
           >
             {tag}

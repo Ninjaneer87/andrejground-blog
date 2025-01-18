@@ -34,7 +34,7 @@ const authors = authorSlugs.map(id => AUTHORS[id]);
     <ul class="flex flex-wrap mt-20">
       {
         authors.map(author => (
-          <li class="w-64 max-w-full bg-glass rounded-2xl">
+          <li class="w-64 max-w-full bg-glass rounded-2xl shadow-3d hover:text-accent transition-colors">
             <a
               href={`/articles/authors/${author.id}`}
               class="p-4 block rounded-2xl"
@@ -50,8 +50,10 @@ const authors = authorSlugs.map(id => AUTHORS[id]);
 
               <hr class="my-4 h-0.5 border-t-0 bg-gradient-to-r from-accent to-transparent w-full" />
 
-              <p>{author.position}</p>
-              <p>{author.description}</p>
+              <div class="text-foreground font-extralight">
+                <p>{author.position}</p>
+                <p>{author.description}</p>
+              </div>
             </a>
           </li>
         ))

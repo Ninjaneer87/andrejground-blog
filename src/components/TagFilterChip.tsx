@@ -10,7 +10,7 @@ export default function TagFilterChip({ tag, isApplied, onChange }: Props) {
     <button
       onClick={onChange}
       type="button"
-      className={`text-xs ${isApplied ? 'text-accent border-accent' : ''} border-solid border-[1px] px-2 py-1 rounded-lg uppercase focus-visible:border-secondary cursor-pointer select-none`}
+      className={`text-xs ${isApplied ? 'text-accent border-accent' : ''} bg-glass px-4 py-2 rounded-lg uppercase focus-visible:border-secondary cursor-pointer select-none shadow-3d`}
     >
       {tag}
     </button>
