@@ -5,41 +5,23 @@ type Props = {
 };
 
 function SocialsShare({ url }: Props) {
+  const buttonProps = {
+    url,
+    bgColor: 'rgb(var(--card) / 0.5)',
+    color: 'rgb(var(--accent))',
+    className: 'shadow-3d bg-glass',
+    style: {
+      boxShadow: 'var(--shadow-3d)',
+      borderRadius: '0.5rem',
+    },
+    borderRadius: 16,
+    size: 32,
+  };
   return (
     <div className="flex gap-2 items-center blur-in text-accent">
-      <FacebookShare
-        url={url}
-        bgColor="transparent"
-        color="rgb(var(--accent))"
-        style={{
-          border: '1px solid rgb(var(--accent))',
-          borderRadius: '0.5rem',
-        }}
-        borderRadius={16}
-        size={32}
-      />
-      <LinkedinShare
-        url={url}
-        bgColor="transparent"
-        color="rgb(var(--accent))"
-        style={{
-          border: '1px solid rgb(var(--accent))',
-          borderRadius: '0.5rem',
-        }}
-        borderRadius={16}
-        size={32}
-      />
-      <TwitterShare
-        url={url}
-        bgColor="transparent"
-        color="rgb(var(--accent))"
-        style={{
-          border: '1px solid rgb(var(--accent))',
-          borderRadius: '0.5rem',
-        }}
-        borderRadius={16}
-        size={32}
-      />
+      <FacebookShare {...buttonProps} />
+      <LinkedinShare {...buttonProps} />
+      <TwitterShare {...buttonProps} />
     </div>
   );
 }

@@ -30,6 +30,7 @@
     --border: var(--cyan-dark-accent);
     --input: var(--cyan-dark-accent);
     --ring: var(--foreground);
+    --shadow-3d: 2px -2px 1px 0 #ffffff08, -2px 2px 1px 0 #00000080;
   }
 
   body,
