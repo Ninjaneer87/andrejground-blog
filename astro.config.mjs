@@ -5,9 +5,13 @@ import vercel from '@astrojs/vercel';
 import sectionize from '@hbsnow/rehype-sectionize';
 import react from '@astrojs/react';
 
+import sitemap from '@astrojs/sitemap';
+import { SITE_URL } from 'src/utils/config';
+
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), react(), icon()],
+  site: SITE_URL,
+  integrations: [tailwind(), react(), icon(), sitemap()],
   image: {
     service: passthroughImageService(),
   },
