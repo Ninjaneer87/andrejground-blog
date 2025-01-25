@@ -18,9 +18,6 @@ export default defineConfig({
   markdown: {
     rehypePlugins: [sectionize],
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   env: {
     schema: {
       FIREBASE_API_KEY: envField.string({
