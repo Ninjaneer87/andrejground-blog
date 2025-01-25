@@ -6,11 +6,10 @@ import sectionize from '@hbsnow/rehype-sectionize';
 import react from '@astrojs/react';
 
 import sitemap from '@astrojs/sitemap';
-import { SITE_URL } from 'src/utils/config';
 
 // https://astro.build/config
 export default defineConfig({
-  site: SITE_URL,
+  site: 'https://andrejground.com',
   integrations: [tailwind(), react(), icon(), sitemap()],
   image: {
     service: passthroughImageService(),
