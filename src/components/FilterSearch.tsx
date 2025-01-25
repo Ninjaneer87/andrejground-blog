@@ -81,9 +81,11 @@ function FilterSearch({ allBlogArticles }: Props) {
         autoCorrect=""
         ref={inputRef}
         spellCheck={false}
+        className='shadow-3d rounded-2xl'
         classNames={{
+          mainWrapper: '',
           inputWrapper:
-            'bg-glass group-data-[focus=true]:bg-glass group-data-[hover=true]:bg-glass px-4',
+            'bg-glass group-data-[focus=true]:bg-glass group-data-[hover=true]:bg-glass px-4 shadow-3d',
           innerWrapper: 'bg-transparent',
           base: 'w-full',
           input: 'bg-transparent text-accent placeholder:text-foreground/45',

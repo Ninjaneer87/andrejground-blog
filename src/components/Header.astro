@@ -1,7 +1,7 @@
 ---
 import LogoAnimated from './LogoAnimated';
 import MainNav from './MainNav';
-import TiltContainer from './TiltContainer';
+import Tilter from './Tilter';
 
 const pathname = new URL(Astro.request.url).pathname;
 
@@ -16,12 +16,17 @@ const links = [
 ];
 ---
 
-<header class="flex gap-4 justify-between p-4 fixed top-0 w-full z-10">
-  <div class="container mx-auto flex justify-between bg-glass rounded-2xl p-4">
+<header class="flex gap-4 justify-between p-4 fixed top-0 w-full z-20">
+  <div class="container mx-auto flex justify-between bg-glass rounded-2xl p-4 shadow-3d">
     <a href="/" class="flex gap-4 items-center">
-      <TiltContainer client:load>
+      <Tilter
+        client:load
+        classNames={{
+          cardRoot: 'shadow-3d rounded-2xl',
+        }}
+      >
         <LogoAnimated width={90} client:load />
-      </TiltContainer>
+      </Tilter>
 
       <span class="font-light text-xl hidden md:inline">
         <span class="text-accent">Andrej</span><span class="text-foreground"

@@ -3,6 +3,9 @@ document.addEventListener('astro:page-load', () => {
     window.location.href.includes('/articles/') &&
     !window.location.href.includes('authors')
   ) {
+    const wrapperExists = document.querySelector('.code-wrapper');
+    if (wrapperExists) return;
+
     let copyLabel = 'Copy';
     const codeBlocks = Array.from(document.querySelectorAll('.astro-code'));
 

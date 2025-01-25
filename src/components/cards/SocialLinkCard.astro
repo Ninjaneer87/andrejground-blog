@@ -2,6 +2,7 @@
 import ClipboardCopy from '../ui/ClipboardCopy';
 import SocialIcon from '../SocialIcon.astro';
 import type { SocialPlatform } from 'src/constants';
+import { Icon } from '@iconify-icon/react';
 
 type Props = {
   platform: SocialPlatform;
@@ -16,18 +17,23 @@ const { platform, linkText, href, isExternalLink, title, copyValue } =
   Astro.props;
 ---
 
-<li class="flex flex-col gap-1 bg-glass p-4 rounded-2xl w-96 max-w-full">
-  <div class="flex gap-2 items-center">
-    <SocialIcon platform={platform} classes='text-2xl'/>
-    {title}
-  </div>
-  <div class="flex gap-1 items-center">
+<li
+  class="flex bg-glass p-4 rounded-2xl w-96 max-w-full items-center justify-between shadow-3d"
+>
+  <div class="flex flex-col gap-1">
+    <div class="flex gap-2 items-center">
+      <SocialIcon platform={platform} classes="text-2xl" />
+      {title}
+    </div>
+
     <a
-      class="text-accent"
+      class="text-accent flex items-center gap-[0.25rem]"
       href={href}
       target={isExternalLink ? '_blank' : '_self'}
-      rel={isExternalLink ? 'noopener noreferrer' : ''}>{linkText}</a
+      rel={isExternalLink ? 'noopener noreferrer' : ''}
+      >{linkText}<Icon icon="mdi:arrow-top-right-thin" /></a
     >
-    <ClipboardCopy client:only="react" text={copyValue} />
   </div>
+
+  <ClipboardCopy client:only="react" text={copyValue} />
 </li>

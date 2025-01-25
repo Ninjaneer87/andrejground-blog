@@ -8,7 +8,7 @@ import Divider from '../components/ui/Divider.astro';
 import Timeline from 'src/components/WorkTimeline';
 import { AUTHORS } from 'src/constants';
 import LogoAnimated from 'src/components/LogoAnimated';
-import TiltContainer from 'src/components/TiltContainer';
+import Tilter from 'src/components/Tilter';
 import PageHeader from 'src/components/PageHeader.astro';
 // import Thumbnail from 'src/components/Thumbnail.astro';
 
@@ -43,7 +43,7 @@ const { socialLinks } = AUTHORS.andrej_forgac;
           <h2 class="font-thin">Andrej Forgac</h2>
           <div class="opacity-70 flex flex-col gap-2">
             <div>
-              Frontend dev @ <a
+              Senior software engineer @ <a
                 class="text-accent"
                 href="https://snyk.io"
                 target="_blank">Snyk</a
@@ -56,9 +56,13 @@ const { socialLinks } = AUTHORS.andrej_forgac;
       </div>
 
       <div class="ml-auto max-xl:mr-auto">
-        <TiltContainer client:only="react">
+        <Tilter
+          client:only="react"
+          elevation={100}
+          classNames={{ cardRoot: 'bg-card/50 shadow-3d rounded-2xl' }}
+        >
           <LogoAnimated width={280} client:only="react" />
-        </TiltContainer>
+        </Tilter>
       </div>
     </div>
 

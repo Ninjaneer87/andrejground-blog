@@ -1,8 +1,8 @@
 import { useRef, type MouseEvent } from 'react';
 
-function capRotateValue(value: number, maxRotationDeg: number) {
-  if (value > maxRotationDeg) return maxRotationDeg;
-  if (value < -maxRotationDeg) return -maxRotationDeg;
+function capRotateValue(value: number, rotationCapDeg: number) {
+  if (value > rotationCapDeg) return rotationCapDeg;
+  if (value < -rotationCapDeg) return -rotationCapDeg;
   return value;
 }
 
@@ -19,22 +19,36 @@ function getTransformStyles({
 }
 
 type Props = {
-  maxRotationDeg?: number;
+  rotationCapDeg?: number;
   perspective?: number;
   transitionDuration?: number;
   isReverse?: boolean;
   children: React.ReactNode;
   easing?: string;
+  elevation?: number;
+  classNames?: {
+    cardRoot?: string;
+    cardContentElevator?: string;
+    tilterRoot?: string;
+  };
 };
-function TiltContainer({
+
+function Tilter({
   children,
-  maxRotationDeg = 30,
+  rotationCapDeg = 30,
   perspective = 1600,
   transitionDuration = 1500,
   easing = 'cubic-bezier(.03,.98,.52,.99)',
   isReverse = true,
+  elevation = 32,
+  classNames = {
+    cardRoot: '',
+    cardContentElevator: '',
+    tilterRoot: '',
+  },
 }: Props) {
   const cardRef = useRef<HTMLDivElement | null>(null);
+
   let isAnimationFramePending = false;
   let lastMouseMoveEvent: MouseEvent | null = null;
 
@@ -66,14 +80,14 @@ function TiltContainer({
       const mouseFromCenterY = e.clientY - cardCenterY;
 
       const uncappedRotateX =
-        (mouseFromCenterY * maxRotationDeg) / halfCardHeight;
+        (mouseFromCenterY * rotationCapDeg) / halfCardHeight;
       const uncappedRotateY = -(
-        (mouseFromCenterX * maxRotationDeg) /
+        (mouseFromCenterX * rotationCapDeg) /
         halfCardWidth
       );
 
-      const rotateX = capRotateValue(uncappedRotateX, maxRotationDeg);
-      const rotateY = capRotateValue(uncappedRotateY, maxRotationDeg);
+      const rotateX = capRotateValue(uncappedRotateX, rotationCapDeg);
+      const rotateY = capRotateValue(uncappedRotateY, rotationCapDeg);
 
       const transformStyles = getTransformStyles({
         rotateX: isReverse ? -rotateX : rotateX,
@@ -97,18 +111,23 @@ function TiltContainer({
   }
 
   return (
-    <div onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
+    <div
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className={classNames.tilterRoot}
+    >
       <div
         ref={cardRef}
-        className="rounded-xl border border-accent/20"
+        className={classNames.cardRoot}
         style={{
           transformStyle: 'preserve-3d',
           transition: `transform ${transitionDuration}ms ${easing}`,
         }}
       >
         <div
+          className={classNames.cardContentElevator}
           style={{
-            transform: 'translateZ(32px)',
+            transform: `translateZ(${elevation}px)`,
           }}
         >
           {children}
@@ -118,4 +137,4 @@ function TiltContainer({
   );
 }
 
-export default TiltContainer;
+export default Tilter;

@@ -27,7 +27,10 @@ const title = `${SITE_TITLE} | ${pageTitle}`;
 ---
 
 <!doctype html>
-<html lang="en">
+<html
+  lang="en"
+  class="bg-card text-foreground min-h-screen flex flex-col font-montserrat"
+>
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -44,15 +47,27 @@ const title = `${SITE_TITLE} | ${pageTitle}`;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={SITE_DESCRIPTION} />
     <meta property="og:type" content={SITE_TYPE} />
-    <meta property="og:url" content={SITE_URL} />
-    <meta property="og:image" content=`/${metaImage ?? SITE_META_IMAGE}` />
+    <meta
+      property="og:url"
+      content={`${SITE_URL}${Astro.url.pathname ?? ''}`}
+    />
+    <meta
+      property="og:image"
+      content=`${SITE_URL}/${metaImage ?? SITE_META_IMAGE}`
+    />
 
     <meta name="twitter:card" content={TWITTER_CARD} />
     <meta property="twitter:domain" content={TWITTER_DOMAIN} />
-    <meta property="twitter:url" content={SITE_URL} />
+    <meta
+      property="twitter:url"
+      content={`${SITE_URL}${Astro.url.pathname ?? ''}`}
+    />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={SITE_DESCRIPTION} />
-    <meta name="twitter:image" content=`/${metaImage ?? SITE_META_IMAGE}` />
+    <meta
+      name="twitter:image:src"
+      content=`${SITE_URL}/${metaImage ?? SITE_META_IMAGE}`
+    />
 
     <meta name="dc.coverage" content={SITE_TITLE} />
     <meta name="dc:description" content={SITE_DESCRIPTION} />
@@ -65,9 +80,7 @@ const title = `${SITE_TITLE} | ${pageTitle}`;
     <SpeedInsights />
   </head>
 
-  <body
-    class="bg-gradient-to-b from-background to-card text-foreground min-h-screen flex flex-col font-montserrat overflow-x-hidden"
-  >
+  <body>
     <Header />
     <Loader client:only="react" transition:persist />
 

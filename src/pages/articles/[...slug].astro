@@ -3,7 +3,6 @@ export const prerender = true;
 
 import RootLayout from '../../layouts/RootLayout.astro';
 import Tags from '../../components/Tags.astro';
-import Divider from '../../components/ui/Divider.astro';
 import TOCModal from '../../components/ui/TOCModal.tsx';
 import SocialsShare from '../../components/ui/SocialsShare.tsx';
 import 'src/styles/article.css';
@@ -37,11 +36,19 @@ if (!entry) {
   return Astro.redirect('/404');
 }
 
-const { title, pubDate, author, tags, stackblitzProjectId, image, metaImage } =
-  entry.data;
+const {
+  id: postId,
+  title,
+  pubDate,
+  author,
+  tags,
+  stackblitzProjectId,
+  image,
+  metaImage,
+} = entry.data;
 
 const { Content } = await render(entry);
-const currentPath = Astro.url.origin + Astro.url.pathname;
+const currentPath = import.meta.env.PUBLIC_WEBSITE_URL + Astro.url.pathname;
 ---
 
 <style>
@@ -65,7 +72,7 @@ const currentPath = Astro.url.origin + Astro.url.pathname;
 </style>
 
 <RootLayout pageTitle={title} metaImage={metaImage}>
-  <FetchPostStats client:only="react" slug={entry.id} />
+  <FetchPostStats client:only="react" postId={postId} />
   <ScrollProgress />
   <div class="container mx-auto p-4 z-0 relative gradient-top">
     <div class="flex gap-4 xl:gap-24">
@@ -121,10 +128,7 @@ const currentPath = Astro.url.origin + Astro.url.pathname;
         <Content />
         {
           !!stackblitzProjectId && (
-            <LiveDemo
-              client:visible
-              projectId={stackblitzProjectId}
-            />
+            <LiveDemo client:visible projectId={stackblitzProjectId} />
           )
         }
         <hr
@@ -137,9 +141,9 @@ const currentPath = Astro.url.origin + Astro.url.pathname;
           <Tags tags={tags} />
           <SocialsShare url={currentPath} client:only="react" />
         </div>
-        
+
         <div class="flex justify-center mt-8">
-          <LikeButton client:only="react" slug={entry.id} />
+          <LikeButton client:only="react" slug={postId} />
         </div>
       </section>
     </div>

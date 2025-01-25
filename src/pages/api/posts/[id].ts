@@ -8,9 +8,9 @@ const isProd = import.meta.env.PROD;
 
 const allActivePostIds = (await getCollection('blog'))
   .filter(entry => !entry.data.isDraft)
-  .map(entry => entry.id);
+  .map(entry => entry.data.id);
 
-async function checkIfPostExists(id: string) {
+function checkIfPostExists(id: string) {
   return allActivePostIds.some(postId => postId === id);
 }
 
@@ -53,7 +53,7 @@ export const GET: APIRoute = async ({ params, request }) => {
     const postSnapshot = await postsRef.doc(params.id).get();
 
     if (!postSnapshot.exists) {
-      const postExists = await checkIfPostExists(params.id);
+      const postExists = checkIfPostExists(params.id);
       if (!postExists) {
         return new Response('Post does not exist', {
           status: 404,

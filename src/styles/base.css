@@ -30,6 +30,7 @@
     --border: var(--cyan-dark-accent);
     --input: var(--cyan-dark-accent);
     --ring: var(--foreground);
+    --shadow-3d: 2px -2px 1px 0 #ffffff08, -2px 2px 1px 0 #00000080;
   }
 
   body,
@@ -58,12 +59,15 @@
 }
 @layer components {
   .bg-glass {
-    @apply backdrop-blur-lg bg-background/50;
+    @apply backdrop-blur-lg bg-card/50;
   }
 
   /* .gradient-wrapper {
     @apply relative w-fit rounded-2xl p-[2px] bg-gradient-to-br from-accent/20 via-transparent  to-gray-400/20 overflow-hidden;
   } */
+   .shadow-3d {
+    @apply shadow-[2px_-2px_1px_0_#ffffff08,_-2px_2px_1px_0_#00000080];
+   }
 }
 
 @layer base {

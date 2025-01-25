@@ -78,6 +78,10 @@ export default defineConfig({
         context: 'server',
         access: 'secret',
       }),
+      PUBLIC_WEBSITE_URL: envField.string({
+        context: 'client',
+        access: 'public',
+      }),
     },
   },
 });
