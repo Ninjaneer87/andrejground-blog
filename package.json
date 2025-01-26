@@ -15,7 +15,7 @@
     "@astrojs/react": "^4.1.6",
     "@astrojs/sitemap": "^3.2.1",
     "@astrojs/tailwind": "^5.1.5",
-    "@astrojs/vercel": "^8.0.1",
+    "@astrojs/vercel": "^8.0.4",
     "@fontsource-variable/montserrat": "^5.1.0",
     "@iconify-json/mdi": "^1.2.2",
     "@nanostores/react": "^0.8.4",
