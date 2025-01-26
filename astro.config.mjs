@@ -10,7 +10,7 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://andrejground.com',
-  integrations: [tailwind(), react(), icon(), sitemap()],
+  integrations: [tailwind(), react(), icon(), sitemap({})],
   image: {
     service: passthroughImageService(),
   },
