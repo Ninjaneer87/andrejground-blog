@@ -28,7 +28,7 @@
     "@vercel/speed-insights": "^1.0.14",
     "astro": "^5.1.8",
     "astro-icon": "^1.1.4",
-    "astro-portabletext": "^0.10.0",
+    "astro-portabletext": "^0.11.0",
     "class-variance-authority": "^0.7.1",
     "easymde": "^2.18.0",
     "firebase": "^11.1.0",
