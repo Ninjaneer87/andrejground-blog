@@ -19,7 +19,7 @@
     "@fontsource-variable/montserrat": "^5.1.0",
     "@iconify-json/mdi": "^1.2.2",
     "@nanostores/react": "^0.8.4",
-    "@nextui-org/react": "^2.6.8",
+    "@nextui-org/react": "^2.6.11",
     "@portabletext/types": "^2.0.13",
     "@stackblitz/sdk": "^1.11.0",
     "@types/react": "^18.3.3",
