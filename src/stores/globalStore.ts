@@ -3,6 +3,7 @@ import { atom } from 'nanostores';
 
 export const isTocModalOpenAtom = atom(false);
 export const isFiltersModalOpenAtom = atom(false);
+export const isMobileMenuDrawerOpen = atom(false);
 export const isPageLoadingAtom = atom(false);
 export const headingIdInViewAtom = atom<string | null>(null);
 export const postStatsAtom = atom<{

@@ -1,0 +1,54 @@
+---
+import { Icon } from 'astro-icon/components';
+import Tilter from './Tilter';
+import FeaturedLink from './FeaturedLink.astro';
+---
+
+<div class="container mx-auto py-4 lg:py-16 min-h-[50vh] mt-32">
+  <div class="flex flex-wrap justify-evenly items-center gap-8 lg:gap-16">
+    <Tilter
+      client:only="react"
+      classNames={{
+        tilterRoot: 'bg-glass shadow-3d rounded-2xl p-8 lg:p-16',
+        cardRoot: 'shadow-3d rounded-2xl',
+        cardContentElevator: 'p-8 lg:p-16',
+      }}
+      elevation={80}
+    >
+      Hover over me
+    </Tilter>
+
+    <div class="flex flex-col gap-8 lg:gap-16">
+      <h3>New from the lab</h3>
+
+      <div class="opacity-70">
+        Use the{' '}
+        <i>
+          <code class="text-gray-400 px-1">{'<Tilter />'}</code>
+        </i>{' '}
+        to tilt anything
+      </div>
+
+      <div class="mx-auto flex flex-wrap gap-8 lg:gap-16">
+        <Tilter client:only="react" elevation={20} rotationCapDeg={10}>
+          <FeaturedLink href="/lab/tilter" text="Play around" />
+        </Tilter>
+
+        <Tilter client:only="react" elevation={20} rotationCapDeg={10}>
+          <FeaturedLink
+            href="https://stackblitz.com/edit/andrejground-react-tilter?file=src%2FApp.tsx"
+            text="Live demo"
+            gradientDirection="rtl"
+            isExternal
+          />
+        </Tilter>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full flex justify-end">
+    <a href="/lab" class="ml-auto flex text-accent items-center gap-1 p-4">
+      Go to lab <Icon name="mdi:chevron-right" />
+    </a>
+  </div>
+</div>

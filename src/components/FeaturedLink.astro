@@ -1,0 +1,39 @@
+---
+import { Icon } from 'astro-icon/components';
+
+type Props = {
+  gradientDirection?: 'ltr' | 'rtl';
+  isExternal?: boolean;
+  href: string;
+  text: string;
+};
+
+const {
+  href,
+  text,
+  gradientDirection = 'ltr',
+  isExternal = false,
+} = Astro.props;
+
+const isLtr = gradientDirection === 'ltr';
+---
+
+<a
+  href={href}
+  class="bg-glass py-2 px-4 lg:py-4 lg:px-8 bg-glass rounded-lg text-sm lg:text-xl shadow-3d inline-flex w-full sm:w-fit justify-center"
+  target={isExternal ? '_blank' : '_self'}
+  rel={isExternal ? 'noopener noreferrer' : ''}
+>
+  <span
+    class={`flex items-center font-bold 
+        ${isLtr ? 'bg-gradient-to-r' : 'bg-gradient-to-l'} 
+        from-foreground to-accent bg-clip-text text-transparent gap-2
+    `}
+  >
+    {text}
+    <Icon
+      name={isExternal ? 'mdi:arrow-top-right-thin' : 'mdi:chevron-right'}
+      class={`text-[1.3em] ${isLtr ? 'text-accent' : 'text-foreground'}`}
+    />
+  </span>
+</a>

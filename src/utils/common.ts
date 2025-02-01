@@ -114,3 +114,20 @@ export function getAllHeadings() {
 
   return { allHeadingsButH1s };
 }
+
+export function buildNavLinks(pathname: string) {
+  return [
+    { href: '/', text: 'Home', isActive: pathname === '/' },
+    {
+      href: '/articles',
+      text: 'Blog',
+      isActive: pathname.startsWith('/articles'),
+    },
+    {
+      href: '/lab',
+      text: 'Lab',
+      isActive: pathname.startsWith('/lab'),
+    },
+    { href: '/about', text: 'About', isActive: pathname.startsWith('/about') },
+  ];
+}
