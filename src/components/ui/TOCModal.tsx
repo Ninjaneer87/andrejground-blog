@@ -23,7 +23,7 @@ function TOCModal({ children }: Props) {
   return (
     <ClientOnlyPortal>
       <button
-        className="flex xl:hidden transition-transform ease-linear duration-150 active:scale-90 fixed bottom-4 left-1/2 -translate-x-1/2 h-12 w-12 rounded-full bg-glass items-center justify-center text-accent shadow-3d blur-in z-10"
+        className="flex xl:hidden transition-transform ease-linear duration-150 active:scale-90 fixed bottom-4 left-1/2 -translate-x-1/2 h-12 w-12 rounded-2xl bg-glass items-center justify-center text-accent shadow-3d blur-in z-10"
         aria-label="Toggle table of contents modal"
         onClick={toggle}
       >

@@ -12,7 +12,7 @@ function HamburgerButton() {
       onPress={onClick}
       isIconOnly
       aria-label="Toggle mobile menu"
-      className="bg-glass text-accent shadow-3d"
+      className="bg-transparent text-accent shadow-3d"
     >
       <Icon icon="mdi:menu" />
     </Button>
