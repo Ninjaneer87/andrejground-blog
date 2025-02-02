@@ -30,11 +30,21 @@ import FeaturedLink from './FeaturedLink.astro';
       </div>
 
       <div class="mx-auto flex flex-wrap gap-8 lg:gap-16">
-        <Tilter client:only="react" elevation={20} rotationCapDeg={10}>
+        <Tilter
+          client:only="react"
+          elevation={20}
+          rotationCapDeg={10}
+          classNames={{ tilterRoot: 'max-sm:w-full' }}
+        >
           <FeaturedLink href="/lab/tilter" text="Play around" />
         </Tilter>
 
-        <Tilter client:only="react" elevation={20} rotationCapDeg={10}>
+        <Tilter
+          client:only="react"
+          elevation={20}
+          rotationCapDeg={10}
+          classNames={{ tilterRoot: 'max-sm:w-full' }}
+        >
           <FeaturedLink
             href="https://stackblitz.com/edit/andrejground-react-tilter?file=src%2FApp.tsx"
             text="Live demo"

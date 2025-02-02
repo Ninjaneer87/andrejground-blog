@@ -1,14 +1,9 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Tilter from './Tilter';
-import { Checkbox, Slider } from '@nextui-org/react';
+import { Button, Checkbox, Slider } from '@nextui-org/react';
+import { objectEntries } from 'src/utils/common';
 
-const initialShowFrame = {
-  tilterRootFrame: true,
-  cardRootFrame: true,
-  cardContentElevatorFrame: false,
-};
-
-const FRAMES_CHECKBOXES = [
+const CHECKBOX_FIELDS = [
   {
     key: 'tilterRootFrame',
     label: 'Show tilter root frame',
@@ -21,127 +16,134 @@ const FRAMES_CHECKBOXES = [
     key: 'cardContentElevatorFrame',
     label: 'Show card content elevator frame',
   },
+  {
+    key: 'addTilterPadding',
+    label: 'Add tilter padding',
+  },
+  {
+    key: 'isReverse',
+    label: 'Is reverse',
+  },
 ] as const;
 
+const SLIDER_FIELDS = [
+  {
+    key: 'elevation',
+    label: 'Elevation',
+    min: 0,
+    max: 150,
+  },
+  {
+    key: 'rotationCapDeg',
+    label: 'Max rotation',
+    min: 0,
+    max: 90,
+  },
+] as const;
+
+const initialSettings = {
+  elevation: 50,
+  rotationCapDeg: 30,
+  isReverse: true,
+  addTilterPadding: true,
+  tilterRootFrame: true,
+  cardRootFrame: true,
+  cardContentElevatorFrame: false,
+};
+
 function TilterPlayground() {
-  const [addTilterPadding, setAddTilterPadding] = useState(true);
-  const [isReverse, setIsReverse] = useState(true);
-  const [showFrame, setShowFrame] = useState(initialShowFrame);
-  const [elevation, setElevation] = useState(50);
-  const [rotationCapDeg, setRotationCapDeg] = useState(30);
+  const [settings, setSettings] = useState(initialSettings);
+
+  const hasSettingsChanged = useMemo(() => {
+    return objectEntries(settings).some(
+      ([key, value]) => value !== initialSettings[key],
+    );
+  }, [settings]);
 
   return (
     <div className="mx-auto max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-8 min-h-[50vh] dark py-8">
       {/* Tilter */}
-      <div className="grid place-items-center">
-        <Tilter
-          classNames={{
-            tilterRoot: `${
-              showFrame.tilterRootFrame ? 'shadow-3d' : ''
-            } ${addTilterPadding ? 'p-8 lg:p-16' : ''} bg-glass rounded-2xl`,
-            cardRoot: `${showFrame.cardRootFrame ? 'shadow-3d' : ''} rounded-2xl`,
-            cardContentElevator: `${
-              showFrame.cardContentElevatorFrame ? 'shadow-3d' : ''
-            } p-8 lg:p-16 rounded-2xl`,
-          }}
-          elevation={elevation}
-          rotationCapDeg={rotationCapDeg}
-          isReverse={isReverse}
-        >
-          Hover over me
-        </Tilter>
+      <div className="grid place-items-center min-h-40 lg:min-h-64">
+        {/* <div className='min-h-40 lg:min-h-64'> */}
+          <Tilter
+            classNames={{
+              tilterRoot: `${
+                settings.tilterRootFrame ? 'shadow-3d' : ''
+              } ${settings.addTilterPadding ? 'p-8 lg:p-16' : ''} bg-glass rounded-2xl`,
+              cardRoot: `${settings.cardRootFrame ? 'shadow-3d' : ''} rounded-2xl`,
+              cardContentElevator: `${
+                settings.cardContentElevatorFrame ? 'shadow-3d' : ''
+              } p-8 lg:p-16 rounded-2xl`,
+            }}
+            elevation={settings.elevation}
+            rotationCapDeg={settings.rotationCapDeg}
+            isReverse={settings.isReverse}
+          >
+            Hover over me
+          </Tilter>
+        {/* </div> */}
       </div>
 
-      {/* Controls */}
+      {/* Settings */}
       <div className="grid place-items-center">
         <div>
-          {FRAMES_CHECKBOXES.map(field => (
-            <div className="my-4 flex gap-2" key={field.key}>
-              <Checkbox
-                classNames={{
-                  wrapper: 'text-accent',
-                }}
-                color="secondary"
-                isSelected={showFrame[field.key]}
-                onValueChange={() =>
-                  setShowFrame(prev => ({
-                    ...prev,
-                    [field.key]: !prev[field.key],
-                  }))
-                }
-              >
-                {field.label}
-              </Checkbox>
-            </div>
-          ))}
+          <ul>
+            {CHECKBOX_FIELDS.map(field => (
+              <li className="my-4 flex gap-2" key={field.key}>
+                <Checkbox
+                  classNames={{
+                    wrapper: 'text-accent',
+                  }}
+                  color="secondary"
+                  isSelected={settings[field.key]}
+                  onValueChange={() =>
+                    setSettings(prev => ({
+                      ...prev,
+                      [field.key]: !prev[field.key],
+                    }))
+                  }
+                >
+                  {field.label}
+                </Checkbox>
+              </li>
+            ))}
 
-          <div className="my-4 flex gap-2" key="addTilterPadding">
-            <Checkbox
-              classNames={{
-                wrapper: 'text-accent',
-              }}
-              color="secondary"
-              isSelected={addTilterPadding}
-              onValueChange={() => setAddTilterPadding(prev => !prev)}
-            >
-              Add tilter padding
-            </Checkbox>
-          </div>
+            {SLIDER_FIELDS.map(field => (
+              <li className="my-4 flex gap-2" key={field.key}>
+                <Slider
+                  aria-label={field.label}
+                  className="max-w-[120px]"
+                  classNames={{
+                    thumb: 'after:bg-accent',
+                  }}
+                  size="sm"
+                  id={field.label}
+                  color="secondary"
+                  minValue={field.min}
+                  maxValue={field.max}
+                  step={1}
+                  value={settings[field.key]}
+                  onChange={val =>
+                    setSettings(prev => ({
+                      ...prev,
+                      [field.key]: val,
+                    }))
+                  }
+                />
+                <label htmlFor={field.label}>
+                  {field.label}: <strong>{settings[field.key]}px</strong>
+                </label>
+              </li>
+            ))}
+          </ul>
 
-          <div className="my-4 flex gap-2" key="isReverse">
-            <Checkbox
-              classNames={{
-                wrapper: 'text-accent',
-              }}
-              color="secondary"
-              isSelected={isReverse}
-              onValueChange={() => setIsReverse(prev => !prev)}
-            >
-              Is reverse
-            </Checkbox>
-          </div>
-
-          <div className="my-4 flex gap-2">
-            <Slider
-              aria-label="Elevation"
-              className="max-w-[120px]"
-              classNames={{
-                thumb: 'after:bg-accent',
-              }}
-              size="sm"
-              id="Elevation"
-              color="secondary"
-              minValue={0}
-              maxValue={150}
-              step={1}
-              value={elevation}
-              onChange={val => setElevation(val as number)}
-            />
-            <label htmlFor="Elevation">
-              Elevation: <strong>{elevation}px</strong>
-            </label>
-          </div>
-
-          <div className="my-4 flex gap-2">
-            <Slider
-              aria-label="Max rotation degrees"
-              className="max-w-[120px]"
-              classNames={{
-                thumb: 'after:bg-accent',
-              }}
-              size="sm"
-              id="Max rotation degrees"
-              color="secondary"
-              minValue={0}
-              maxValue={90}
-              step={1}
-              value={rotationCapDeg}
-              onChange={val => setRotationCapDeg(val as number)}
-            />
-            <label htmlFor="Max rotation degrees">
-              Max rotation: <strong>{rotationCapDeg}deg</strong>
-            </label>
-          </div>
+          <Button
+            color="secondary"
+            isDisabled={!hasSettingsChanged}
+            onPress={() => setSettings(initialSettings)}
+          >
+            Reset
+          </Button>
         </div>
       </div>
     </div>

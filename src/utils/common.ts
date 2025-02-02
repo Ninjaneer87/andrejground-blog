@@ -131,3 +131,19 @@ export function buildNavLinks(pathname: string) {
     { href: '/about', text: 'About', isActive: pathname.startsWith('/about') },
   ];
 }
+
+// This is type safe version of Object.entries
+// Object.entries otherwise returns [string, unknown][]
+
+type Entries<T> = {
+  [K in keyof T]-?: [K, T[K]];
+}[keyof T][];
+
+export const objectEntries = <T extends object>(obj: T) =>
+  Object.entries(obj) as Entries<T>;
+
+export function removeNullEntries<T extends object>(obj: T) {
+  return Object.fromEntries(
+    objectEntries(obj).filter(([, value]) => value !== null),
+  ) as T;
+}
