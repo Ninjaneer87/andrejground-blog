@@ -16,7 +16,7 @@ import {
   SITE_TYPE,
   TWITTER_CARD,
 } from 'src/utils/config';
-import MobileMenuDrawer from 'src/components/MobileMenuDrawer';
+import MobileMenuModal from 'src/components/ui/MobileMenuModal';
 import { buildNavLinks } from 'src/utils/common';
 
 type Props = {
@@ -107,7 +107,7 @@ const links = buildNavLinks(pathname);
     </main>
 
     <Footer />
-    <MobileMenuDrawer links={links} client:only="react" transition:persist />
+    <MobileMenuModal links={links} client:only="react" transition:persist />
     <div id="portal"></div>
   </body>
 </html>
@@ -115,7 +115,7 @@ const links = buildNavLinks(pathname);
 <script>
   import {
     isFiltersModalOpenAtom,
-    isMobileMenuDrawerOpen,
+    isMobileMenuModalOpen,
     isPageLoadingAtom,
     isTocModalOpenAtom,
   } from 'src/stores/globalStore';
@@ -128,6 +128,6 @@ const links = buildNavLinks(pathname);
     isPageLoadingAtom.set(false);
     isTocModalOpenAtom.set(false);
     isFiltersModalOpenAtom.set(false);
-    isMobileMenuDrawerOpen.set(false);
+    isMobileMenuModalOpen.set(false);
   });
 </script>

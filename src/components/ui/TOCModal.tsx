@@ -1,7 +1,7 @@
 import React from 'react';
 import { Icon } from '@iconify-icon/react';
 import { useStore } from '@nanostores/react';
-import { Modal, ModalBody, ModalContent, ModalHeader } from '@nextui-org/react';
+import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@nextui-org/react';
 import ClientOnlyPortal from './Portal';
 import { isTocModalOpenAtom } from 'src/stores/globalStore';
 
@@ -40,6 +40,15 @@ function TOCModal({ children }: Props) {
         <ModalContent className="bg-glass">
           <ModalHeader>Table of contents</ModalHeader>
           <ModalBody>{children}</ModalBody>
+          <ModalFooter>
+            <Button
+              onPress={close}
+              aria-label="Close mobile menu"
+              className="bg-glass text-accent shadow-3d"
+            >
+              Close
+            </Button>
+          </ModalFooter>
         </ModalContent>
       </Modal>
     </ClientOnlyPortal>

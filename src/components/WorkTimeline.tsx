@@ -28,10 +28,10 @@ function Timeline() {
                 )}
                 {/* BUBBLE */}
                 <span
-                  className={`flex absolute -left-3 justify-center items-center w-6 h-6 rounded-full ring-8 ${isOngoingJob ? 'ring-secondary bg-accent' : 'ring-gray-700 bg-gray-400'}`}
+                  className={`flex shadow-3d absolute -left-3 justify-center items-center w-6 h-6 rounded-full ring-8 ${isOngoingJob ? 'ring-background bg-accent' : 'ring-gray-700 bg-gray-400'}`}
                 >
                   <span
-                    className={`w-1/2 h-1/2 rounded-full ${isOngoingJob ? 'bg-secondary' : 'bg-gray-700'}`}
+                    className={`w-1/2 h-1/2 rounded-full ${isOngoingJob ? 'bg-background' : 'bg-gray-700'}`}
                   ></span>
                 </span>
 
