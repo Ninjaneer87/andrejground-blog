@@ -1,7 +1,14 @@
 import React from 'react';
 import { Icon } from '@iconify-icon/react';
 import { useStore } from '@nanostores/react';
-import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@nextui-org/react';
+import {
+  Button,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+} from '@nextui-org/react';
 import ClientOnlyPortal from './Portal';
 import { isTocModalOpenAtom } from 'src/stores/globalStore';
 
@@ -23,7 +30,7 @@ function TOCModal({ children }: Props) {
   return (
     <ClientOnlyPortal>
       <button
-        className="flex xl:hidden transition-transform ease-linear duration-150 active:scale-90 fixed bottom-4 left-1/2 -translate-x-1/2 h-12 w-12 rounded-2xl bg-glass items-center justify-center text-accent shadow-3d blur-in z-10"
+        className="flex xl:hidden transition-transform ease-linear duration-150 active:scale-90 fixed bottom-32 right-4 h-12 w-12 rounded-2xl bg-glass items-center justify-center text-accent text-2xl shadow-3d blur-in z-30"
         aria-label="Toggle table of contents modal"
         onClick={toggle}
       >

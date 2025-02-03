@@ -31,7 +31,7 @@ function MobileMenuModal({ links }: Props) {
       isOpen={isOpen}
       backdrop="blur"
       onClose={onClose}
-      scrollBehavior="inside"
+      // scrollBehavior="inside"
       hideCloseButton
     >
       <ModalContent className="bg-glass">
@@ -47,7 +47,7 @@ function MobileMenuModal({ links }: Props) {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className={`${link.isActive ? 'text-accent' : ''} bg-glass shadow-3d rounded-xl py-2 px-4 flex`}
+                  className={`${link.isActive ? 'text-accent' : ''} bg-glass shadow-3d rounded-xl py-3 px-8 flex`}
                   onClick={onClose}
                 >
                   {link.text}
@@ -57,7 +57,7 @@ function MobileMenuModal({ links }: Props) {
           </ul>
 
           <div className="mx-auto">
-            <LogoAnimated width={150} />
+            <LogoAnimated width={100} />
           </div>
         </ModalBody>
 
