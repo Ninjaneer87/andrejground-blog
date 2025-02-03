@@ -5,7 +5,7 @@ function Timeline() {
   return (
     <div className="max-w-2xl mx-auto p-4 md:p-6">
       <h2 className="text-3xl font-thin mb-16 text-center">Career path</h2>
-      <div className="relative border-l border-gray-200/30">
+      <div className="relative border-l border-gray-200/50">
         {JOBS_LIST.map(
           ({
             positions,
@@ -38,7 +38,7 @@ function Timeline() {
                 <div>
                   {/* COMPANY */}
                   <h3
-                    className={`items-center text-lg font-semibold min-w-52 flex gap-2 ${isOngoingJob ? 'text-foreground' : 'text-foreground/60 font-extralight'}`}
+                    className={`items-center text-lg font-semibold min-w-52 flex gap-2 ${isOngoingJob ? 'text-foreground' : 'text-gray-400 font-extralight'}`}
                   >
                     {company}
                     <a
@@ -57,15 +57,15 @@ function Timeline() {
 
                   {/* COMPANY DESCRIPTION */}
                   <p
-                    className={`text-xs ${isOngoingJob ? 'text-foreground' : 'text-foreground/60 font-extralight'}`}
+                    className={`text-xs ${isOngoingJob ? 'text-foreground' : 'text-gray-400 font-extralight'}`}
                   >
                     {description}
                   </p>
                 </div>
 
-                <hr className="opacity-20 my-4" />
+                <hr className="opacity-40 my-4" />
 
-                <ul className="flex flex-col pl-[0.75rem] border-gray-200/30 gap-4 mb-4">
+                <ul className="flex flex-col pl-[0.75rem] border-gray-200/50 gap-4 mb-4">
                   {/* POSITIONS */}
                   {positions.map(({ title, period }, positionIndex) => {
                     const isOngoingPosition = positionIndex === 0 && isOngoingJob;
@@ -76,25 +76,25 @@ function Timeline() {
                         className={`relative after:content-[""] 
                         ${
                           !isLastPosition
-                            ? 'after:absolute after:-left-3 after:w-[1px] after:h-full after:bg-gray-200/30 after:top-[1.1rem] after:-translate-x-[1px]'
+                            ? 'after:absolute after:-left-3 after:w-[1px] after:h-full after:bg-gray-200/50 after:top-[1.1rem] after:-translate-x-[1px]'
                             : ''
                         }
                         before:rounded-full before:absolute before:content-[""] before:-left-3 before:w-[7px] before:h-[7px] 
-                        ${isOngoingPosition ? 'before:bg-foreground' : 'before:bg-gray-200/30'} 
+                        ${isOngoingPosition ? 'before:bg-foreground' : 'before:bg-gray-200/50'} 
                         before:top-[0.38rem] before:-translate-x-1/2
                         `}
                       >
                         <div className="flex gap-2 flex-wrap items-baseline sm:justify-between">
                           {/* POSITION TITLE */}
                           <div
-                            className={`text-sm ${isOngoingPosition ? 'text-foreground' : 'text-foreground/60 font-extralight'}`}
+                            className={`text-sm ${isOngoingPosition ? 'text-foreground' : 'text-gray-400 font-extralight'}`}
                           >
                             {title}
                           </div>
 
                           {/* POSITION PERIOD */}
                           <span
-                            className={`text-sm font-normal leading-none min-w-36 ${isOngoingPosition ? 'text-foreground' : 'text-foreground/60 font-extralight'}`}
+                            className={`text-sm font-normal leading-none min-w-36 ${isOngoingPosition ? 'text-foreground' : 'text-gray-400 font-extralight'}`}
                           >
                             {period}
                           </span>
@@ -109,7 +109,7 @@ function Timeline() {
                   {technologies.map(technology => (
                     <li
                       key={technology}
-                      className={`inline-block bg-gray-200/30 rounded-full px-2 py-1 text-xs font-light mr-2 mt-2 ${isOngoingJob ? '' : 'opacity-60'}`}
+                      className={`inline-block bg-gray-500/50 rounded-full px-2 py-1 text-xs ${isOngoingJob ? 'font-normal' : 'font-light'} mr-2 mt-2 ${isOngoingJob ? '' : 'opacity-70'}`}
                     >
                       {technology}
                     </li>

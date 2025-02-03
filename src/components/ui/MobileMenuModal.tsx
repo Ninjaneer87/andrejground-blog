@@ -35,7 +35,7 @@ function MobileMenuModal({ links }: Props) {
       hideCloseButton
     >
       <ModalContent className="bg-glass">
-        <ModalHeader className='flex justify-center'>
+        <ModalHeader className='flex justify-center font-normal'>
           Andrej<span className="text-accent">Ground</span>
         </ModalHeader>
 
@@ -47,7 +47,7 @@ function MobileMenuModal({ links }: Props) {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className={`${link.isActive ? 'text-accent' : ''}`}
+                  className={`${link.isActive ? 'text-accent' : ''} bg-glass shadow-3d rounded-xl py-2 px-4 flex`}
                   onClick={onClose}
                 >
                   {link.text}
