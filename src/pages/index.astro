@@ -6,6 +6,8 @@ import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import HomeHero from 'src/components/HomeHero.astro';
 import ArticlesSlider from 'src/components/ArticlesSlider';
+import PopularTags from 'src/components/PopularTags.astro';
+import NewFromLab from 'src/components/NewFromLab.astro';
 
 const latestBlogArticles: CollectionEntry<'blog'>[] = (
   await getCollection('blog')
@@ -17,10 +19,14 @@ const latestBlogArticles: CollectionEntry<'blog'>[] = (
 <RootLayout pageTitle="All things Frontend - UI - UX">
   <HomeHero />
 
+  <PopularTags />
+
   <ArticlesSlider
     client:only="react"
     sectionTitle="Latest articles"
     sectionDescription="See what has been cooking lately"
     articles={latestBlogArticles}
   />
+
+  <NewFromLab />
 </RootLayout>

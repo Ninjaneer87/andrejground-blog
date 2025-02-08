@@ -16,6 +16,8 @@ import {
   SITE_TYPE,
   TWITTER_CARD,
 } from 'src/utils/config';
+import MobileMenuModal from 'src/components/ui/MobileMenuModal';
+import { buildNavLinks } from 'src/utils/common';
 
 type Props = {
   pageTitle: string;
@@ -24,12 +26,15 @@ type Props = {
 
 const { pageTitle, metaImage } = Astro.props;
 const title = `${SITE_TITLE} | ${pageTitle}`;
+
+const pathname = new URL(Astro.request.url).pathname;
+const links = buildNavLinks(pathname);
 ---
 
 <!doctype html>
 <html
   lang="en"
-  class="bg-card text-foreground min-h-screen flex flex-col font-montserrat"
+  class="bg-background text-foreground min-h-screen flex flex-col font-montserrat"
 >
   <head>
     <meta charset="utf-8" />
@@ -96,12 +101,13 @@ const title = `${SITE_TITLE} | ${pageTitle}`;
     <Header />
     <Loader client:only="react" transition:persist />
 
-    <main class="h-full grow z-0 pt-32">
+    <main class="h-full grow z-0 pt-8 sm:pt-32">
       <BlurredCircles />
       <slot />
     </main>
 
     <Footer />
+    <MobileMenuModal links={links} client:only="react" transition:persist />
     <div id="portal"></div>
   </body>
 </html>
@@ -109,6 +115,7 @@ const title = `${SITE_TITLE} | ${pageTitle}`;
 <script>
   import {
     isFiltersModalOpenAtom,
+    isMobileMenuModalOpen,
     isPageLoadingAtom,
     isTocModalOpenAtom,
   } from 'src/stores/globalStore';
@@ -121,5 +128,6 @@ const title = `${SITE_TITLE} | ${pageTitle}`;
     isPageLoadingAtom.set(false);
     isTocModalOpenAtom.set(false);
     isFiltersModalOpenAtom.set(false);
+    isMobileMenuModalOpen.set(false);
   });
 </script>

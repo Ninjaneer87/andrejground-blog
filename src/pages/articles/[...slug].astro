@@ -19,6 +19,7 @@ import { render } from 'astro:content';
 import PostStats from 'src/components/PostStats';
 import FetchPostStats from 'src/components/FetchPostStats';
 import LikeButton from 'src/components/LikeButton';
+import PostLayout from 'src/layouts/PostLayout.astro';
 
 export async function getStaticPaths() {
   const allBlogArticles: CollectionEntry<'blog'>[] = (
@@ -74,7 +75,7 @@ const currentPath = import.meta.env.PUBLIC_WEBSITE_URL + Astro.url.pathname;
 <RootLayout pageTitle={title} metaImage={metaImage}>
   <FetchPostStats client:only="react" postId={postId} />
   <ScrollProgress />
-  <div class="container mx-auto p-4 z-0 relative gradient-top">
+  <PostLayout>
     <div class="flex gap-4 xl:gap-24">
       <div class="hidden xl:block">
         <div class="flex-col gap-2 sticky top-[150px] w-72 max-w-72 p-4">
@@ -147,18 +148,18 @@ const currentPath = import.meta.env.PUBLIC_WEBSITE_URL + Astro.url.pathname;
         </div>
       </section>
     </div>
-  </div>
 
-  <TOCModal client:only="react">
-    <TableOfContentsReact client:only="react" />
-    <hr
-      class="my-4 h-0.5 border-t-0 bg-gradient-to-r from-accent to-transparent w-full"
-    />
+    <TOCModal client:only="react">
+      <TableOfContentsReact client:only="react" />
+      <hr
+        class="my-4 h-0.5 border-t-0 bg-gradient-to-r from-accent to-transparent w-full"
+      />
 
-    <AuthorCard author={author} />
-    <DateCard date={pubDate} />
-    <SocialsShare url={currentPath} client:only="react" />
-  </TOCModal>
+      <AuthorCard author={author} />
+      <DateCard date={pubDate} />
+      <SocialsShare url={currentPath} client:only="react" />
+    </TOCModal>
+  </PostLayout>
 </RootLayout>
 
 <script src="../../scripts/articleCopyCode.ts"></script>

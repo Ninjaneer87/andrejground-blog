@@ -1,0 +1,32 @@
+---
+export const prerender = true;
+
+import FeaturedLink from 'src/components/FeaturedLink.astro';
+import TilterPlaygroundSkeleton from 'src/components/skeletons/TilterPlaygroundSkeleton.astro';
+import TilterPlayground from 'src/components/TilterPlayground';
+import LabPostLayout from 'src/layouts/LabPostLayout.astro';
+import PostLayout from 'src/layouts/PostLayout.astro';
+import RootLayout from 'src/layouts/RootLayout.astro';
+---
+
+<RootLayout pageTitle="Lab | React Tilter">
+  <PostLayout>
+    <LabPostLayout
+      title="React Tilter"
+      description="Configurable react component for creating 3D tilt effects"
+    >
+      <TilterPlayground client:only="react">
+        <TilterPlaygroundSkeleton slot="fallback" />
+      </TilterPlayground>
+
+      <div class="grid place-items-center">
+        <FeaturedLink
+          href="https://stackblitz.com/edit/andrejground-react-tilter?file=src%2FApp.tsx"
+          text="Try on StackBlitz"
+          gradientDirection="rtl"
+          isExternal
+        />
+      </div>
+    </LabPostLayout>
+  </PostLayout>
+</RootLayout>

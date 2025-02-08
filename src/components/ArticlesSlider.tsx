@@ -2,6 +2,7 @@ import { ScrollShadow } from '@nextui-org/react';
 import type { CollectionEntry } from 'astro:content';
 import ArticleCard from './cards/ArticleCard';
 import type { ReactNode } from 'react';
+import { Icon } from '@iconify-icon/react';
 
 type Props = {
   sectionTitle: ReactNode | string;
@@ -21,7 +22,7 @@ function ArticlesSlider({ articles, sectionTitle, sectionDescription }: Props) {
           orientation="horizontal"
         >
           <li className="rounded-2xl max-w-[180px] flex grow flex-col justify-center z-10 snap-center snap-always md:sticky md:left-0">
-            <div className="flex flex-col h-[500px] max-h-[60vh] w-full p-8 rounded-2xl justify-center gap-8">
+            <div className="flex flex-col h-[500px] max-h-[60vh] w-full p-8 rounded-2xl justify-center gap-8 lg:gap-16">
               <h3>{sectionTitle}</h3>
 
               <div className="opacity-60">{sectionDescription}</div>
@@ -38,6 +39,15 @@ function ArticlesSlider({ articles, sectionTitle, sectionDescription }: Props) {
             ))}
           </ScrollShadow>
         </ScrollShadow>
+      </div>
+
+      <div className="w-full flex justify-end">
+        <a
+          href="/articles"
+          className="ml-auto flex text-accent items-center gap-1 p-4"
+        >
+          Go to articles <Icon icon="mdi:chevron-right" />
+        </a>
       </div>
     </div>
   );

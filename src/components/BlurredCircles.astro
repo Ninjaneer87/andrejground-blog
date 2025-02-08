@@ -9,7 +9,7 @@ const randomCircleCoords = (index: number) => {
   const cy = index * verticalDistance;
   const fill =
     index % 2 === 0 ? 'rgb(var(--primary))' : 'rgb(var(--secondary))';
-  const r = Math.floor(Math.random() * 100) + 60;
+  const r = Math.floor(Math.random() * 100) + 160;
   return { cx, cy, fill, r };
 };
 ---

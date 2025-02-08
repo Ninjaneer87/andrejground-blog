@@ -2,42 +2,41 @@
 import HeroCard from './cards/HeroCard.astro';
 ---
 
-<section class="rounded-2xl p-4 lg:p-16 relative bg-glass shadow-3d">
-  <h3 class="py-4 px-8 rounded-t-2xl w-fit">
-    <span
-      class="flex items-center"
-      >Featured topics</span
-    >
-  </h3>
-  <div class="mx-auto flex-wrap flex justify-center gap-8">
-    <div class="flex flex-wrap justify-center gap-8">
-      <HeroCard
-        icon="mdi:react"
-        title="React"
-        tiltDirection="left"
-        href="/articles?tag=react"
-      />
-      <HeroCard
-        icon="mdi:language-typescript"
-        title="TypeScript"
-        tiltDirection="right"
-        href="/articles?tag=typescript"
-      />
-    </div>
+<section class="p-4 lg:p-16 relative bg-glass shadow-3d mx-auto">
+  <div class="container mx-auto p-4 lg:p-8">
+    <h3 class="py-4 rounded-t-2xl w-fit">
+      <span class="flex items-center">Featured topics</span>
+    </h3>
+    <div class="mx-auto flex-wrap flex justify-evenly gap-8">
+      <!-- <div class="flex flex-wrap justify-center gap-8"> -->
+        <HeroCard
+          icon="mdi:react"
+          title="React"
+          tiltDirection="left"
+          href="/articles?tag=react"
+        />
+        <HeroCard
+          icon="mdi:language-typescript"
+          title="TypeScript"
+          tiltDirection="right"
+          href="/articles?tag=typescript"
+        />
+      <!-- </div> -->
 
-    <div class="flex flex-wrap justify-center gap-8">
-      <HeroCard
-        icon="mdi:language-css3"
-        title="CSS"
-        tiltDirection="left"
-        href="/articles?tag=css"
-      />
-      <!-- <HeroCard
+      <!-- <div class="flex flex-wrap justify-center gap-8"> -->
+        <HeroCard
+          icon="mdi:language-css3"
+          title="CSS"
+          tiltDirection="left"
+          href="/articles?tag=css"
+        />
+        <!-- <HeroCard
         icon="mdi:language-javascript"
         title="JavaScript"
         tiltDirection="right"
         href="/articles?tag=javascript"
       /> -->
+      <!-- </div> -->
     </div>
   </div>
 </section>

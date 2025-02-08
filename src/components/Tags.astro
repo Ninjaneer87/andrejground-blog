@@ -11,7 +11,7 @@ const { tags } = Astro.props;
     tags.map(tag => (
       <li>
         <a
-          class="flex text-xs text-accent px-4 py-2 rounded-lg uppercase shadow-3d"
+          class="bg-glass flex text-xs text-accent px-4 py-2 rounded-lg uppercase shadow-3d"
           href={`/articles?tag=${tag}`}
         >
           {tag}

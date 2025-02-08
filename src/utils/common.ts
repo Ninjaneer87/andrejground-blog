@@ -114,3 +114,36 @@ export function getAllHeadings() {
 
   return { allHeadingsButH1s };
 }
+
+export function buildNavLinks(pathname: string) {
+  return [
+    { href: '/', text: 'Home', isActive: pathname === '/' },
+    {
+      href: '/articles',
+      text: 'Blog',
+      isActive: pathname.startsWith('/articles'),
+    },
+    {
+      href: '/lab',
+      text: 'Lab',
+      isActive: pathname.startsWith('/lab'),
+    },
+    { href: '/about', text: 'About', isActive: pathname.startsWith('/about') },
+  ];
+}
+
+// This is type safe version of Object.entries
+// Object.entries otherwise returns [string, unknown][]
+
+type Entries<T> = {
+  [K in keyof T]-?: [K, T[K]];
+}[keyof T][];
+
+export const objectEntries = <T extends object>(obj: T) =>
+  Object.entries(obj) as Entries<T>;
+
+export function removeNullEntries<T extends object>(obj: T) {
+  return Object.fromEntries(
+    objectEntries(obj).filter(([, value]) => value !== null),
+  ) as T;
+}
