@@ -16,7 +16,7 @@
     "@astrojs/sitemap": "^3.2.1",
     "@astrojs/tailwind": "^5.1.5",
     "@astrojs/vercel": "^8.0.4",
-    "@fontsource-variable/montserrat": "^5.1.0",
+    "@fontsource-variable/montserrat": "^5.1.1",
     "@iconify-json/mdi": "^1.2.2",
     "@nanostores/react": "^0.8.4",
     "@nextui-org/react": "^2.6.11",
