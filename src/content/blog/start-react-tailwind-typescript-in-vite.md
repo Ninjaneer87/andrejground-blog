@@ -1,5 +1,5 @@
 ---
-title: 'Set up React, TypeScript and Tailwind in Vite '
+title: 'Set up React, TypeScript and Tailwind in Vite'
 isDraft: false
 pubDate: 2024-09-08
 author: 'andrej_forgac'
@@ -12,9 +12,7 @@ stackblitzProjectId: ''
 
 In this article, we will set up a development environment for a react project using <b>Vite</b>, <b>React</b>, <b>TypeScript</b> and <b>Tailwind</b>.
 
-This is probably the most used boilerplate code when it comes to react apps nowadays.
-
-## Create the project
+## Create a Vite project
 
 Open your terminal of choice and go to the repo where you want to create your project.
 
@@ -26,83 +24,63 @@ npm create vite@latest
 
 You will be prompted the following:
 
-- Project name: `my-vite-project`
+- Project name: `vite-project`
 - Select a framework: `React`
 - Select a variant: `TypeScript`
 
-Now go to this newly created repo, install dependencies and start the development server:
+Now go to this newly created repo and install dependencies:
 
 ```zsh
-cd my-vite-project && npm i && npm run dev
+cd vite-project && npm i
+```
+
+## Install Tailwind CSS
+
+Install `tailwindcss` and `@tailwindcss/vite` via npm.
+
+```zsh
+npm install tailwindcss @tailwindcss/vite
+```
+
+## Start the development server
+
+Open the project in your editor and run the development server
+
+```zsh
+code . && npm run dev
 ```
 
 Your project should be up and running at <a href="http://localhost:5173/" target="_blank">localhost:5173 &#8599;</a>
 
-## Install Tailwind CSS
+## Configure the Vite plugin
 
-Time to install tailwind and some other required dependencies
+Add the `tailwindcss` plugin to your Vite configuration.
 
-```zsh
-npm i -D tailwindcss postcss autoprefixer
+```ts {3} title="vite.config.ts" /tailwindcss()/
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite';
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+})
+
 ```
 
-This command means following:
+## Import Tailwind CSS
 
-- `-D` - install the following as dev-dependencies
-- `tailwind` - Tailwind CSS framework
-- `postcss` - Tool for transforming Tailwind directives into fully generated, optimized styles
-- `autoprefixer` - PostCSS plugin that automatically adds vendor prefixes to your CSS, ensuring compatibility across different browsers
+Add an `@import` to your base CSS file that imports Tailwind CSS.
 
-## Generate Tailwind configuration files
-
-To start using the tailwind, we need to create configuration files, namely `tailwind.config.js` and `postcss.config.js`.
-
-We can create them manually, but why would we, when there's a command which will do that for us:
-
-```zsh
-npx tailwind init -p
+```css title="index.css"
+@import 'tailwindcss';
 ```
-
-## Configure Tailwind source paths
-
-In this step we specify the paths of files which will contain tailwind classes, otherwise the styles won't be applied.
-
-We do that by adding `"./index.html"` and `"./src/**/*.{js,ts,jsx,tsx}"` to `content` array in `tailwind.config.js`
-
-```js
-/* tailwind.config.js */
-
-/** @type {import('tailwindcss').Config} */
-export default {
-    content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"] // <---
-    theme: {
-        extend: {},
-    },
-    plugins: [],
-}
-```
-
-## Add `@tailwind` directives
-
-Add these directives to the top of your `index.css` file (or what ever your root CSS file is)
-
-```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-```
-
-This directive imports Tailwind’s pre-designed layers (base, components, and utilities) into your CSS file.
-
-- `@tailwind base;` - Imports base styles (resets and foundational styles)
-- `@tailwind components;` - Imports reusable components (pre-designed classes)
-- `@tailwind utilities;` - Imports utility classes (spacing, text sizes, colors, etc.)
 
 ## Start using Tailwind
 
 Open your `App.tsx` file and start using tailwind classes
 
-```tsx
+```tsx title="App.tsx" /text-red-500/ /bg-gray-800/
 function App() {
   return <h1 className="text-red-500 bg-gray-800">My Vite Project</h1>;
 }

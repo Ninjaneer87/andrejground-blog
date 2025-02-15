@@ -13,6 +13,7 @@ export default {
         border: 'rgb(var(--border) / <alpha-value>)',
         input: 'rgb(var(--input) / <alpha-value>)',
         ring: 'rgb(var(--ring) / <alpha-value>)',
+        'code-bg': 'rgb(var(--code-bg) / <alpha-value>)',
         background: {
           DEFAULT: 'rgb(var(--background) / <alpha-value>)',
           foreground: 'rgb(var(--primary-foreground) / <alpha-value>)',
