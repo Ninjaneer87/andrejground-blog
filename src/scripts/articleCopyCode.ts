@@ -7,7 +7,9 @@ document.addEventListener('astro:page-load', () => {
     if (wrapperExists) return;
 
     let copyLabel = 'Copy';
-    const codeBlocks = Array.from(document.querySelectorAll('.astro-code'));
+    const codeBlocks = Array.from(
+      document.querySelectorAll('pre[data-theme="github-dark"]'),
+    );
 
     codeBlocks.forEach(block => {
       const wrapper = document.createElement('div');

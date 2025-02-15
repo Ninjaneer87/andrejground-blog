@@ -12,7 +12,7 @@ stackblitzProjectId: 'andrejground-react-sliding-box'
 
 In this article we'll go step by step into how to create a sliding box effect over the active element in a list. Not only that, we will create a custom hook which we can then reuse and overuse as we usually do.
 
-<p class="highlight">No time to read, just show me the <a href="https://stackblitz.com/edit/andrejground-react-sliding-box" target="_blank">code &#8599;</a><p>
+<p class="highlight">No time to read, take me to the <a href="https://stackblitz.com/edit/andrejground-react-sliding-box" target="_blank">StackBlitz demo &#8599;</a><p>
 
 ## What is this effect about
 
@@ -39,11 +39,11 @@ Now when changing the active element, these few lines are doing the magic:
 }
 ```
 
-Let's break this in a couple of steps and see how they fit together.
+Let's break this in a couple of steps and see how it fits together.
 
 ## Starting a new react project
 
-This is optional, you can use any of your existing react projects or a playground like <a href="https://stackblitz.com/" target="_blank">stackblitz &#8599;</a>
+This is optional, you can use any of your existing react projects or a playground like <a href="https://stackblitz.com/" target="_blank">StackBlitz &#8599;</a>
 
 If you do want to create a new project from scratch, you can follow the steps in <a href="/articles/start-react-tailwind-typescript-in-vite" target="_blank">this article &#8599;</a>
 
@@ -53,9 +53,7 @@ If you do want to create a new project from scratch, you can follow the steps in
 
 Let's add all the necessary styles which will make this effect possible.
 
-```css
-/* List.module.css */
-
+```css title="List.module.css"
 /* Sliding box container */
 .list {
   /* Recommended */
@@ -99,9 +97,7 @@ When clicking the item, it becomes _active_ and the box slides over it.
 
 Also we want this effect to work on a list with a dynamic number of items, so we'll add another button just for that purpose.
 
-```tsx
-/* List.tsx */
-
+```tsx title="List.tsx"
 import { useState } from 'react';
 import classes from './List.module.css';
 
@@ -174,9 +170,7 @@ The hook will accept a configuration object with two properties:
 - `activeItem` - a value that identifies the active element
 - `recalculate` - a list of values we will be watching. Whenever any of these values change, we will recalculate all sizes and positions of the elements in the list.
 
-```ts
-/* useActiveBoxPosition.ts */
-
+```ts title="useActiveBoxPosition.ts"
 export default function useActiveBoxPosition({
   activeItem,
   recalculate = [],
@@ -192,7 +186,7 @@ export default function useActiveBoxPosition({
 
 First, let's see what type this state is going to be. In order to pass this to the `style` property of our `List`, this state needs to take shape of a style object with CSS properties. So we'll start from there.
 
-```ts
+```ts title="useActiveBoxPosition.ts"
 interface BoxPosition extends CSSProperties {
   '--x': `${number}px`;
   '--y': `${number}px`;
@@ -205,7 +199,7 @@ As you see, we're using template literal types to enforce the value in `px`.
 
 Now we can create the initial state
 
-```ts
+```ts title="useActiveBoxPosition.ts"
 const initialBoxPosition: BoxPosition = {
   '--x': '0px',
   '--y': '0px',
@@ -216,9 +210,7 @@ const initialBoxPosition: BoxPosition = {
 
 ... and finally add the state to the hook
 
-```ts
-/* useActiveBoxPosition.ts */
-
+```ts title="useActiveBoxPosition.ts" {22,23}
 interface BoxPosition extends CSSProperties {
   '--x': `${number}px`;
   '--y': `${number}px`;
@@ -257,9 +249,7 @@ To allow for some type flexibility, the hook accepts a _generic_ type which we w
 
 Now the hook will look something like this:
 
-```ts
-/* useActiveBoxPosition.ts */
-
+```ts title="useActiveBoxPosition.ts" /ItemElement/
 // ...
 
 export default function useActiveBoxPosition<ItemElement extends HTMLElement>(
@@ -273,9 +263,7 @@ export default function useActiveBoxPosition<ItemElement extends HTMLElement>(
 
 `ListItems` type is also going to be a generic. It will make use of the `ItemElement` type. Now we have it all connected.
 
-```ts
-/* useActiveBoxPosition.ts */
-
+```ts title="useActiveBoxPosition.ts" /ItemElement/ /ListItems/
 // ...
 
 type ListItems<T> = { [key: PropertyKey]: T };
@@ -296,19 +284,19 @@ export default function useActiveBoxPosition<ItemElement extends HTMLElement>(
 
 #### 4.a Save positions of all list items
 
-We will use `listItemsPositionsRef` for this.
+`listItemsPositionsRef` will keep track of all items positions...
 
-But before we can save, we need to use `listItemsRef` to get all the keys and calculate positions for all the items.
-
-```ts
-// The ref to keep track of all items positions
+```ts title="useActiveBoxPosition.ts"
 const listItemsPositionsRef: MutableRefObject<ListItems<BoxPosition>> = useRef(
   {},
 );
+```
 
-// ...
+... by looping over the list items, taking and saving positions for each of them like so:
 
-// Loop over all the items, calculate and save positions
+(where `key` is the element's `activeItem` identifier, and `item` is the element itself)
+
+```ts
 Object.entries(listItemsRef.current).forEach(([key, item]) => {
   const { offsetTop, offsetLeft, offsetWidth, offsetHeight } = item;
   const itemPosition: BoxPosition = {
@@ -322,11 +310,13 @@ Object.entries(listItemsRef.current).forEach(([key, item]) => {
 });
 ```
 
+(will see how and where in a moment)
+
 #### 4.b Set active box position
 
 As we stated above, we will use the `activeItem` identifier to grab the size and position of the active element.
 
-```ts
+```ts title="useActiveBoxPosition.ts"
 const setPosition = useCallback(() => {
   if (!activeItem) return;
 
@@ -337,14 +327,11 @@ const setPosition = useCallback(() => {
 }, [activeItem]);
 ```
 
-<p class="highlight">Since we're dealing with expensive operations of extracting <b>width</b>, <b>height</b>, <b>offsetLeft</b> and <b>offsetRight</b>, we will use <b>useCallback</b> and be careful about calling the expensive <b>recalcAndSetPosition</b> function.
-<br /> <br />
-We don't necessarily want to calculate everything each time the active item changes. We just grab cached values from the <code>itemPositions</code> object.
-</p>
-
 #### 4.c `recalcAndSetPosition` is taking care of 4.a and 4.b
 
-```ts
+This function (re)calculates the position for all the list items, initially and whenever the list changes (due to screen-size change or adding/removing items)
+
+```ts title="useActiveBoxPosition.ts"
 const recalcAndSetPosition = useCallback(() => {
   Object.entries(listItemsRef.current).forEach(([key, item]) => {
     const { offsetTop, offsetLeft, offsetWidth, offsetHeight } = item;
@@ -368,11 +355,15 @@ Here we create the logic to only set the active box, or to calculate everything 
 
 Also we will add a `resize` event listener so that we recalculate positions when the screen size changes for any reason.
 
-```ts
-useEffect(setPosition, [activeItem]); // set the active box position
-useEffect(recalcAndSetPosition, [...recalculate]); // calc and set the active box position
+```ts title="useActiveBoxPosition.ts"
+// set the active box position whenever active item changes
+useEffect(setPosition, [activeItem]);
+
+// calc and set the active box position (on mount and on any changes on the list)
+useEffect(recalcAndSetPosition, [...recalculate]);
+
+// ...and on screen size change
 useEffect(() => {
-  //calc and set on screen size change
   window.addEventListener('resize', recalcAndSetPosition);
   return () => window.removeEventListener('resize', recalcAndSetPosition);
 }, [recalcAndSetPosition]);
@@ -382,9 +373,7 @@ useEffect(() => {
 
 Our hook returns an object with `listItemsRef` and `activeBoxPosition`, and now it looks like this
 
-```ts
-/* useActiveBoxPosition.ts */
-
+```ts title="useActiveBoxPosition.ts"
 import {
   useEffect,
   useRef,
@@ -494,9 +483,7 @@ To recap the important steps:
 
 ### `List.module.css`
 
-```css
-/* List.module.css */
-
+```css title="List.module.css"
 /* Sliding box container */
 .list {
   /* Recommended */
@@ -534,8 +521,7 @@ To recap the important steps:
 
 ### `List.tsx`
 
-```tsx
-/* List.tsx */
+```tsx title="List.tsx"
 import { useState } from 'react';
 import useActiveBoxPosition from '../hooks/useActiveBoxPosition';
 import classes from './List.module.css';
@@ -609,9 +595,7 @@ export default List;
 
 To see everything in action, we just need to add the `List` component to `App.tsx`
 
-```tsx
-/* App.tsx */
-
+```tsx title="App.tsx" {2,7}
 import './App.css';
 import List from './components/List';
 

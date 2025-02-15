@@ -11,6 +11,7 @@
     --background: 13 15 20;
     --background: 4 7 38;
     --foreground: 255 255 255;
+    --code-bg: 33 33 33;
     --card: 4 7 38;
     --card: 0 0 0;
     --card-foreground: var(--foreground);
@@ -33,6 +34,10 @@
     --input: var(--cyan-dark-accent);
     --ring: var(--foreground);
     --shadow-3d: 6px -6px 16px 0 #ffffff11, -6px 6px 16px 0 #000000cc;
+
+    code[data-theme] {
+      all: unset;
+    }
   }
 
   body,
