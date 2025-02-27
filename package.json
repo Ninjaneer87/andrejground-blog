@@ -27,7 +27,7 @@
     "@types/react-dom": "^18.3.5",
     "@vercel/analytics": "^1.3.2",
     "@vercel/speed-insights": "^1.1.0",
-    "astro": "^5.1.8",
+    "astro": "^5.2.5",
     "astro-icon": "^1.1.4",
     "astro-portabletext": "^0.11.0",
     "class-variance-authority": "^0.7.1",
