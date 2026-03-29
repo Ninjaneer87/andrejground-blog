@@ -1,5 +1,4 @@
 import { defineConfig, envField, passthroughImageService } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
 import icon from 'astro-icon';
 import vercel from '@astrojs/vercel';
 import sectionize from '@hbsnow/rehype-sectionize';
@@ -38,7 +37,7 @@ const prettyCode = [rehypePrettyCode, prettyCodeOptions];
 // https://astro.build/config
 export default defineConfig({
   site: 'https://andrejground.com',
-  integrations: [tailwind(), react(), icon(), sitemap({}), mdx()],
+  integrations: [react(), icon(), sitemap({}), mdx()],
   image: {
     service: passthroughImageService(),
   },
