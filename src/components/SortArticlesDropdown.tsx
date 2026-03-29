@@ -1,26 +1,14 @@
+import { Select, useLocalStorage, type OptionItem } from '@andrejground/lab';
 import { Icon } from '@iconify-icon/react';
 import { useStore } from '@nanostores/react';
-import {
-  Button,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-  Kbd,
-  type SharedSelection,
-} from '@nextui-org/react';
+import { Kbd } from '@nextui-org/react';
 import { useEffect, useState } from 'react';
-import { useLocalStorage } from 'src/hooks/useLocalStorage';
-import {
-  filtersAtom,
-  sortingOptions,
-  type Sorting,
-} from 'src/stores/globalStore';
+import { filtersAtom, sortingOptions } from 'src/stores/globalStore';
 
 function SortArticlesDropdown() {
-  const [selected, setSelected] = useLocalStorage<Sorting>(
+  const [selected, setSelected] = useLocalStorage<OptionItem>(
     'selectedSortingKeys',
-    'Latest',
+    sortingOptions[0],
   );
   const [isOpen, setIsOpen] = useState(false);
   const filters = useStore(filtersAtom);
@@ -44,50 +32,45 @@ function SortArticlesDropdown() {
     };
   }, []);
 
-  function onSelectionChange(keys: SharedSelection) {
-    setSelected(keys.anchorKey as Sorting);
-  }
-
   return (
-    <Dropdown
-      placement="bottom-start"
-      classNames={{ content: 'bg-glass' }}
+    <Select
+      fullWidth
+      classNames={{
+        popover: { content: 'bg-glass text-white' },
+        trigger: {
+          base: 'text-[14px] px-4 min-h-[40px] border-none capitalize bg-glass text-accent w-full justify-start shadow-3d',
+        },
+        item: {
+          base: 'text-[14px] hover:bg-background/70 focus-visible:bg-background/70',
+        },
+      }}
       backdrop="blur"
       isOpen={isOpen}
-      onClose={() => setIsOpen(false)}
-    >
-      <DropdownTrigger>
-        <Button
-          className="capitalize bg-glass text-accent w-full justify-start shadow-3d"
-          startContent={<Icon icon="mdi:sort" />}
-          onClick={() => {
-            setIsOpen(true);
-          }}
+      onSelectionChange={({ selectedOption }) => {
+        if (!selectedOption) return;
+
+        setSelected(selectedOption);
+      }}
+      onOpenChange={setIsOpen}
+      items={sortingOptions}
+      popOnSelection={false}
+      caret={
+        <Kbd
+          className="ml-auto pointer-events-none"
+          classNames={{ base: 'bg-glass' }}
+          keys={['shift']}
         >
-          {selected}
-
-          <Kbd
-            className="ml-auto pointer-events-none"
-            classNames={{ base: 'bg-glass' }}
-            keys={['shift']}
-          >
-            Z
-          </Kbd>
-        </Button>
-      </DropdownTrigger>
-
-      <DropdownMenu
-        disallowEmptySelection
-        aria-label="Select sorting type"
-        selectedKeys={[selected]}
-        selectionMode="single"
-        onSelectionChange={onSelectionChange}
-      >
-        {sortingOptions.map(option => (
-          <DropdownItem key={option}>{option}</DropdownItem>
-        ))}
-      </DropdownMenu>
-    </Dropdown>
+          Z
+        </Kbd>
+      }
+      renderValue={newValues => {
+        return (
+          <div className="flex gap-1 items-center">
+            <Icon icon="mdi:sort" /> {newValues[0]?.text}
+          </div>
+        );
+      }}
+    />
   );
 }
 

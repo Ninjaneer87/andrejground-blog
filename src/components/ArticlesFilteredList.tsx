@@ -7,7 +7,7 @@ function ArticlesFilteredList() {
   const sortedArticles = sortArticles();
 
   function sortArticles() {
-    switch (sorting) {
+    switch (sorting.text) {
       case 'Latest':
         return filteredArticles.sort(
           (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
