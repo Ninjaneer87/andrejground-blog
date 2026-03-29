@@ -1,8 +1,8 @@
+import { useLocalStorage } from '@andrejground/lab';
 import { Icon } from '@iconify-icon/react';
 import { useStore } from '@nanostores/react';
 import { Button } from '@nextui-org/react';
 import { useState } from 'react';
-import { useLocalStorage } from 'src/hooks/useLocalStorage';
 import type { PostInfo } from 'src/pages/api/posts/[id]';
 import { postStatsAtom } from 'src/stores/globalStore';
 

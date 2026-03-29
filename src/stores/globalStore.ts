@@ -1,3 +1,4 @@
+import type { OptionItem } from '@andrejground/lab';
 import type { CollectionEntry } from 'astro:content';
 import { atom } from 'nanostores';
 
@@ -11,8 +12,13 @@ export const postStatsAtom = atom<{
   likesCount: number | null;
 }>({ viewsCount: null, likesCount: null });
 
-export const sortingOptions = ['Latest', 'Oldest', 'A - Z', 'Z - A'] as const;
-export type Sorting = (typeof sortingOptions)[number];
+export const sortingOptions: OptionItem[] = [
+  { text: 'Latest', value: 'latest' },
+  { text: 'Oldest', value: 'oldest' },
+  { text: 'A - Z', value: 'a-z' },
+  { text: 'Z - A', value: 'z-a' },
+];
+
 type FiltersAtom = {
   query: string;
   appliedTags: string[];
@@ -20,7 +26,7 @@ type FiltersAtom = {
   noSearchResults: boolean;
   noFiltersApplied: boolean;
   filteredArticles: CollectionEntry<'blog'>[];
-  sorting: Sorting;
+  sorting: OptionItem;
 };
 
 export const filtersAtom = atom<FiltersAtom>({
@@ -30,5 +36,5 @@ export const filtersAtom = atom<FiltersAtom>({
   noSearchResults: false,
   noFiltersApplied: false,
   filteredArticles: [],
-  sorting: 'Latest',
+  sorting: sortingOptions[0],
 });

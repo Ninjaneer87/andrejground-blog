@@ -72,9 +72,9 @@
   /* .gradient-wrapper {
     @apply relative w-fit rounded-2xl p-[2px] bg-gradient-to-br from-accent/20 via-transparent  to-gray-400/20 overflow-hidden;
   } */
-   .shadow-3d {
+  .shadow-3d {
     @apply shadow-[6px_-6px_16px_0_#ffffff11,_-6px_6px_16px_0_#000000cc];
-   }
+  }
 }
 
 @layer base {
