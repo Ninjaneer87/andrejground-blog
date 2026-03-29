@@ -121,39 +121,39 @@ const links = buildNavLinks(pathname);
     isTocModalOpenAtom,
   } from 'src/stores/globalStore';
 
-  document.addEventListener('astro:before-preparation', (event) => {
-    isPageLoadingAtom.set(true);
+  // document.addEventListener('astro:before-preparation', (event) => {
+  //   isPageLoadingAtom.set(true);
 
-    const originalLoader = event.loader;
-    event.loader = async () => {
-      await originalLoader();
+  //   const originalLoader = event.loader;
+  //   event.loader = async () => {
+  //     await originalLoader();
 
-      const newLinks = [
-        ...event.newDocument.head.querySelectorAll('link[rel="stylesheet"]'),
-      ];
-      const currentHrefs = new Set(
-        [...document.querySelectorAll('link[rel="stylesheet"]')].map((l) =>
-          l.getAttribute('href'),
-        ),
-      );
+  //     const newLinks = [
+  //       ...event.newDocument.head.querySelectorAll('link[rel="stylesheet"]'),
+  //     ];
+  //     const currentHrefs = new Set(
+  //       [...document.querySelectorAll('link[rel="stylesheet"]')].map((l) =>
+  //         l.getAttribute('href'),
+  //       ),
+  //     );
 
-      await Promise.all(
-        newLinks
-          .filter((link) => !currentHrefs.has(link.getAttribute('href')))
-          .map(
-            (link) =>
-              new Promise<void>((resolve) => {
-                const el = document.createElement('link');
-                el.rel = 'stylesheet';
-                el.href = link.getAttribute('href')!;
-                el.onload = () => resolve();
-                el.onerror = () => resolve();
-                document.head.appendChild(el);
-              }),
-          ),
-      );
-    };
-  });
+  //     await Promise.all(
+  //       newLinks
+  //         .filter((link) => !currentHrefs.has(link.getAttribute('href')))
+  //         .map(
+  //           (link) =>
+  //             new Promise<void>((resolve) => {
+  //               const el = document.createElement('link');
+  //               el.rel = 'stylesheet';
+  //               el.href = link.getAttribute('href')!;
+  //               el.onload = () => resolve();
+  //               el.onerror = () => resolve();
+  //               document.head.appendChild(el);
+  //             }),
+  //         ),
+  //     );
+  //   };
+  // });
 
   document.addEventListener('astro:page-load', () => {
     isPageLoadingAtom.set(false);
