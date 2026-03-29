@@ -95,10 +95,10 @@ const links = buildNavLinks(pathname);
 
     <title>{title}</title>
     <ClientRouter />
-    <SpeedInsights />
   </head>
 
   <body>
+    <SpeedInsights />
     <Header />
     <Loader client:only="react" transition:persist />
 
@@ -113,7 +113,7 @@ const links = buildNavLinks(pathname);
   </body>
 </html>
 
-<!-- <script>
+<script>
   import {
     isFiltersModalOpenAtom,
     isMobileMenuModalOpen,
@@ -121,46 +121,8 @@ const links = buildNavLinks(pathname);
     isTocModalOpenAtom,
   } from 'src/stores/globalStore';
 
-  document.addEventListener('astro:before-preparation', (event) => {
+  document.addEventListener('astro:before-preparation', () => {
     isPageLoadingAtom.set(true);
-
-    const originalLoader = event.loader;
-    event.loader = async () => {
-      await originalLoader();
-
-      const currentHrefs = new Set(
-        [...document.querySelectorAll('link[rel="stylesheet"]')].map((l) =>
-          l.getAttribute('href'),
-        ),
-      );
-      const newLinks = [
-        ...event.newDocument.head.querySelectorAll('link[rel="stylesheet"]'),
-      ].filter((link) => !currentHrefs.has(link.getAttribute('href')));
-
-      await Promise.all(
-        newLinks.map(
-          (link) =>
-            new Promise<void>((resolve) => {
-              const el = document.createElement('link');
-              el.rel = 'stylesheet';
-              el.href = link.getAttribute('href')!;
-              el.onload = () => resolve();
-              el.onerror = () => resolve();
-              document.head.appendChild(el);
-            }),
-        ),
-      );
-    };
-  });
-
-  document.addEventListener('astro:before-swap', (event) => {
-    const newHead = event.newDocument.head;
-    for (const link of document.head.querySelectorAll('link[rel="stylesheet"]')) {
-      const href = link.getAttribute('href');
-      if (href && !newHead.querySelector(`link[href="${href}"]`)) {
-        newHead.appendChild(link.cloneNode(true));
-      }
-    }
   });
 
   document.addEventListener('astro:page-load', () => {
@@ -169,4 +131,4 @@ const links = buildNavLinks(pathname);
     isFiltersModalOpenAtom.set(false);
     isMobileMenuModalOpen.set(false);
   });
-</script> -->
+</script>
